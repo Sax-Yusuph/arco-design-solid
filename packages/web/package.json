@@ -61,5 +61,8 @@
   },
   "peerDependencies": {
     "solid-js": "^1.6.0"
+  },
+  "dependencies": {
+    "b-validate": "^1.5.3"
   }
 }

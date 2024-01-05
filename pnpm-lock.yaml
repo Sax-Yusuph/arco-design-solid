@@ -49,6 +49,10 @@ importers:
         version: 0.27.2(jsdom@21.0.0)
 
   packages/web:
+    dependencies:
+      b-validate:
+        specifier: ^1.5.3
+        version: 1.5.3
     devDependencies:
       solid-js:
         specifier: ^1.6.9
@@ -1218,6 +1222,10 @@ packages:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
     dev: true
+
+  /b-validate@1.5.3:
+    resolution: {integrity: sha512-iCvCkGFskbaYtfQ0a3GmcQCHl/Sv1GufXFGuUQ+FE+WJa7A/espLOuFIn09B944V8/ImPj71T4+rTASxO2PAuA==}
+    dev: false
 
   /babel-plugin-jsx-dom-expressions@0.35.14(@babel/core@7.20.12):
     resolution: {integrity: sha512-Eywfw/7cNbBsStTgj46JRvyGTb+RLyF2EJ0AV3/W2cUwbw3R3syOBqdzFLdHN2MPOs4nJA80XtGl9kSMjEekhA==}

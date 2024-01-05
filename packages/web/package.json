@@ -63,6 +63,8 @@
     "solid-js": "^1.6.0"
   },
   "dependencies": {
-    "b-validate": "^1.5.3"
+    "b-validate": "^1.5.3",
+    "solid-transition-group": "^0.2.3",
+    "solidjs-use": "^2.3.0"
   }
 }

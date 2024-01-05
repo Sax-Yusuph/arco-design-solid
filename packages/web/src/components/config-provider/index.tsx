@@ -60,6 +60,9 @@ export const { use: useConfigContext, provider: ConfigProvider } = createInitial
       get config() {
         return config
       },
+      get componentConfig() {
+        return config.componentConfig || {}
+      },
 
       get locale() {
         return config.locale

@@ -53,6 +53,12 @@ importers:
       b-validate:
         specifier: ^1.5.3
         version: 1.5.3
+      solid-transition-group:
+        specifier: ^0.2.3
+        version: 0.2.3(solid-js@1.6.9)
+      solidjs-use:
+        specifier: ^2.3.0
+        version: 2.3.0
     devDependencies:
       solid-js:
         specifier: ^1.6.9
@@ -1076,6 +1082,41 @@ packages:
       fastq: 1.15.0
     dev: true
 
+  /@solid-primitives/refs@1.0.5(solid-js@1.6.9):
+    resolution: {integrity: sha512-5hmYmYbm6rs43nMHHozyyUngGA7P7q2WtlaCLJEfmlUJf67GWI1PZmqAiol6m9F37XSMZRuvZLoQ7HA/0q3GYg==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.1(solid-js@1.6.9)
+      solid-js: 1.6.9
+    dev: false
+
+  /@solid-primitives/transition-group@1.0.3(solid-js@1.6.9):
+    resolution: {integrity: sha512-TnFADZhx9sibdoW5gxkU1QmLabzV2H2OBKYGS2aR5IC61Q/+7v8wlxOJEevxXNbPiRo6qlE3STLU3L9XS8hDbA==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.6.9
+    dev: false
+
+  /@solid-primitives/utils@6.2.1(solid-js@1.6.9):
+    resolution: {integrity: sha512-TsecNzxiO5bLfzqb4OOuzfUmdOROcssuGqgh5rXMMaasoFZ3GoveUgdY1wcf17frMJM7kCNGNuK34EjErneZkg==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      solid-js: 1.6.9
+    dev: false
+
+  /@solidjs-use/shared@2.3.0:
+    resolution: {integrity: sha512-xuPNzZ9fwigkmYXTO+a8kaT45XQCPt6jVlyiDDYCD9NRZheRJOZWiUcVjYHzjececbWTctcY8NFdsXVyxARHKg==}
+    dependencies:
+      '@solidjs-use/solid-to-vue': 2.3.0
+    dev: false
+
+  /@solidjs-use/solid-to-vue@2.3.0:
+    resolution: {integrity: sha512-I2onRwzdYl2eq20M3hcTkVIeYq4hNoBpHvRJB9yzoyXRDSyp7R2glIbvdBzpsXqnTvX7HJhB2KePfxYXFvyJxw==}
+    dev: false
+
   /@tootallnate/once@2.0.0:
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
     engines: {node: '>= 10'}
@@ -1116,6 +1157,10 @@ packages:
   /@types/semver@6.2.3:
     resolution: {integrity: sha512-KQf+QAMWKMrtBMsB8/24w53tEsxllMj6TuA80TT/5igJalLI/zm0L3oXRbIAl4Ohfc85gyHX/jhMwsVkmhLU4A==}
     dev: true
+
+  /@types/web-bluetooth@0.0.16:
+    resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
+    dev: false
 
   /abab@2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
@@ -3387,6 +3432,24 @@ packages:
       '@babel/types': 7.20.7
       solid-js: 1.6.9
     dev: true
+
+  /solid-transition-group@0.2.3(solid-js@1.6.9):
+    resolution: {integrity: sha512-iB72c9N5Kz9ykRqIXl0lQohOau4t0dhel9kjwFvx81UZJbVwaChMuBuyhiZmK24b8aKEK0w3uFM96ZxzcyZGdg==}
+    engines: {node: '>=18.0.0', pnpm: '>=8.6.0'}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/refs': 1.0.5(solid-js@1.6.9)
+      '@solid-primitives/transition-group': 1.0.3(solid-js@1.6.9)
+      solid-js: 1.6.9
+    dev: false
+
+  /solidjs-use@2.3.0:
+    resolution: {integrity: sha512-ZyH2jiUSQU+5S5vd8zyvqz9X2ikhMjJhDeh/TjRzjLDJlZ1RuZaMxdM+jGsrJxo3X/xBW9kDpYNONXs6wYrQCQ==}
+    dependencies:
+      '@solidjs-use/shared': 2.3.0
+      '@types/web-bluetooth': 0.0.16
+    dev: false
 
   /source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==}

@@ -1,24 +1,115 @@
 <p>
-  <img width="100%" src="https://assets.solidjs.com/banner?type=your-repository-name&background=tiles&project=Monorepo" alt="your-repository-name Monorepo">
+  <img width="100%" src="https://assets.solidjs.com/banner?type=arco-design-solid&background=tiles&project=Monorepo" alt="arco-design-solid">
 </p>
 
-# your-repository-name
+# arco-design-solid
 
 [![pnpm](https://img.shields.io/badge/maintained%20with-pnpm-cc00ff.svg?style=for-the-badge&logo=pnpm)](https://pnpm.io/)
 [![turborepo](https://img.shields.io/badge/built%20with-turborepo-cc00ff.svg?style=for-the-badge&logo=turborepo)](https://turborepo.org/)
 
-your-repository-desc
+Awesome UI Components based on Arco design
 
-> **Note** After using this template, you have to search and replace all `your-repository-name` and similar strings
+## Supported components
+- [x] Button
+- [x] Input
+- [x] Checkbox
+- [x] Card
+- [x] Divider
+- [x] Empty
+- [x] Avatar
+- [x] Switch
+- [x] Tag
+- [x] Link
+- [x] locale
+- [x] style
+- [x] InputNumber
+- [x] Alert
+- [x] Affix
+- [ ] Autocomplete
+- [ ] VerificationCode
+- [ ] Calendar
+- [ ] Badge
+- [ ] Cascader
+- [ ] CheckboxGroup
+- [ ] Collapse
+- [ ] Drawer
+- [ ] Dropdown
+- [ ] Form
+- [ ] Grid
+- [ ] Icon
+- [ ] Image
+- [ ] InputTag
+- [ ] Datepicker
+- [ ] Menu
+- [ ] Message
+- [ ] Modal
+- [ ] Notification
+- [ ] Pagination
+- [ ] Popconfirm
+- [ ] Popover
+- [ ] Portal
+- [ ] Progress
+- [ ] Radio
+- [ ] Rate
+- [ ] Table
+- [ ] Tabs
+- [ ] Timeline
+- [ ] Timepicker
+- [ ] Tooltip
+- [ ] Transfer
+- [ ] Trigger
+- [ ] Typograghy
+- [ ] Tree
+- [ ] Upload
+- [ ] TreeSelect
+- [ ] Layout
+- [ ]
+- [ ] Anchor
+- [ ] Backtop
+- [ ] Breadcrumb
+- [ ] Carousel
+- [ ] Comment
+- [ ] ConfigProvider
+- [ ] Descriptions
+- [ ] List
+- [ ] Mentions
+- [ ] PageHeader
+- [ ] ResizeBox
+- [ ] Result
+- [ ] Select
+- [ ] Skeleton
+- [ ] Slider
+- [ ] Spin
+- [ ] Statistic
+- [ ] Steps
+- [ ] Watermark
+
+> **Note** After using this template, you have to search and replace all `arco-design-solid` and similar strings
 > with appropriate texts.
 >
-> `your-repository-name` should be a **kebab-case** string representing the name of you monorepo.
+> `arco-design-solid` should be a **kebab-case** string representing the name of you monorepo.
 >
 > `your-repository-desc` should be a **Normal case** string with the description of the repository.
 >
-> `your-nickname` should be a **kebab-case** string from your profile URL.
+> `sax-yusuph` should be a **kebab-case** string from your profile URL.
 >
-> `your-author-name` should be a **Normal case** string with your first and last name.
+> `sax yusuph` should be a **Normal case** string with your first and last name.
+>
+>
+
+
+## Quick start
+
+Install it:
+
+```bash
+npm i arco-design-solid
+# or
+yarn add arco-design-solid
+# or
+pnpm add arco-design-solid
+```
+
 
 ## Project Commands
 

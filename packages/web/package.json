@@ -1,17 +1,17 @@
 {
-  "name": "@your-repository-name/hello",
+  "name": "@arco-design/web-solid",
   "version": "0.0.1",
-  "description": "Example hello world package in the your-repository-name repository.",
+  "description": "Awesome UI Components based on Arco design",
   "license": "MIT",
-  "author": "your-author-name",
+  "author": "sax yusuph",
   "contributors": [],
-  "homepage": "https://github.com/your-nickname/your-repository-name#readme",
+  "homepage": "https://github.com/sax-yusuph/arco-design-solid#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-nickname/your-repository-name.git"
+    "url": "git+https://github.com/sax-yusuph/arco-design-solid.git"
   },
   "bugs": {
-    "url": "https://github.com/your-nickname/your-repository-name/issues"
+    "url": "https://github.com/sax-yusuph/arco-design-solid/issues"
   },
   "keywords": [
     "solid"

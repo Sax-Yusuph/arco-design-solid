@@ -1,9 +1,9 @@
 {
-  "name": "your-repository-name-monorepo",
+  "name": "arco-design-solid-monorepo",
   "description": "your-repository-desc",
   "version": "0.0.1",
   "license": "MIT",
-  "author": "your-author-name",
+  "author": "sax yusuph",
   "contributors": [],
   "private": true,
   "scripts": {

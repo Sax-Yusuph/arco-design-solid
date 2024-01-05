@@ -1,8 +1,8 @@
+import { Hello } from '@arco-design-solid/hello'
 import type { Component } from 'solid-js'
-import { Hello } from '@your-repository-name/hello'
 
-import logo from './logo.svg'
 import styles from './App.module.css'
+import logo from './logo.svg'
 
 const App: Component = () => {
   return (

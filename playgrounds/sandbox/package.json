@@ -1,5 +1,5 @@
 {
-  "name": "your-repository-name-playground-sandbox",
+  "name": "arco-design-solid-playground-sandbox",
   "version": "0.0.0",
   "description": "",
   "private": true,
@@ -14,7 +14,7 @@
     "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
-    "@your-repository-name/hello": "^0.0.1",
+    "@arco-design/web-solid": "^0.0.1",
     "solid-js": "^1.6.9"
   }
 }

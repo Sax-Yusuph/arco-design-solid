@@ -1,7 +1,7 @@
 import { isObject } from '../../utils/is'
+import { lighten } from '../../utils/lighten'
 import { getKeys } from '../../utils/util'
 import { ConfigProviderProps } from './interface'
-import { lighten } from './util'
 
 const colorList = {
   primaryColor: {

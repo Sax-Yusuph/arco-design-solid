@@ -63,7 +63,11 @@
     "solid-js": "^1.6.0"
   },
   "dependencies": {
+    "@solid-primitives/resize-observer": "^2.0.22",
+    "@solid-primitives/scheduled": "^1.4.1",
     "b-validate": "^1.5.3",
+    "dayjs": "^1.11.10",
+    "remeda": "^1.33.0",
     "solid-transition-group": "^0.2.3",
     "solidjs-use": "^2.3.0"
   }

@@ -3,7 +3,7 @@ import { Match, Switch, createEffect, mergeProps } from 'solid-js'
 import defaultLocale from '../../locale/default'
 // import Empty from '../Empty'
 import { createInitializedContext } from '../../utils/context'
-import { ConfigProviderProps } from './interface'
+import { type ConfigProviderProps } from './interface'
 import { setTheme } from './theme'
 
 const Empty = () => <>Empty</>

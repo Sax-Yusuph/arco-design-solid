@@ -10,7 +10,7 @@ import {
 import cs from '../../utils/classNames'
 import { createLocalSignal } from '../../utils/util'
 import { useConfigContext } from '../config-provider'
-import { AlertProps } from './interface'
+import { type AlertProps } from './interface'
 
 const defaultProps: AlertProps = {
   showIcon: true,

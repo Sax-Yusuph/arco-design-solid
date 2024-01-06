@@ -1,16 +1,16 @@
 // import { ReactNode } from 'react';
 // import { Omit } from '../_util/type';
 // import { PaginationProps } from '../Pagination/interface';
-import { AffixProps } from '../affix/interface'
-import { AlertProps } from '../alert/interface'
+import { AffixProps } from '../affix/interface';
+import { AlertProps } from '../alert/interface';
 // import { AnchorLinkProps, AnchorProps } from '../Anchor/interface';
 // import { AutoCompleteProps } from '../AutoComplete/interface';
-import { Locale } from '../../locale/interface'
-import { AvatarGroupProps, AvatarProps } from '../avatar'
+import { Locale } from '../../locale/interface';
+import { AvatarGroupProps, AvatarProps } from '../avatar';
 // import { BackTopProps } from '../BackTop/interface';
 // import { BadgeProps } from '../Badge/interface';
 // import { BreadcrumbProps } from '../Breadcrumb/interface';
-// import { ButtonProps } from '../Button/interface';
+import { ButtonProps } from '../button/interface';
 // import { CalendarProps } from '../Calendar/interface';
 // import { CardProps } from '../Card/interface';
 // import { CarouselProps } from '../Carousel/interface';
@@ -47,7 +47,7 @@ import { AvatarGroupProps, AvatarProps } from '../avatar'
 // import { SelectProps } from '../Select/interface';
 // import { SkeletonProps } from '../Skeleton/interface';
 // import { SliderProps } from '../Slider/interface';
-import { SpaceProps } from '../space/interface'
+import { SpaceProps } from '../space/interface';
 // import { SpinProps } from '../Spin/interface';
 // import { StatisticProps } from '../Statistic/interface';
 // import { StepsProps } from '../Steps/interface';
@@ -66,7 +66,7 @@ import { SpaceProps } from '../space/interface'
 // import { VerificationCodeProps } from '../VerificationCode/interface';
 // import { WatermarkProps } from '../Watermark/interface';
 
-import { JSXElement } from 'solid-js'
+import { JSXElement } from 'solid-js';
 // import { AffixProps } from '../Affix'
 
 export type ThemeConfig = Record<string, any>
@@ -82,7 +82,7 @@ export type ComponentConfig = {
   // BackTop?: BackTopProps;
   // Badge?: BadgeProps;
   // Breadcrumb?: BreadcrumbProps;
-  // Button?: ButtonProps
+  Button?: ButtonProps
   // Calendar?: CalendarProps;
   // Card?: CardProps;
   // Carousel?: CarouselProps;

@@ -31,7 +31,7 @@ const AvatarGroup = Avatar.Group
 const Group = () => {
   return (
     <div>
-      <AvatarGroup size={52} style={{ margin: '10px' }} maxCount={2}>
+      <AvatarGroup style={{ margin: '10px' }} maxCount={2}>
         <Avatar style={{ 'background-color': '#7BC616' }}>A</Avatar>
         <Avatar style={{ 'background-color': '#14C9C9' }}>B</Avatar>
         <Avatar style={{ 'background-color': '#168CFF' }}>C</Avatar>

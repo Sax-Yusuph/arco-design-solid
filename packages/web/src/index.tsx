@@ -22,8 +22,8 @@ export type { AvatarGroupProps, AvatarProps } from './components/avatar/interfac
 // export type { BreadcrumbProps, BreadCrumbItemProps } from './Breadcrumb/interface';
 // export { default as Breadcrumb } from './Breadcrumb';
 
-// export { default as Button } from './components/Button';
-// export type { ButtonGroupProps, ButtonProps } from './components/Button/interface';
+export { default as Button } from './components/button';
+export type { ButtonGroupProps, ButtonProps } from './components/button/interface';
 
 // export type { CalendarProps } from './Calendar/interface';
 // export { default as Calendar } from './Calendar';

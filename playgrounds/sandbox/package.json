@@ -16,6 +16,7 @@
   "dependencies": {
     "@arco-design/web-solid": "^0.0.1",
     "@arco-themes/react-molly": "^0.0.4",
+    "solid-icons": "^1.1.0",
     "solid-js": "^1.6.9"
   }
 }

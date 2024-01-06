@@ -1,5 +1,5 @@
-export { default as Alert } from './components/alert'
-export type { AlertProps } from './components/alert/interface'
+export { default as Alert } from './components/alert';
+export type { AlertProps } from './components/alert/interface';
 
 // export type { AnchorProps, AnchorLinkProps } from './Anchor/interface';
 // export { default as Anchor } from './Anchor';
@@ -10,8 +10,8 @@ export type { AlertProps } from './components/alert/interface'
 // export type { AutoCompleteProps } from './AutoComplete/interface';
 // export { default as AutoComplete } from './AutoComplete';
 
-// export { default as Avatar } from './components/Avatar';
-// export type { AvatarGroupProps, AvatarProps } from './components/Avatar/interface';
+export { default as Avatar } from './components/avatar';
+export type { AvatarGroupProps, AvatarProps } from './components/avatar/interface';
 
 // export type { BackTopProps } from './BackTop/interface';
 // export { default as BackTop } from './BackTop';
@@ -46,8 +46,8 @@ export type { AlertProps } from './components/alert/interface'
 // export type { CommentProps } from './Comment/interface';
 // export { default as Comment } from './Comment';
 
-export * from './components/config-provider'
-export type { ConfigProviderProps } from './components/config-provider/interface'
+export * from './components/config-provider';
+export type { ConfigProviderProps } from './components/config-provider/interface';
 
 // export type { DatePickerProps, MonthPickerProps, YearPickerProps, WeekPickerProps, QuarterPickerProps, RangePickerProps } from './DatePicker/interface';
 // export { default as DatePicker } from './DatePicker';
@@ -146,8 +146,8 @@ export type { ConfigProviderProps } from './components/config-provider/interface
 // export type { SliderProps } from './Slider/interface';
 // export { default as Slider } from './Slider';
 
-// export { default as Space } from './components/Space';
-// export type { SpaceProps } from './components/Space/interface';
+export { default as Space } from './components/space';
+export type { SpaceProps } from './components/space/interface';
 
 // export type { SpinProps } from './Spin/interface';
 // export { default as Spin } from './Spin';

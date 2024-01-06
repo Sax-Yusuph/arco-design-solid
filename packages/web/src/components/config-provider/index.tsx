@@ -80,7 +80,7 @@ export const { use: useConfigContext, provider: ConfigProvider } = createInitial
         return config.theme
       },
 
-      getPrefixCls: config.getPrefixCls,
+      getPrefixCls: config.getPrefixCls!,
       getPopupContainer: config.getPopupContainer,
       renderEmpty: config.renderEmpty,
 

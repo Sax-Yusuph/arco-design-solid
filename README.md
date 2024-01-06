@@ -9,6 +9,12 @@
 
 Awesome UI Components based on Arco design
 
+
+TODOS
+1. avatar component needs trigger props in interface.ts
+2. config provider also needs some completions for panelProps in its interface
+
+
 ## Supported components
 - [x] Button
 - [x] Input

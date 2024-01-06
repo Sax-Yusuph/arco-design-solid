@@ -25,3 +25,27 @@ export function createInitializedContext<P extends {}, T extends { ready: boolea
     },
   }
 }
+
+export function createOptionalContext<P extends {}, T extends { ready: boolean }>(
+  name: string,
+  cb: (p: ParentProps<P>) => T,
+) {
+  const ctx = createContext<T>()
+
+  return {
+    use: () => {
+      return useContext(ctx)
+    },
+
+    provider: (props: ParentProps<P>) => {
+      const value = cb(props)
+      return (
+        <Show when={value.ready}>
+          <ctx.Provider value={value} {...props}>
+            {props.children}
+          </ctx.Provider>
+        </Show>
+      )
+    },
+  }
+}

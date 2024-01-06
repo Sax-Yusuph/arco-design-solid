@@ -1,11 +1,12 @@
 // import { ReactNode } from 'react';
 // import { Omit } from '../_util/type';
 // import { PaginationProps } from '../Pagination/interface';
-import { AffixProps } from '../affix/interface';
-import { AlertProps } from '../alert/interface';
+import { AffixProps } from '../affix/interface'
+import { AlertProps } from '../alert/interface'
 // import { AnchorLinkProps, AnchorProps } from '../Anchor/interface';
 // import { AutoCompleteProps } from '../AutoComplete/interface';
-import { Locale } from '../../locale/interface';
+import { Locale } from '../../locale/interface'
+import { AvatarGroupProps, AvatarProps } from '../avatar'
 // import { BackTopProps } from '../BackTop/interface';
 // import { BadgeProps } from '../Badge/interface';
 // import { BreadcrumbProps } from '../Breadcrumb/interface';
@@ -46,7 +47,7 @@ import { Locale } from '../../locale/interface';
 // import { SelectProps } from '../Select/interface';
 // import { SkeletonProps } from '../Skeleton/interface';
 // import { SliderProps } from '../Slider/interface';
-// import { SpaceProps } from '../Space/interface';
+import { SpaceProps } from '../space/interface'
 // import { SpinProps } from '../Spin/interface';
 // import { StatisticProps } from '../Statistic/interface';
 // import { StepsProps } from '../Steps/interface';
@@ -65,17 +66,17 @@ import { Locale } from '../../locale/interface';
 // import { VerificationCodeProps } from '../VerificationCode/interface';
 // import { WatermarkProps } from '../Watermark/interface';
 
-import { JSXElement } from 'solid-js';
+import { JSXElement } from 'solid-js'
 // import { AffixProps } from '../Affix'
 
 export type ThemeConfig = Record<string, any>
 
 export type ComponentConfig = {
   Affix?: AffixProps
-  Alert?: AlertProps;
+  Alert?: AlertProps
   // AutoComplete?: AutoCompleteProps;
-  // Avatar?: AvatarProps
-  // 'Avatar.Group'?: AvatarGroupProps
+  Avatar?: AvatarProps
+  'Avatar.Group'?: AvatarGroupProps
   // Anchor?: AnchorProps;
   // 'Anchor.Link'?: AnchorLinkProps;
   // BackTop?: BackTopProps;
@@ -136,7 +137,7 @@ export type ComponentConfig = {
   // Select?: SelectProps;
   // Skeleton?: SkeletonProps;
   // Slider?: SliderProps;
-  // Space?: SpaceProps
+  Space?: SpaceProps
   // Spin?: SpinProps;
   // Statistic?: StatisticProps;
   // Steps?: StepsProps;
@@ -195,7 +196,7 @@ export interface ConfigProviderProps {
    * @defaultValue arco
    */
   prefixCls?: string
-  getPrefixCls: (componentName: string, customPrefix?: string) => string
+  getPrefixCls?: (componentName: string, customPrefix?: string) => string
   /**
    * @zh 全局弹出框挂载的父级节点。
    * @en The parent node of the global popup.

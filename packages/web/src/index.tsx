@@ -64,8 +64,8 @@ export type { DividerProps } from './components/divider/interface';
 // export type { DropdownProps, DropdownButtonProps } from './Dropdown/interface';
 // export { default as Dropdown } from './Dropdown';
 
-// export { default as Empty } from './components/Empty';
-// export type { EmptyProps } from './components/Empty/interface';
+export { default as Empty } from './components/empty';
+export type { EmptyProps } from './components/empty/interface';
 
 // export type { FormProps, FormItemProps, FormListProps, FormInstance, RulesProps } from './Form/interface';
 // export { default as Form } from './Form';

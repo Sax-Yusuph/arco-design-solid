@@ -23,7 +23,7 @@ import { ButtonProps } from '../button/interface';
 import { DividerProps } from '../divider/interface';
 // import { DrawerProps } from '../Drawer/interface';
 // import { DropdownProps, DropdownButtonProps } from '../Dropdown/interface';
-// import { EmptyProps } from '../Empty/interface';
+import { EmptyProps } from '../empty/interface';
 // import { FormProps } from '../Form/interface';
 // import { RowProps, ColProps, GridProps, GridItemProps } from '../Grid/interface';
 // import { ImageProps } from '../Image/interface';
@@ -105,7 +105,7 @@ export type ComponentConfig = {
   // Drawer?: DrawerProps;
   // Dropdown?: DropdownProps;
   // 'Dropdown.Button'?: DropdownButtonProps;
-  // Empty?: EmptyProps
+  Empty?: EmptyProps
   // Form?: FormProps;
   // 'Grid.Row'?: RowProps
   // 'Grid.Col'?: ColProps

@@ -1,7 +1,7 @@
 // import { ReactNode } from 'react';
 // import { Omit } from '../_util/type';
 // import { PaginationProps } from '../Pagination/interface';
-// import { AffixProps } from '../Affix/interface';
+import { AffixProps } from '../affix/interface';
 import { AlertProps } from '../alert/interface';
 // import { AnchorLinkProps, AnchorProps } from '../Anchor/interface';
 // import { AutoCompleteProps } from '../AutoComplete/interface';
@@ -71,7 +71,7 @@ import { JSXElement } from 'solid-js';
 export type ThemeConfig = Record<string, any>
 
 export type ComponentConfig = {
-  // Affix?: AffixProps
+  Affix?: AffixProps
   Alert?: AlertProps;
   // AutoComplete?: AutoCompleteProps;
   // Avatar?: AvatarProps

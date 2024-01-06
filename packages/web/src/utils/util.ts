@@ -60,3 +60,7 @@ export function createMergedValue<T>(initialValue: T, props: () => { defaultValu
 export function isValidElement(el: any) {
   return el instanceof Element
 }
+
+export function isUndefined(obj: any): obj is undefined {
+  return obj === undefined
+}

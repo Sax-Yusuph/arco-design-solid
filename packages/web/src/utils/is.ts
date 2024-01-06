@@ -56,3 +56,13 @@ type DefinitelyString<T> = Extract<T, string> extends never
 export function isString<T>(data: T | string): data is DefinitelyString<T> {
   return typeof data === 'string'
 }
+
+export function isWindow(el: any): el is Window {
+  return el === window
+}
+
+type DefinitelyFunction<T> = Extract<T, Function> extends never ? Function : Extract<T, Function>
+
+export function isFunction<T>(data: T | Function): data is DefinitelyFunction<T> {
+  return typeof data === 'function'
+}

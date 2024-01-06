@@ -20,7 +20,7 @@ import { ButtonProps } from '../button/interface';
 // import { CommentProps } from '../Comment/interface';
 // import { PickerProps as DatePickerCommonProps } from '../DatePicker/interface';
 // import { DescriptionsProps } from '../Descriptions/interface';
-// import { DividerProps } from '../Divider/interface';
+import { DividerProps } from '../divider/interface';
 // import { DrawerProps } from '../Drawer/interface';
 // import { DropdownProps, DropdownButtonProps } from '../Dropdown/interface';
 // import { EmptyProps } from '../Empty/interface';
@@ -101,7 +101,7 @@ export type ComponentConfig = {
   //   | 'onPickerValueChange'
   // >;
   // Descriptions?: DescriptionsProps;
-  // Divider?: DividerProps
+  Divider?: DividerProps
   // Drawer?: DrawerProps;
   // Dropdown?: DropdownProps;
   // 'Dropdown.Button'?: DropdownButtonProps;

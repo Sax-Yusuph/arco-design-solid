@@ -55,8 +55,8 @@ export type { ConfigProviderProps } from './components/config-provider/interface
 // export type { DescriptionsProps } from './Descriptions/interface';
 // export { default as Descriptions } from './Descriptions';
 
-// export { default as Divider } from './components/Divider';
-// export type { DividerProps } from './components/Divider/interface';
+export { default as Divider } from './components/divider';
+export type { DividerProps } from './components/divider/interface';
 
 // export type { DrawerProps } from './Drawer/interface';
 // export { default as Drawer } from './Drawer';

@@ -67,6 +67,7 @@ import { SwitchProps } from '../switch/interface';
 // import { WatermarkProps } from '../Watermark/interface';
 
 import { JSXElement } from 'solid-js';
+import { TagProps } from '../tag';
 // import { AffixProps } from '../Affix'
 
 export type ThemeConfig = Record<string, any>
@@ -146,7 +147,7 @@ export type ComponentConfig = {
   // Tabs?: TabsProps;
   // TreeProps?: TreeProps;
   // TriggerProps?: TriggerProps;
-  // Tag?: TagProps;
+  Tag?: TagProps;
   // Timeline?: TimelineProps;
   // 'Timeline.Item'?: TimelineItemProps;
   // TimePicker?: TimePickerCommonProps;

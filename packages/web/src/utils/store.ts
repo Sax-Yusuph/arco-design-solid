@@ -5,12 +5,13 @@ import { isUndefined } from './util'
 export function createMergedValue<P extends Record<string, any>, K extends keyof P>(
   fallback: P[K],
   props: P,
-  keys: [value: K, defaultValue: K],
+  keys: [value: K, defaultValue?: K],
 ) {
   const [valueKey, defaultValueKey] = keys
 
   const value = valueKey in props ? props[valueKey] : fallback
-  const defaultValue = defaultValueKey in props ? props[defaultValueKey] : fallback
+  const defaultValue =
+    defaultValueKey && defaultValueKey in props ? props[defaultValueKey] : fallback
 
   const [get, set] = createSignal(
     !isUndefined(value) ? value : !isUndefined(defaultValue) ? defaultValue : fallback,
@@ -19,7 +20,7 @@ export function createMergedValue<P extends Record<string, any>, K extends keyof
   createComputed(() => {
     const value = valueKey in props ? props[valueKey] : fallback
 
-    if (value) {
+    if (value !== undefined) {
       set(() => value)
     } else {
       set(() => fallback)

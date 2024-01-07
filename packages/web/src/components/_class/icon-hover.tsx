@@ -6,7 +6,7 @@ interface HoverProps extends JSX.HTMLAttributes<HTMLSpanElement> {
   size?: 'small' | 'mini' | 'default' | 'large'
   prefix?: string
   disabled?: boolean
-  onClick?: (e: MouseEvent) => void
+  onClick?: JSX.HTMLAttributes<HTMLSpanElement>['onClick']
 }
 
 export default function IconHover(props: ParentProps<HoverProps>) {

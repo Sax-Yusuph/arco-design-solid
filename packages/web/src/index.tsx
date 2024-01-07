@@ -168,8 +168,8 @@ export type { SwitchProps } from './components/switch/interface';
 // export type { TabsProps } from './Tabs/interface';
 // export { default as Tabs } from './Tabs';
 
-// export { default as Tag } from './components/Tag';
-// export type { TagProps } from './components/Tag/interface';
+export { default as Tag } from './components/tag';
+export type { TagProps } from './components/tag/interface';
 
 // export type { TimelineProps, TimelineItemProps } from './Timeline/interface';
 // export { default as Timeline } from './Timeline';

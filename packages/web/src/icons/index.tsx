@@ -4,7 +4,7 @@ export const IconLoading = () => {
 }
 
 export const IconClose = (_props: JSX.HTMLAttributes<SVGElement>) => {
-  return <>C</>
+  return <>X</>
 }
 
 export const IconEye = (_props: JSX.HTMLAttributes<SVGElement>) => {

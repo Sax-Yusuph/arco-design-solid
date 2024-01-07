@@ -12,7 +12,7 @@ import { AvatarGroupProps, AvatarProps } from '../avatar';
 // import { BreadcrumbProps } from '../Breadcrumb/interface';
 import { ButtonProps } from '../button/interface';
 // import { CalendarProps } from '../Calendar/interface';
-// import { CardProps } from '../Card/interface';
+import { CardProps } from '../card/interface';
 // import { CarouselProps } from '../Carousel/interface';
 // import { CascaderProps } from '../Cascader/interface';
 import { CheckboxProps } from '../checkbox/interface';
@@ -85,7 +85,7 @@ export type ComponentConfig = {
   // Breadcrumb?: BreadcrumbProps;
   Button?: ButtonProps
   // Calendar?: CalendarProps;
-  // Card?: CardProps;
+  Card?: CardProps;
   // Carousel?: CarouselProps;
   // Cascader?: CascaderProps;
   Checkbox?: CheckboxProps;

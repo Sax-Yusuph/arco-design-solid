@@ -1,8 +1,35 @@
 body {
-
   background-color: var(--color-bg-1);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.card-with-icon-hover .icon-hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: all 0.1s;
+}
+
+.card-with-icon-hover .icon-hover:hover {
+  background-color: rgb(var(--gray-2));
+}
+
+.card-with-icon-hover .icon-hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: all 0.1s;
+}
+
+.card-with-icon-hover .icon-hover:hover {
+  background-color: rgb(var(--gray-2));
 }

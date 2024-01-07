@@ -7,7 +7,7 @@ export type SpaceSize = 'mini' | 'small' | 'medium' | 'large' | number
  */
 export interface SpaceProps {
   ref?: HTMLDivElement
-  style?: JSX.CSSProperties
+  style?: JSX.HTMLAttributes<HTMLDivElement>['style']
   class?: string
   /**
    * @zh 对齐方式

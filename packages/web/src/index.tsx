@@ -28,8 +28,8 @@ export type { ButtonGroupProps, ButtonProps } from './components/button/interfac
 // export type { CalendarProps } from './Calendar/interface';
 // export { default as Calendar } from './Calendar';
 
-// export { default as Card } from './components/Card';
-// export type { CardGridProps, CardMetaProps, CardProps } from './components/Card/interface';
+export { default as Card } from './components/card';
+export type { CardGridProps, CardMetaProps, CardProps } from './components/card/interface';
 
 // export type { CarouselProps } from './Carousel/interface';
 // export { default as Carousel } from './Carousel';

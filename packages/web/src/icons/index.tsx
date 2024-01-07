@@ -49,3 +49,6 @@ export const IconExclamationCircleFill = (_props: JSX.HTMLAttributes<SVGElement>
 export const IconEmpty = (_props: JSX.HTMLAttributes<SVGElement>) => {
   return <>E</>
 }
+export const IconLink = (_props: JSX.HTMLAttributes<SVGElement>) => {
+  return <>E</>
+}

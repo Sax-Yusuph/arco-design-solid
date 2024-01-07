@@ -90,8 +90,8 @@ export type { EmptyProps } from './components/empty/interface';
 // export type { LayoutProps, HeaderProps, FooterProps, SiderProps, ContentProps } from './Layout/interface';
 // export { default as Layout } from './Layout';
 
-// export { default as Link } from './components/Link';
-// export type { LinkProps } from './components/Link/interface';
+export { default as Link } from './components/link';
+export type { LinkProps } from './components/link/interface';
 
 // export type { ListProps, ListItemProps, ListItemMetaProps } from './List/interface';
 // export { default as List } from './List';

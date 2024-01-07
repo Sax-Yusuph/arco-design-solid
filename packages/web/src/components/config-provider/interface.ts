@@ -31,7 +31,7 @@ import { EmptyProps } from '../empty/interface';
 // import { InputNumberProps } from '../InputNumber/interface';
 // import { InputTagProps } from '../InputTag/interface';
 // import { LayoutProps } from '../Layout/interface';
-// import { LinkProps } from '../Link/interface';
+import { LinkProps } from '../link/interface';
 // import { ListItemProps, ListProps } from '../List/interface';
 // import { MentionsProps } from '../Mentions/interface';
 // import { MenuProps } from '../Menu/interface';
@@ -118,7 +118,7 @@ export type ComponentConfig = {
   // Watermark?: WatermarkProps;
   // InputTag?: InputTagProps;
   // Layout?: LayoutProps
-  // Link?: LinkProps;
+  Link?: LinkProps;
   // List?: ListProps;
   // 'List.Item'?: ListItemProps;
   // Mentions?: MentionsProps;

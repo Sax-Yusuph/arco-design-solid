@@ -13,7 +13,7 @@ import { Demo } from './wrapper'
 export default function TagDemo() {
   return (
     <Space direction="vertical" size="large">
-      {/* <Demo name="Basic" description="Basic usage of tags.">
+      <Demo name="Basic" description="Basic usage of tags.">
         <Basic />
       </Demo>
       <Demo name="Bordered" description="Through the prop `bordered` to display a bordered tag.">
@@ -38,14 +38,14 @@ export default function TagDemo() {
         description="The `closable` attribute can be set to control whether the label can be closed, and the closed label can perform some post-closing operations through the `onClose` event. You can also control the display and hide of the label through the `visible` property."
       >
         <Controlled />
-      </Demo> */}
+      </Demo>
       <Demo
         name="CustomColors"
         description="We provide a variety of label styles with preset colors, and set different colors through `color`. If the preset value cannot meet your needs, you can also set a custom color value in the `color` field."
       >
         <CustomColors />
       </Demo>
-      {/* <Demo name="Icons" description="An icon can be added to the label by setting `icon`.">
+      <Demo name="Icons" description="An icon can be added to the label by setting `icon`.">
         <Icon />
       </Demo>
       <Demo
@@ -53,7 +53,7 @@ export default function TagDemo() {
         description="Labels are divided into: small, medium, large, huge, you can choose the appropriate button size in different scenarios. The recommended and default size is 'medium'"
       >
         <Size />
-      </Demo> */}
+      </Demo>
     </Space>
   )
 }

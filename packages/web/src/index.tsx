@@ -158,8 +158,8 @@ export type { SpaceProps } from './components/space/interface';
 // export type { StepsProps, StepProps } from './Steps/interface';
 // export { default as Steps } from './Steps';
 
-// export { default as Switch } from './components/Switch';
-// export type { SwitchProps } from './components/Switch/interface';
+export { default as Switch } from './components/switch';
+export type { SwitchProps } from './components/switch/interface';
 
 // export type { TableProps, RowSelectionProps as TableRowSelectionProps, ColumnProps as TableColumnProps } from './Table/interface';
 // export type { TableInstance } from './Table/table';

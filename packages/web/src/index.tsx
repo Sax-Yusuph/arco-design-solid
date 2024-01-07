@@ -37,8 +37,8 @@ export type { ButtonGroupProps, ButtonProps } from './components/button/interfac
 // export type { CascaderProps } from './Cascader/interface';
 // export { default as Cascader } from './Cascader';
 
-// export { default as Checkbox } from './components/Checkbox';
-// export type { CheckboxGroupProps, CheckboxProps } from './components/Checkbox/interface';
+export { default as Checkbox } from './components/checkbox';
+export type { CheckboxGroupProps, CheckboxProps } from './components/checkbox/interface';
 
 // export type { CollapseProps, CollapseItemProps } from './Collapse/interface';
 // export { default as Collapse } from './Collapse';

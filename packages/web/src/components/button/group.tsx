@@ -4,7 +4,7 @@ import { type ButtonGroupProps } from './interface'
 
 function GroupComponent(props: ButtonGroupProps) {
   const ctx = useConfigContext()
-  const prefixCls = ctx.getPrefixCls('btn-group')
+  const prefixCls = ctx.getPrefixCls?.('btn-group')
 
   return <div {...props} class={cs(prefixCls, props.class)} />
 }

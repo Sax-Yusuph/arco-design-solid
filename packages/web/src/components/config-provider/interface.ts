@@ -15,7 +15,7 @@ import { ButtonProps } from '../button/interface';
 // import { CardProps } from '../Card/interface';
 // import { CarouselProps } from '../Carousel/interface';
 // import { CascaderProps } from '../Cascader/interface';
-// import { CheckboxProps } from '../Checkbox/interface';
+import { CheckboxProps } from '../checkbox/interface';
 // import { CollapseProps } from '../Collapse/interface';
 // import { CommentProps } from '../Comment/interface';
 // import { PickerProps as DatePickerCommonProps } from '../DatePicker/interface';
@@ -87,7 +87,7 @@ export type ComponentConfig = {
   // Card?: CardProps;
   // Carousel?: CarouselProps;
   // Cascader?: CascaderProps;
-  // Checkbox?: CheckboxProps;
+  Checkbox?: CheckboxProps;
   // Collapse?: CollapseProps;
   // Comment?: CommentProps;
   // DatePicker?: Omit<

@@ -19,7 +19,7 @@ const defaultProps: AlertProps = {
 
 function Alert(baseProps: AlertProps) {
   const ctx = useConfigContext()
-  const mergedProps = mergeProps(defaultProps, ctx.componentConfig.Alert, baseProps)
+  const mergedProps = mergeProps(defaultProps, ctx.componentConfig?.Alert, baseProps)
   const [props, restProps] = splitProps(mergedProps, [
     'style',
     'class',
@@ -37,7 +37,7 @@ function Alert(baseProps: AlertProps) {
     'type',
   ])
 
-  const prefixCls = ctx.getPrefixCls('alert')
+  const prefixCls = ctx.getPrefixCls?.('alert')!
   const isVisible = createLocalSignal(true)
 
   function IconElement(option: { type: string | void }): JSXElement | null {

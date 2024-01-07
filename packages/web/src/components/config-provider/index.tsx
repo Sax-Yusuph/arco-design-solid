@@ -2,7 +2,7 @@ import { Match, Switch, createEffect, mergeProps } from 'solid-js'
 
 import defaultLocale from '../../locale/default'
 // import Empty from '../Empty'
-import { createInitializedContext } from '../../utils/context'
+import { createContextProvider } from '../../utils/context'
 import { type ConfigProviderProps } from './interface'
 import { setTheme } from './theme'
 
@@ -31,10 +31,10 @@ const defaultConfig: ConfigProviderProps = {
     modal: { autoFocus: true },
     drawer: { autoFocus: true },
   },
+  componentConfig: {},
 }
 
-export const { use: useConfigContext, provider: ConfigProvider } = createInitializedContext(
-  'ArcoConfig',
+export const [ConfigProvider, useConfigContext] = createContextProvider(
   (props: ConfigProviderProps) => {
     const config = mergeProps(defaultConfig, props)
 
@@ -56,38 +56,8 @@ export const { use: useConfigContext, provider: ConfigProvider } = createInitial
       }
     })
 
-    return {
-      get config() {
-        return config
-      },
-      get componentConfig() {
-        return config.componentConfig || {}
-      },
-
-      get locale() {
-        return config.locale
-      },
-
-      get size() {
-        return config.size
-      },
-
-      get rtl() {
-        return config.rtl
-      },
-
-      get theme() {
-        return config.theme
-      },
-
-      getPrefixCls: config.getPrefixCls!,
-      getPopupContainer: config.getPopupContainer,
-      renderEmpty: config.renderEmpty,
-
-      get ready() {
-        return true
-      },
-    }
+    return config
   },
+  defaultConfig,
 )
 export { type ConfigProviderProps }

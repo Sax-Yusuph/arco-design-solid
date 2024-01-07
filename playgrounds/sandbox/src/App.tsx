@@ -1,13 +1,14 @@
 import { ConfigProvider } from '@arco-design/web-solid'
 import type { Component } from 'solid-js'
-import EmptyDemo from './demo/empty'
+import CheckboxDemo from './demo/checkbox'
 
 const App: Component = () => {
   return (
     <ConfigProvider>
       {/* <AvatarDemo /> */}
       {/* <ButtonDemo /> */}
-      <EmptyDemo />
+      {/* <EmptyDemo /> */}
+      <CheckboxDemo />
     </ConfigProvider>
   )
 }

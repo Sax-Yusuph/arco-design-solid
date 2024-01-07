@@ -24,7 +24,7 @@ function SpaceComponent(baseProps: SpaceProps) {
     'split',
   ])
 
-  const prefixCls = ctx.getPrefixCls('space')
+  const prefixCls = ctx.getPrefixCls?.('space')
 
   const classNames = createMemo(() => {
     const innerAlign = props.align || (props.direction === 'horizontal' ? 'center' : '')

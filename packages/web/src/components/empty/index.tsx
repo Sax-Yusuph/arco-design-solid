@@ -7,11 +7,11 @@ import { type EmptyProps } from './interface'
 
 function EmptyComponent(baseProps: EmptyProps) {
   const ctx = useConfigContext()
-  const props = mergeProps({}, ctx.componentConfig.Empty, baseProps)
+  const props = mergeProps({}, ctx.componentConfig?.Empty, baseProps)
 
   const [localProps, rest] = splitProps(props, ['description', 'icon', 'imgSrc'])
 
-  const prefixCls = untrack(() => ctx.getPrefixCls('empty'))
+  const prefixCls = untrack(() => ctx.getPrefixCls?.('empty'))
   const noData = ctx.locale?.Empty['noData'] as string
 
   const alt = typeof localProps.description === 'string' ? localProps.description : 'empty'

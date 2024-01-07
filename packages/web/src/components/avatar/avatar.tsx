@@ -15,7 +15,7 @@ const defaultProps: AvatarProps = {
 const Avatar = (baseProps: AvatarProps) => {
   const ctx = useConfigContext()
 
-  const prefixCls = ctx.getPrefixCls('avatar')
+  const prefixCls = ctx.getPrefixCls?.('avatar')!
   const avatarCtx = useAvatarGroupContext()
 
   const mergedProps = mergeProps(

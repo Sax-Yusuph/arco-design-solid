@@ -35,7 +35,7 @@ type StoreType = {
 
 function Affix(baseProps: AffixProps) {
   const ctx = useConfigContext()
-  const mergedProps = mergeProps(defaultProps, ctx.componentConfig.Affix, baseProps)
+  const mergedProps = mergeProps(defaultProps, ctx.componentConfig?.Affix, baseProps)
 
   const [props, restProps] = splitProps(mergedProps, [
     'class',
@@ -58,7 +58,7 @@ function Affix(baseProps: AffixProps) {
   })
 
   const lastIsFixed = usePrevious(state.isFixed)
-  const prefixCls = ctx.getPrefixCls('affix')
+  const prefixCls = ctx.getPrefixCls?.('affix')!
 
   let wrapperRef!: HTMLDivElement
   let targetRef!: HTMLElement | Window | null

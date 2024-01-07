@@ -21,7 +21,7 @@ function Divider(baseProps: DividerProps) {
     'children',
   ])
 
-  const prefixCls = ctx.getPrefixCls('divider')
+  const prefixCls = ctx.getPrefixCls?.('divider')
   const node = children(() => props.children)
 
   return (

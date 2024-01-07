@@ -40,7 +40,7 @@ function Button(baseProps: ButtonProps) {
     'long',
   ])
 
-  const prefixCls = ctx.getPrefixCls('btn')
+  const prefixCls = ctx.getPrefixCls?.('btn')
 
   const handleClick: JSX.EventHandler<HTMLElement, MouseEvent> = (event): void => {
     if (props.loading || props.disabled) {

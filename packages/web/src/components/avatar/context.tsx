@@ -1,5 +1,5 @@
 import { mergeProps } from 'solid-js'
-import { createOptionalContext } from '../../utils/context'
+import { createContextProvider } from '../../utils/context'
 import { useConfigContext } from '../config-provider'
 import { AvatarGroupProps, AvatarProps } from './interface'
 
@@ -9,12 +9,10 @@ const defaultProps: AvatarProps = {
   triggerType: 'button',
 }
 
-export const { use: useAvatarGroupContext, provider: AvatarGroupProvider } = createOptionalContext(
-  'AvatarGroupContext',
-  (props: AvatarGroupProps & { _show?: boolean; _group?: boolean }) => {
+export const [AvatarGroupProvider, useAvatarGroupContext] = createContextProvider(
+  (props: AvatarGroupProps) => {
     const ctx = useConfigContext()
-
-    const mergedProps = mergeProps(defaultProps, ctx.componentConfig['Avatar.Group'], props)
+    const mergedProps = mergeProps(defaultProps, ctx.componentConfig?.['Avatar.Group'], props)
 
     return {
       get group() {
@@ -29,7 +27,7 @@ export const { use: useAvatarGroupContext, provider: AvatarGroupProvider } = cre
         }
       },
       get prefixCls() {
-        return ctx.getPrefixCls('avatar-group')
+        return ctx.getPrefixCls?.('avatar-group')
       },
 
       get rtl() {

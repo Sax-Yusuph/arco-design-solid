@@ -1,19 +1,24 @@
-import { ConfigProvider } from '@arco-design/web-solid'
+import { ConfigProvider, Space } from '@arco-design/web-solid'
 import type { Component } from 'solid-js'
-import CardDemo from './demo/card'
+import GridDemo from './demo/grid'
 
 const App: Component = () => {
   return (
-    <ConfigProvider>
-      {/* <AvatarDemo /> */}
-      {/* <ButtonDemo /> */}
-      {/* <EmptyDemo /> */}
-      {/* <CheckboxDemo /> */}
-      {/* <LinkDemo /> */}
-      {/* <SwitchDemo /> */}
-      {/* <TagDemo /> */}
-      <CardDemo />
-    </ConfigProvider>
+    <div style="margin:auto">
+      <ConfigProvider>
+        <Space size={'large'} direction="vertical" style='width:100%' >
+          {/* <AvatarDemo /> */}
+          {/* <ButtonDemo /> */}
+          {/* <EmptyDemo /> */}
+          {/* <CheckboxDemo /> */}
+          {/* <LinkDemo /> */}
+          {/* <SwitchDemo /> */}
+          {/* <TagDemo /> */}
+          <GridDemo />
+          {/* <CardDemo /> */}
+        </Space>
+      </ConfigProvider>
+    </div>
   )
 }
 

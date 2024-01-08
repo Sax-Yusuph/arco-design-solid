@@ -4,7 +4,7 @@ import GridDemo from './demo/grid'
 
 const App: Component = () => {
   return (
-    <div style="margin:auto">
+    <div style="width:50vw; margin:auto">
       <ConfigProvider>
         <Space size={'large'} direction="vertical" style='width:100%' >
           {/* <AvatarDemo /> */}

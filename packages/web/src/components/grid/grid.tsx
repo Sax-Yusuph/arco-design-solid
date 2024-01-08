@@ -1,8 +1,8 @@
 import { ReactiveMap } from '@solid-primitives/map'
 import { createMemo, mergeProps, splitProps } from 'solid-js'
-import { style } from 'solid-js/web'
 
 import cs from '../../utils/classNames'
+import { toCSSObject } from '../../utils/util'
 import { useConfigContext } from '../config-provider'
 import { GridContextProvider, GridDataCollectorProvider } from './context'
 import { useResponsiveState } from './hooks/useResponsiveState'
@@ -69,9 +69,9 @@ function Grid(baseProps: GridProps) {
         props.class,
       )}
       style={{
-        gap: `${rowGap}px ${colGap}px`,
-        'grid-template-columns': `repeat(${cols}, minmax(0px, 1fr))`,
-        ...style,
+        gap: `${rowGap()}px ${colGap()}px`,
+        'grid-template-columns': `repeat(${cols()}, minmax(0px, 1fr))`,
+        ...toCSSObject(props.style),
       }}
     >
       <GridDataCollectorProvider

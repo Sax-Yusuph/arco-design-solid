@@ -1,5 +1,5 @@
 import { createContextProvider } from '../../utils/context'
-import { GridItemData } from './interface'
+import type { GridItemData } from './interface'
 
 type RowContextType = {
   gutter?: [number, number]

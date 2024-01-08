@@ -1,5 +1,4 @@
 import { createMemo, mergeProps, splitProps } from 'solid-js'
-import { className } from 'solid-js/web'
 
 import cs from '../../utils/classNames'
 import { isNumber, isObject } from '../../utils/is'
@@ -127,7 +126,7 @@ function ColComponent(baseProps: ColProps) {
         ...paddingStyle(),
         ...flexStyle(),
       }}
-      class={cs(props.flex ? prefixCls : adaptationGridClass(), className)}
+      class={cs(props.flex ? prefixCls : adaptationGridClass(), props.class)}
     />
   )
 }

@@ -1,37 +1,37 @@
 // import { ReactNode } from 'react';
 // import { Omit } from '../_util/type';
 // import { PaginationProps } from '../Pagination/interface';
-import { AffixProps } from '../affix/interface';
-import { AlertProps } from '../alert/interface';
+import { AffixProps } from '../affix/interface'
+import { AlertProps } from '../alert/interface'
 // import { AnchorLinkProps, AnchorProps } from '../Anchor/interface';
 // import { AutoCompleteProps } from '../AutoComplete/interface';
-import { Locale } from '../../locale/interface';
-import { AvatarGroupProps, AvatarProps } from '../avatar';
+import { Locale } from '../../locale/interface'
+import { AvatarGroupProps, AvatarProps } from '../avatar'
 // import { BackTopProps } from '../BackTop/interface';
 // import { BadgeProps } from '../Badge/interface';
 // import { BreadcrumbProps } from '../Breadcrumb/interface';
-import { ButtonProps } from '../button/interface';
+import { ButtonProps } from '../button/interface'
 // import { CalendarProps } from '../Calendar/interface';
-import { CardProps } from '../card/interface';
+import { CardProps } from '../card/interface'
 // import { CarouselProps } from '../Carousel/interface';
 // import { CascaderProps } from '../Cascader/interface';
-import { CheckboxProps } from '../checkbox/interface';
+import { CheckboxProps } from '../checkbox/interface'
 // import { CollapseProps } from '../Collapse/interface';
 // import { CommentProps } from '../Comment/interface';
 // import { PickerProps as DatePickerCommonProps } from '../DatePicker/interface';
 // import { DescriptionsProps } from '../Descriptions/interface';
-import { DividerProps } from '../divider/interface';
+import { DividerProps } from '../divider/interface'
 // import { DrawerProps } from '../Drawer/interface';
 // import { DropdownProps, DropdownButtonProps } from '../Dropdown/interface';
-import { EmptyProps } from '../empty/interface';
+import { EmptyProps } from '../empty/interface'
 // import { FormProps } from '../Form/interface';
-// import { RowProps, ColProps, GridProps, GridItemProps } from '../Grid/interface';
+import { ColProps, GridItemProps, GridProps, RowProps } from '../grid/interface'
 // import { ImageProps } from '../Image/interface';
 // import { InputProps } from '../Input/interface';
 // import { InputNumberProps } from '../InputNumber/interface';
 // import { InputTagProps } from '../InputTag/interface';
 // import { LayoutProps } from '../Layout/interface';
-import { LinkProps } from '../link/interface';
+import { LinkProps } from '../link/interface'
 // import { ListItemProps, ListProps } from '../List/interface';
 // import { MentionsProps } from '../Mentions/interface';
 // import { MenuProps } from '../Menu/interface';
@@ -47,11 +47,11 @@ import { LinkProps } from '../link/interface';
 // import { SelectProps } from '../Select/interface';
 // import { SkeletonProps } from '../Skeleton/interface';
 // import { SliderProps } from '../Slider/interface';
-import { SpaceProps } from '../space/interface';
+import { SpaceProps } from '../space/interface'
 // import { SpinProps } from '../Spin/interface';
 // import { StatisticProps } from '../Statistic/interface';
 // import { StepsProps } from '../Steps/interface';
-import { SwitchProps } from '../switch/interface';
+import { SwitchProps } from '../switch/interface'
 // import { TableProps } from '../Table/interface';
 // import { TabsProps } from '../Tabs/interface';
 // import { TimelineProps, TimelineItemProps } from '../Timeline/interface';
@@ -66,8 +66,9 @@ import { SwitchProps } from '../switch/interface';
 // import { VerificationCodeProps } from '../VerificationCode/interface';
 // import { WatermarkProps } from '../Watermark/interface';
 
-import { JSXElement } from 'solid-js';
-import { TagProps } from '../tag';
+import { JSXElement } from 'solid-js'
+
+import { TagProps } from '../tag'
 // import { AffixProps } from '../Affix'
 
 export type ThemeConfig = Record<string, any>
@@ -85,10 +86,10 @@ export type ComponentConfig = {
   // Breadcrumb?: BreadcrumbProps;
   Button?: ButtonProps
   // Calendar?: CalendarProps;
-  Card?: CardProps;
+  Card?: CardProps
   // Carousel?: CarouselProps;
   // Cascader?: CascaderProps;
-  Checkbox?: CheckboxProps;
+  Checkbox?: CheckboxProps
   // Collapse?: CollapseProps;
   // Comment?: CommentProps;
   // DatePicker?: Omit<
@@ -108,10 +109,10 @@ export type ComponentConfig = {
   // 'Dropdown.Button'?: DropdownButtonProps;
   Empty?: EmptyProps
   // Form?: FormProps;
-  // 'Grid.Row'?: RowProps
-  // 'Grid.Col'?: ColProps
-  // Grid?: GridProps
-  // 'Grid.GridItem'?: GridItemProps
+  'Grid.Row'?: RowProps
+  'Grid.Col'?: ColProps
+  Grid?: GridProps
+  'Grid.GridItem'?: GridItemProps
   // Image?: ImageProps;
   // Input?: InputProps;
   // InputNumber?: InputNumberProps;
@@ -119,7 +120,7 @@ export type ComponentConfig = {
   // Watermark?: WatermarkProps;
   // InputTag?: InputTagProps;
   // Layout?: LayoutProps
-  Link?: LinkProps;
+  Link?: LinkProps
   // List?: ListProps;
   // 'List.Item'?: ListItemProps;
   // Mentions?: MentionsProps;
@@ -142,12 +143,12 @@ export type ComponentConfig = {
   // Spin?: SpinProps;
   // Statistic?: StatisticProps;
   // Steps?: StepsProps;
-  Switch?: SwitchProps;
+  Switch?: SwitchProps
   // Table?: TableProps;
   // Tabs?: TabsProps;
   // TreeProps?: TreeProps;
   // TriggerProps?: TriggerProps;
-  Tag?: TagProps;
+  Tag?: TagProps
   // Timeline?: TimelineProps;
   // 'Timeline.Item'?: TimelineItemProps;
   // TimePicker?: TimePickerCommonProps;

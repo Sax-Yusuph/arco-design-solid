@@ -63,6 +63,7 @@
     "solid-js": "^1.6.0"
   },
   "dependencies": {
+    "@solid-primitives/map": "^0.4.8",
     "@solid-primitives/resize-observer": "^2.0.22",
     "@solid-primitives/scheduled": "^1.4.1",
     "b-validate": "^1.5.3",

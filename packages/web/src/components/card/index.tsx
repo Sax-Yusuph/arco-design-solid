@@ -1,6 +1,5 @@
-import { For, Show, children, createComputed, mergeProps, splitProps } from 'solid-js'
+import { For, Show, children, mergeProps, splitProps } from 'solid-js'
 import { createStore } from 'solid-js/store'
-import { spread } from 'solid-js/web'
 import cs from '../../utils/classNames'
 import { useConfigContext } from '../config-provider'
 import Grid from './grid'
@@ -41,19 +40,6 @@ function Card(baseProps: CardProps) {
   })
 
   const nodeList = children(() => props.children)
-
-  createComputed(() => {
-    nodeList.toArray().forEach(element => {
-      if (element instanceof Element) {
-        if (element.classList.contains(ctx.getPrefixCls?.('card-grid')!)) {
-          setState('isContainGrid', true)
-        } else if (element.classList.contains(ctx.getPrefixCls?.('card-meta')!)) {
-          setState('isContainMeta', true)
-          spread(element, { actionList })
-        }
-      }
-    })
-  })
 
   return (
     <div

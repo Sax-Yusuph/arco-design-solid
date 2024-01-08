@@ -50,6 +50,9 @@ importers:
 
   packages/web:
     dependencies:
+      '@solid-primitives/map':
+        specifier: ^0.4.8
+        version: 0.4.8(solid-js@1.6.9)
       '@solid-primitives/resize-observer':
         specifier: ^2.0.22
         version: 2.0.22(solid-js@1.6.9)
@@ -1148,6 +1151,15 @@ packages:
       solid-js: 1.6.9
     dev: false
 
+  /@solid-primitives/map@0.4.8(solid-js@1.6.9):
+    resolution: {integrity: sha512-p9zhIaIWOQVxLaUEjg6nzrBLZUOzozJFHatdKqISSIq7iJhVXX1M1MPzDHHqKyJw/nSENoKgvZehnG3HErnamw==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/trigger': 1.0.8(solid-js@1.6.9)
+      solid-js: 1.6.9
+    dev: false
+
   /@solid-primitives/refs@1.0.5(solid-js@1.6.9):
     resolution: {integrity: sha512-5hmYmYbm6rs43nMHHozyyUngGA7P7q2WtlaCLJEfmlUJf67GWI1PZmqAiol6m9F37XSMZRuvZLoQ7HA/0q3GYg==}
     peerDependencies:
@@ -1200,6 +1212,15 @@ packages:
     peerDependencies:
       solid-js: ^1.6.12
     dependencies:
+      solid-js: 1.6.9
+    dev: false
+
+  /@solid-primitives/trigger@1.0.8(solid-js@1.6.9):
+    resolution: {integrity: sha512-p9e3FGhCk8sRPxDiCT8vnTE+DOEtrAnJZP4zV0NAV6YGnpV50JATVXNiLjKgyiI/mTIRkWB0+9c5SUbRlqFx6A==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.1(solid-js@1.6.9)
       solid-js: 1.6.9
     dev: false
 

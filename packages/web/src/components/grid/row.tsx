@@ -6,7 +6,7 @@ import responsiveObserve, { responsiveArray } from '../../utils/responsive-obser
 import { toPx } from '../../utils/util'
 import { useConfigContext } from '../config-provider'
 import { RowProvider } from './context'
-import { GridRowGutter, RowProps } from './interface'
+import type { GridRowGutter, RowProps } from './interface'
 
 const defaultProps: RowProps = {
   gutter: 0,

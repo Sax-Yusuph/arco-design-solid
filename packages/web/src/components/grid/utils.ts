@@ -1,4 +1,4 @@
-import { GridItemData } from './interface'
+import type { GridItemData } from './interface'
 
 export function resolveItemData(
   cols: number,

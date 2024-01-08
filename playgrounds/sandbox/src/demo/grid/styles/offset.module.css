@@ -1,0 +1,14 @@
+.grid-demo :global(.arco-col) {
+  height: 48px;
+  line-height: 48px;
+  color: var(--color-white);
+  text-align: center;
+}
+
+.grid-demo :global(.arco-col:nth-child(2n + 1)) {
+  background-color: var(--color-primary-light-4);
+}
+
+.grid-demo :global(.arco-col:nth-child(2n)) {
+  background-color: rgba(var(--arcoblue-6), 0.9);
+}

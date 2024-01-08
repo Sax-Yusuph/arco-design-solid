@@ -18,7 +18,7 @@ const defaultProps: GridProps = {
 }
 
 function Grid(baseProps: GridProps) {
-  const itemDataMap = new ReactiveMap<number, GridItemData>([])
+  const itemDataMap = new ReactiveMap<number, GridItemData>()
   const ctx = useConfigContext()
   const mergedProps = mergeProps(defaultProps, ctx.componentConfig?.Grid, baseProps)
 
@@ -75,8 +75,8 @@ function Grid(baseProps: GridProps) {
       }}
     >
       <GridDataCollectorProvider
-        collectItemData={itemDataMap.set}
-        removeItemData={itemDataMap.delete}
+        collectItemData={(index, item) => itemDataMap.set(index, item)}
+        removeItemData={index => itemDataMap.delete(index)}
       >
         <GridContextProvider
           cols={cols()}

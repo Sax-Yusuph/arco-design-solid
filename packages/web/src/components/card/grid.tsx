@@ -13,7 +13,6 @@ function Grid(props: CardGridProps) {
       ref={props.ref}
       style={props.style}
       class={cs(prefixCls, { [`${prefixCls}-hoverable`]: props.hoverable }, props.class)}
-			data-type='Grid'
     >
       {nodes()}
     </div>

@@ -66,7 +66,7 @@ const Search = (baseProps: InputSearchProps) => {
             loadingFixedWidth
             icon={props.searchButton === true && !props.loading && <IconSearch />}
           >
-            {props.searchButton !== true && props.searchButton}
+            <Show when={props.searchButton !== true}>{props.searchButton}</Show>
           </Button>
         </Show>
       }

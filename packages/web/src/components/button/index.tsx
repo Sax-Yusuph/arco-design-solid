@@ -86,8 +86,7 @@ function Button(baseProps: ButtonProps) {
           [`${prefixCls}-loading`]: props.loading,
           [`${prefixCls}-link`]: props.href,
           [`${prefixCls}-icon-only`]:
-            props.iconOnly ||
-            (!props.children && props.children !== 0 && (props.icon || props.loading)),
+            props.iconOnly || (!nodes() && nodes() !== 0 && (props.icon || props.loading)),
           [`${prefixCls}-disabled`]: props.disabled,
           [`${prefixCls}-rtl`]: ctx.rtl,
           // [`${prefixCls}-two-chinese-chars`]: isTwoCNChar,

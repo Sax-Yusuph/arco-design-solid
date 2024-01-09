@@ -46,11 +46,11 @@ const Password = (baseProps: InputPasswordProps) => {
       type={isVisible() ? 'text' : 'password'}
       class={cs(
         prefixCls,
-        { [`${prefixCls}-visibility`]: props.visibilityToggle || true },
+        { [`${prefixCls}-visibility`]: props.visibilityToggle ?? true },
         props.class,
       )}
       suffix={
-        <Show when={props.visibilityToggle} fallback={props.suffix}>
+        <Show when={props.visibilityToggle ?? true} fallback={props.suffix}>
           <Show
             when={!props.suffix}
             fallback={

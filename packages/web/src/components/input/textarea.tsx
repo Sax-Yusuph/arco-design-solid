@@ -105,7 +105,6 @@ const TextArea = (baseProps: TextAreaProps) => {
       obj.resize = 'none'
     }
 
-    console.log(obj)
     return obj
   })
 

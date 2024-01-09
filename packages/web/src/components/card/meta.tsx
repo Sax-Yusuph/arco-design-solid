@@ -68,7 +68,7 @@ function Meta(baseProps: CardMetaProps) {
   const metaCtx = useMetaContext()
 
   return (
-    <div {...restProps} class={cs(prefixCls, props.class)} data-type="Meta">
+    <div {...restProps} class={cs(prefixCls, props.class)}>
       <Show when={props.title || props.description}>
         <div class={`${prefixCls}-content`}>
           <Show when={props.title}>

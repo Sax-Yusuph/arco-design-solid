@@ -1,4 +1,4 @@
-import { For, Show, children, mergeProps, splitProps } from 'solid-js'
+import { For, Show, children, createEffect, mergeProps, splitProps } from 'solid-js'
 import { createStore } from 'solid-js/store'
 import cs from '../../utils/classNames'
 import { useConfigContext } from '../config-provider'
@@ -40,6 +40,18 @@ function Card(baseProps: CardProps) {
   })
 
   const nodeList = children(() => props.children)
+
+  createEffect(() => {
+    nodeList.toArray().forEach(el => {
+      if (el instanceof Element) {
+        if (el.classList.contains(ctx.getPrefixCls?.('card-grid')!)) {
+          setState('isContainGrid', true)
+        } else if (el.classList.contains(ctx.getPrefixCls?.('card-meta')!)) {
+          setState('isContainMeta', true)
+        }
+      }
+    })
+  })
 
   return (
     <div

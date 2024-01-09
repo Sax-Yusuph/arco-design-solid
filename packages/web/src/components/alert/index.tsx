@@ -1,4 +1,4 @@
-import { JSXElement, Match, Show, Switch, mergeProps, splitProps } from 'solid-js'
+import { JSXElement, Match, Show, Switch, createSignal, mergeProps, splitProps } from 'solid-js'
 import { Transition } from 'solid-transition-group'
 import {
 	IconCheckCircleFill,
@@ -8,7 +8,6 @@ import {
 	IconInfoCircleFill,
 } from '../../icons'
 import cs from '../../utils/classNames'
-import { createLocalSignal } from '../../utils/util'
 import { useConfigContext } from '../config-provider'
 import { type AlertProps } from './interface'
 
@@ -38,7 +37,7 @@ function Alert(baseProps: AlertProps) {
   ])
 
   const prefixCls = ctx.getPrefixCls?.('alert')!
-  const isVisible = createLocalSignal(true)
+  const [isVisible, setVisible] = createSignal(true)
 
   function IconElement(option: { type: string | void }): JSXElement | null {
     return (
@@ -61,7 +60,7 @@ function Alert(baseProps: AlertProps) {
   }
 
   function onHandleClose(e: MouseEvent) {
-    isVisible.set(false)
+    setVisible(false)
     props.onClose?.(e)
   }
 
@@ -72,7 +71,7 @@ function Alert(baseProps: AlertProps) {
         props.afterClose?.()
       }}
     >
-      <Show when={isVisible.get()}>
+      <Show when={isVisible()}>
         <div
           style={props.style}
           class={cs(

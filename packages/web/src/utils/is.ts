@@ -66,3 +66,7 @@ type DefinitelyFunction<T> = Extract<T, Function> extends never ? Function : Ext
 export function isFunction<T>(data: T | Function): data is DefinitelyFunction<T> {
   return typeof data === 'function'
 }
+
+export function isUndefined(obj: any): obj is undefined {
+  return obj === undefined
+}

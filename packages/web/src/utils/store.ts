@@ -1,4 +1,4 @@
-import { createComputed, createSignal } from 'solid-js'
+import { createComputed, createMemo, createSignal } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
 import { isUndefined } from './util'
 
@@ -6,28 +6,38 @@ export function createMergedValue<P extends Record<string, any>, K extends keyof
   fallback: P[K],
   props: P,
   keys: [value: K, defaultValue?: K],
+  valueFormmatter?: (value: P[K]) => P[K],
 ) {
   const [valueKey, defaultValueKey] = keys
 
+  const getValue = (v: P[K]) => {
+    if (valueFormmatter) {
+      return valueFormmatter(v)
+    }
+
+    return v
+  }
+
   const value = valueKey in props ? props[valueKey] : fallback
+
   const defaultValue =
     defaultValueKey && defaultValueKey in props ? props[defaultValueKey] : fallback
 
   const [get, set] = createSignal(
-    !isUndefined(value) ? value : !isUndefined(defaultValue) ? defaultValue : fallback,
+    !isUndefined(value)
+      ? getValue(value)
+      : !isUndefined(defaultValue)
+      ? getValue(defaultValue)
+      : getValue(fallback),
   )
 
-  createComputed(() => {
-    const value = valueKey in props ? props[valueKey] : fallback
+  const vv = createMemo(() => {
+    const value = valueKey in props ? props[valueKey] : undefined
 
-    if (value !== undefined) {
-      set(() => value)
-    } else {
-      set(() => fallback)
-    }
+    return isUndefined(value) ? get() : value
   })
 
-  return [get, set] as const
+  return [vv, set] as const
 }
 
 export function createMergedStore<P extends Record<string, any>, K extends keyof P>(

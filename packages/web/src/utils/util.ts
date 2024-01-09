@@ -1,15 +1,11 @@
-import {
-	Accessor,
-	JSX,
-	Setter,
-	createSignal as createSolidSignal
-} from 'solid-js'
+import { JSX } from 'solid-js'
 import { isObject } from './is'
 export const getKeys = Object.keys as <T extends object>(obj: T) => Array<keyof T>
 
 export const toPx = (v?: number | string) => {
   if (!v) return v as string
-  return v + 'px'
+
+  return typeof v === 'number' ? `${v}px` : v
 }
 
 export function filterUndefined<T>(arr: Iterable<T | undefined>): T[] {
@@ -39,16 +35,6 @@ export const toCSSObject = (css?: JSX.CSSProperties | string) => {
   return obj as JSX.CSSProperties
 }
 
-export function createLocalSignal<T>(v?: T): {
-  get: Accessor<T>
-  set: Setter<T>
-}
-export function createLocalSignal<T>(v: T) {
-  const [get, set] = createSolidSignal(v)
-  return { get, set }
-}
-
-
 export function isValidElement(el: any) {
   return el instanceof Element
 }
@@ -63,4 +49,8 @@ export function isBoolean(value: any): value is Boolean {
 
 export function isNullOrUndefined(obj: any): boolean {
   return obj === null || obj === undefined
+}
+
+export function hasIndex<T extends any[], K extends T[number]>(arr: T, node: K) {
+  return arr.indexOf(node) > -1
 }

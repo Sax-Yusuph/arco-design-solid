@@ -75,8 +75,8 @@ export type { ColProps, GridItemProps, GridProps, RowProps } from './components/
 
 // export { default as Icon } from './Icon';
 
-// export { default as Input } from './components/Input';
-// export type { InputProps, TextAreaProps } from './components/Input/interface';
+export { default as Input } from './components/input';
+export type { InputProps, TextAreaProps } from './components/input/interface';
 
 // export type { InputTagProps } from './InputTag/interface';
 // export { default as InputTag } from './InputTag';

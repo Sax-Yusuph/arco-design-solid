@@ -1,4 +1,5 @@
 import { Demo } from '../wrapper'
+import AutoWidth from './autoWidth'
 import Basic from './basic'
 import MaxLength from './max-length'
 import Password from './password'
@@ -53,6 +54,13 @@ export default function InputDemo() {
 
       <Demo name="Password" description="Used for password input.">
         <Password />
+      </Demo>
+
+      <Demo
+        name="Auto Width"
+        description="Through the autoWidth attribute, you can set the width of Input to adapt to the text."
+      >
+        <AutoWidth />
       </Demo>
 
       <Demo

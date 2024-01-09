@@ -158,7 +158,7 @@ const NoBorder = () => {
     <Space
       style={{
         padding: '40px',
-        backgroundColor: 'var(--color-fill-2)',
+        'background-color': 'var(--color-fill-2)',
       }}
       size="large"
     >
@@ -187,14 +187,14 @@ const Content = ({ children }: ParentProps) => {
     <Space
       style={{
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        'align-items': 'center',
+        'justify-content': 'space-between',
       }}
     >
       <Space>
         <Avatar
           style={{
-            backgroundColor: '#165DFF',
+            'background-color': '#165DFF',
           }}
           size={28}
         >
@@ -210,12 +210,12 @@ const Content = ({ children }: ParentProps) => {
 const WithContentOnly = () => {
   return (
     <>
-      <Card hoverable style={{ width: 360, marginBottom: 20 }}>
+      <Card hoverable style={{ width: '360px', 'margin-bottom': '20px' }}>
         <Content>
           <Link>More</Link>
         </Content>
       </Card>
-      <Card className="card-with-icon-hover" hoverable style={{ width: 360 }}>
+      <Card class="card-with-icon-hover" hoverable style={{ width: '360px' }}>
         <Content>
           <span class="icon-hover">
             <AiOutlineArrowRight
@@ -233,8 +233,8 @@ const WithContentOnly = () => {
 const WithActions = () => {
   return (
     <Card
-      className="card-with-icon-hover"
-      style={{ width: 360 }}
+      class="card-with-icon-hover"
+      style={{ width: '360px' }}
       cover={
         <div style={{ height: '204px', overflow: 'hidden' }}>
           <img

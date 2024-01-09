@@ -10,18 +10,35 @@ import {
 	AiTwotoneDelete,
 } from 'solid-icons/ai'
 import { TbChevronDown } from 'solid-icons/tb'
+import { Demo } from './wrapper'
 
 export default function ButtonDemo() {
   return (
     <Space direction="vertical">
-      <Basic />
-      <Group />
-      <Disabled />
-      <Icon />
-      <Long />
-      <Shape />
-      <Size />
-      <Status />
+      <Demo name="Basic">
+        <Basic />
+      </Demo>
+      <Demo name="Group">
+        <Group />
+      </Demo>
+      <Demo name="Disabled">
+        <Disabled />
+      </Demo>
+      <Demo name="Icon">
+        <Icon />
+      </Demo>
+      <Demo name="Long">
+        <Long />
+      </Demo>
+      <Demo name="Shape">
+        <Shape />
+      </Demo>
+      <Demo name="Size">
+        <Size />
+      </Demo>
+      <Demo name="Status">
+        <Status />
+      </Demo>
     </Space>
   )
 }
@@ -178,10 +195,10 @@ const Long = () => {
   return (
     <Space
       style={{
-        width: 360,
+        width: '360px',
         border: '1px solid var(--color-border)',
-        borderRadius: 4,
-        padding: 20,
+        'border-radius': '4px',
+        padding: '20px',
       }}
       direction="vertical"
       size="large"

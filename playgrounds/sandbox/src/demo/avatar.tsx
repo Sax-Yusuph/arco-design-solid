@@ -1,11 +1,18 @@
 import { Avatar, Space } from '@arco-design/web-solid'
+import { Demo } from './wrapper'
 
 export default function AvatarDemo() {
   return (
     <>
-      <Basic />
-      <Group />
-      <Size />
+      <Demo name="Basic">
+        <Basic />
+      </Demo>
+      <Demo name="Group">
+        <Group />
+      </Demo>
+      <Demo name="Size">
+        <Size />
+      </Demo>
     </>
   )
 }

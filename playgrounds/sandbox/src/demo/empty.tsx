@@ -1,12 +1,19 @@
 import { Button, Empty, Space } from '@arco-design/web-solid'
 import { AiOutlineExclamationCircle } from 'solid-icons/ai'
+import { Demo } from './wrapper'
 
 export default function EmptyDemo() {
   return (
     <Space direction="vertical" size="large">
-      <Basic />
-      <CustomIcon />
-      <WithImage />
+      <Demo name="Basic">
+        <Basic />
+      </Demo>
+      <Demo name="CustomIcon">
+        <CustomIcon />
+      </Demo>
+      <Demo name="WithImage">
+        <WithImage />
+      </Demo>
     </Space>
   )
 }

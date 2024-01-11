@@ -10,8 +10,7 @@ import {
 	children,
 	createMemo,
 	createSignal,
-	mergeProps,
-	splitProps,
+	mergeProps
 } from 'solid-js'
 import cs from '../../utils/classNames'
 import { isObject, isString, isUndefined } from '../../utils/is'
@@ -68,40 +67,14 @@ export const formatValue = (value?: any, maxLength?: number) => {
   return str
 }
 
-const splittable = [
-  'status',
-  'class',
-  'style',
-  'addBefore',
-  'addAfter',
-  'suffix',
-  'prefix',
-  'beforeStyle',
-  'afterStyle',
-  'height',
-  'disabled',
-  'maxLength',
-  'showWordLimit',
-  'allowClear',
-  'autoWidth',
-  'value',
-  'defaultValue',
-  'size',
-  'onFocus',
-  'onBlur',
-  'onInput',
-] as const
-
 function Input(baseProps: InputProps & { _ignorePropsFromGlobal?: boolean }) {
   const ctx = useConfigContext()
 
-  const mergedProps = mergeProps(
+  const props = mergeProps(
     { size: ctx.size, defaultValue: '' },
     ctx?.componentConfig?.Input,
     baseProps,
   )
-
-  const [props, restProps] = splitProps(mergedProps, splittable)
 
   const maxLength = isObject(props.maxLength) ? props.maxLength.length : props.maxLength
   const isErrorOnly = isObject(props.maxLength) && props.maxLength.errorOnly
@@ -198,8 +171,8 @@ function Input(baseProps: InputProps & { _ignorePropsFromGlobal?: boolean }) {
       })}
     >
       <InputComponent
-        ref={mergeRefs(restProps.ref, el => (inputRef = el))}
-        {...mergedProps}
+        {...props}
+        ref={mergeRefs(props.ref, el => (inputRef = el))}
         autoFitWidth={!!props.autoWidth}
         style={wrapperStyle()}
         status={status()}

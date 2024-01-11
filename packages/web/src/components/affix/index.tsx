@@ -16,7 +16,7 @@ function getTargetRect(target: HTMLElement | Window) {
       }
     : target.getBoundingClientRect()
 }
-;``
+
 type AffixHandle = {
   updatePosition: () => void
 }

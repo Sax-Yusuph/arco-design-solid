@@ -10,7 +10,7 @@ import {
 	children,
 	createMemo,
 	createSignal,
-	mergeProps
+	mergeProps,
 } from 'solid-js'
 import cs from '../../utils/classNames'
 import { isObject, isString, isUndefined } from '../../utils/is'
@@ -69,10 +69,11 @@ export const formatValue = (value?: any, maxLength?: number) => {
 
 function Input(baseProps: InputProps & { _ignorePropsFromGlobal?: boolean }) {
   const ctx = useConfigContext()
+  const defaultProps = { size: ctx.size, defaultValue: '' }
 
   const props = mergeProps(
-    { size: ctx.size, defaultValue: '' },
-    ctx?.componentConfig?.Input,
+    defaultProps,
+    baseProps._ignorePropsFromGlobal ? {} : ctx?.componentConfig?.Input,
     baseProps,
   )
 
@@ -88,7 +89,8 @@ function Input(baseProps: InputProps & { _ignorePropsFromGlobal?: boolean }) {
   const hasSuffix = props.showWordLimit || maxLength || 'suffix' in props
 
   const lengthError = createMemo(() => {
-    if (!isErrorOnly && maxLength) {
+    const inputLength = inputValue()?.length
+    if (maxLength && inputLength) {
       return (inputValue()?.length || 0) > maxLength
     }
 

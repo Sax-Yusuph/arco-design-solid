@@ -81,8 +81,8 @@ export type { InputProps, TextAreaProps } from './components/input/interface';
 // export type { InputTagProps } from './InputTag/interface';
 // export { default as InputTag } from './InputTag';
 
-// export { default as InputNumber } from './components/InputNumber';
-// export type { InputNumberProps } from './components/InputNumber/interface';
+export { default as InputNumber } from './components/input-number';
+export type { InputNumberProps } from './components/input-number/interface';
 
 // export type { VerificationCodeProps } from './VerificationCode/interface';
 // export { default as VerificationCode } from './VerificationCode';

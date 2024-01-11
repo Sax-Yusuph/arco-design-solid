@@ -53,6 +53,12 @@ importers:
       '@solid-primitives/map':
         specifier: ^0.4.8
         version: 0.4.8(solid-js@1.6.9)
+      '@solid-primitives/props':
+        specifier: ^3.1.8
+        version: 3.1.8(solid-js@1.6.9)
+      '@solid-primitives/refs':
+        specifier: ^1.0.5
+        version: 1.0.5(solid-js@1.6.9)
       '@solid-primitives/resize-observer':
         specifier: ^2.0.22
         version: 2.0.22(solid-js@1.6.9)
@@ -1157,6 +1163,15 @@ packages:
       solid-js: ^1.6.12
     dependencies:
       '@solid-primitives/trigger': 1.0.8(solid-js@1.6.9)
+      solid-js: 1.6.9
+    dev: false
+
+  /@solid-primitives/props@3.1.8(solid-js@1.6.9):
+    resolution: {integrity: sha512-38ERNFhl87emUDPRlYvCmlbvEcK2mOJB38SU22YS2QXFDK7TQf/7P46XZacs7oODc/fckhfZTitht71FMEDe2g==}
+    peerDependencies:
+      solid-js: ^1.6.12
+    dependencies:
+      '@solid-primitives/utils': 6.2.1(solid-js@1.6.9)
       solid-js: 1.6.9
     dev: false
 

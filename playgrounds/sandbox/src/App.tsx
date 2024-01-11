@@ -1,6 +1,6 @@
 import { ConfigProvider, Space } from '@arco-design/web-solid'
 import type { Component } from 'solid-js'
-import InputDemo from './demo/input'
+import InputNumberDemo from './demo/input-number'
 
 const App: Component = () => {
   return (
@@ -16,7 +16,8 @@ const App: Component = () => {
           {/* <TagDemo /> */}
           {/* <GridDemo /> */}
           {/* <CardDemo /> */}
-          <InputDemo />
+          {/* <InputDemo /> */}
+          <InputNumberDemo />
         </Space>
       </ConfigProvider>
     </div>

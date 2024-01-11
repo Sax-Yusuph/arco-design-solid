@@ -80,7 +80,7 @@ export const IconEyeInvisible = (props: JSX.SvgSVGAttributes<SVGSVGElement>) => 
       stroke="currentColor"
       stroke-width="4"
       {...props}
-      class={cs('arco-icon arco-icon-eye-invisible', props.class)}
+      class={cs(props.class, 'arco-icon arco-icon-eye-invisible')}
     >
       <path
         d="M14 14.5C11.3096 16.5 8.58489 19.8302 6 24C11.3726 32.6667 17.3726 37 24 37C27.3245 37 30.4912 35.9096 33.5 33.7287M17.4635 12.5C19 11 21.7488 11 24 11C30.6274 11 36.6274 15.3333 42 24C40.2344 26.8481 38.4011 29.2282 36.5 31.1404"

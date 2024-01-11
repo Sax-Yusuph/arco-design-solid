@@ -1,5 +1,6 @@
 import { createComputed, createMemo, createSignal } from 'solid-js'
 import { createStore, reconcile } from 'solid-js/store'
+import { syncSignals } from 'solidjs-use'
 import { isUndefined } from './util'
 
 export function createMergedValue<P extends Record<string, any>, K extends keyof P>(
@@ -65,4 +66,23 @@ export function createMergedStore<P extends Record<string, any>, K extends keyof
   })
 
   return [get, set] as const
+}
+
+export function syncValues<P extends Record<string, any>, K extends keyof P>(
+  props: P,
+  keys: [value: K, defaultValue: K],
+  formmater?: (value: P[K]) => P[K],
+) {
+  const [valueKey, defaultValueKey] = keys
+
+  const normalize = (v: P[K]) => {
+    return formmater ? formmater(v) : v
+  }
+
+  const source = createMemo(() => normalize(props[valueKey] || props[defaultValueKey]))
+  const [value, setValue] = createSignal(normalize(props[defaultValueKey]))
+
+  syncSignals(source, setValue)
+
+  return [value, setValue] as const
 }

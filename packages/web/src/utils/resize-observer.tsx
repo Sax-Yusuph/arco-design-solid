@@ -1,24 +1,21 @@
+import { Ref } from '@solid-primitives/refs'
 import { ResizeHandler, createResizeObserver } from '@solid-primitives/resize-observer'
-import { ParentProps, children, onMount } from 'solid-js'
-
+import { ParentProps, createSignal, onMount } from 'solid-js'
 export type ResizeProps = {
   throttle?: boolean
   onResize?: ResizeHandler
 }
 
 function ResizeObserver(props: ParentProps<ResizeProps>) {
-  const c = children(() => props.children)
+  const [ref, setRef] = createSignal<Element | undefined>()
 
   onMount(() => {
-    const nodeList = c.toArray()
-
-    // warning(nodeList.length > 1, 'Resize observer expects only one child')
     if (props.onResize) {
-      createResizeObserver(nodeList as Element[], props.onResize)
+      createResizeObserver(ref, props.onResize)
     }
   })
 
-  return <>{c()}</>
+  return <Ref ref={setRef}>{props.children}</Ref>
 }
 
 export default ResizeObserver

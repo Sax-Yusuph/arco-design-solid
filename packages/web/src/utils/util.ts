@@ -54,3 +54,20 @@ export function isNullOrUndefined(obj: any): boolean {
 export function hasIndex<T extends any[], K extends T[number]>(arr: T, node: K) {
   return arr.indexOf(node) > -1
 }
+
+export const contains = function (root: HTMLElement, ele: any) {
+  if (!root) {
+    return false
+  }
+  if (root.contains) {
+    return root.contains(ele)
+  }
+  let node = ele
+  while (node) {
+    if (node === root) {
+      return true
+    }
+    node = node.parentNode
+  }
+  return false
+}

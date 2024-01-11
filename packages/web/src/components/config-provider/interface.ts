@@ -27,9 +27,9 @@ import { EmptyProps } from '../empty/interface'
 // import { FormProps } from '../Form/interface';
 import { ColProps, GridItemProps, GridProps, RowProps } from '../grid/interface'
 // import { ImageProps } from '../Image/interface';
+import { InputTagProps } from '../Input-tag/interface'
 import { InputNumberProps } from '../input-number/interface'
 import { InputProps } from '../input/interface'
-// import { InputTagProps } from '../InputTag/interface';
 // import { LayoutProps } from '../Layout/interface';
 import { LinkProps } from '../link/interface'
 // import { ListItemProps, ListProps } from '../List/interface';
@@ -118,7 +118,7 @@ export type ComponentConfig = {
   InputNumber?: InputNumberProps;
   // VerificationCode?: VerificationCodeProps;
   // Watermark?: WatermarkProps;
-  // InputTag?: InputTagProps;
+  InputTag?: InputTagProps;
   // Layout?: LayoutProps
   Link?: LinkProps
   // List?: ListProps;

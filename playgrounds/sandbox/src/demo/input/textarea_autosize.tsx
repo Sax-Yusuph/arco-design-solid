@@ -10,6 +10,7 @@ const App = () => {
         autoSize
         style={{ width: '350px' }}
       />
+
       <TextArea
         placeholder="Please enter ..."
         autoSize={{ minRows: 2, maxRows: 6 }}

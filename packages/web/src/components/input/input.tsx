@@ -1,6 +1,7 @@
+import { combineStyle } from '@solid-primitives/props'
+import { mergeRefs } from '@solid-primitives/refs'
 import { isFunction } from 'lodash'
 import {
-	Accessor,
 	JSX,
 	Match,
 	ParentProps,
@@ -12,51 +13,37 @@ import {
 	mergeProps,
 	splitProps,
 } from 'solid-js'
-import { toValue } from 'solidjs-use'
 import cs from '../../utils/classNames'
 import { isObject, isString, isUndefined } from '../../utils/is'
-import { createMergedValue } from '../../utils/store'
-import { toCSSObject, toPx } from '../../utils/util'
+import { syncValues } from '../../utils/store'
+import { contains, toPx } from '../../utils/util'
 import { useConfigContext } from '../config-provider'
+import TextArea from '../textarea'
 import Group from './group'
 import InputComponent from './input-element'
-import { InputProps } from './interface'
+import type { InputProps } from './interface'
 import Password from './password'
 import Search from './search'
-import TextArea from './textarea'
-
 const keepFocus = (e: any) => {
   e.target.tagName !== 'INPUT' && e.preventDefault()
 }
 
-const InputAddon = (props: JSX.HTMLAttributes<HTMLSpanElement>) => {
-  return (
-    <Show when={props.children}>
-      <span style={props.style} class={props.class} onClick={props.onClick}>
-        {props.children}
-      </span>
-    </Show>
-  )
+type SuffixElementProps = {
+  rtl?: boolean
+  trueMaxLength?: number
+  valueLength: number
+  prefixCls?: string
+  lengthError?: boolean
+  showWordLimit?: boolean
 }
 
-const SuffixElement = (
-  props: ParentProps<{
-    rtl?: boolean
-    trueMaxLength?: number
-    valueLength: number
-    prefixCls?: string
-    lengthError?: boolean
-    showWordLimit?: boolean
-  }>,
-) => {
+const SuffixElement = (props: ParentProps<SuffixElementProps>) => {
   const words = createMemo(() =>
     props.rtl ? [props.trueMaxLength, props.valueLength] : [props.valueLength, props.trueMaxLength],
   )
 
   const nodes = children(() => props.children)
-
   const showWordLimit = createMemo(() => props.trueMaxLength && props.showWordLimit)
-
   return (
     <Show when={showWordLimit()} fallback={nodes()}>
       <span
@@ -70,156 +57,232 @@ const SuffixElement = (
   )
 }
 
-export function formatValue(value?: any, maxLength?: number | Accessor<number | undefined>) {
-  const mxLength = toValue(maxLength)
+export const formatValue = (value?: any, maxLength?: number) => {
   const str =
     value !== null && !isUndefined(value) && !isString(value) ? String(value) : value || ''
-  if (mxLength) {
-    return str.slice(0, mxLength)
+
+  if (maxLength) {
+    return str.slice(0, maxLength)
   }
 
   return str
 }
 
+const splittable = [
+  'status',
+  'class',
+  'style',
+  'addBefore',
+  'addAfter',
+  'suffix',
+  'prefix',
+  'beforeStyle',
+  'afterStyle',
+  'height',
+  'disabled',
+  'maxLength',
+  'showWordLimit',
+  'allowClear',
+  'autoWidth',
+  'value',
+  'defaultValue',
+  'size',
+  'onFocus',
+  'onBlur',
+  'onInput',
+] as const
+
 function Input(baseProps: InputProps & { _ignorePropsFromGlobal?: boolean }) {
   const ctx = useConfigContext()
 
-  const mergedProps = mergeProps({ size: ctx.size }, ctx?.componentConfig?.Input, baseProps)
+  const mergedProps = mergeProps(
+    { size: ctx.size, defaultValue: '' },
+    ctx?.componentConfig?.Input,
+    baseProps,
+  )
 
-  const [props, restProps] = splitProps(mergedProps, [
-    'status',
-    'class',
-    'style',
-    'addBefore',
-    'addAfter',
-    'suffix',
-    'prefix',
-    'beforeStyle',
-    'afterStyle',
-    'height',
-    'disabled',
-    'maxLength',
-    'showWordLimit',
-    'allowClear',
-    'autoWidth',
-    'value',
-    'defaultValue',
-    'size',
-    'onFocus',
-    'onBlur',
-    'onInput',
-  ])
+  const [props, restProps] = splitProps(mergedProps, splittable)
 
-  const trueMaxLength = isObject(props.maxLength) ? props.maxLength.length : props.maxLength
-  const mergedMaxLength =
-    isObject(props.maxLength) && props.maxLength.errorOnly ? undefined : trueMaxLength
+  const maxLength = isObject(props.maxLength) ? props.maxLength.length : props.maxLength
+  const isErrorOnly = isObject(props.maxLength) && props.maxLength.errorOnly
 
-  const [getValue, setValue] = createMergedValue(undefined, props, ['value', 'defaultValue'], v => {
-    return formatValue(v, mergedMaxLength)
+  const [inputValue, setInputValue] = syncValues(props, ['value', 'defaultValue'], v => {
+    return isErrorOnly ? formatValue(v) : formatValue(v, maxLength)
   })
 
   const prefixCls = ctx.getPrefixCls?.('input')
   const isCustomHeight = 'height' in props
-  const hasSuffix = props.showWordLimit || trueMaxLength || 'suffix' in props
-
-  const getValueLength = createMemo(() => getValue()?.length ?? 0)
+  const hasSuffix = props.showWordLimit || maxLength || 'suffix' in props
 
   const lengthError = createMemo(() => {
-    if (!mergedMaxLength && trueMaxLength) {
-      return getValueLength() > trueMaxLength
+    if (!isErrorOnly && maxLength) {
+      return (inputValue()?.length || 0) > maxLength
     }
 
     return false
   })
 
+  const [getFocus, setFocus] = createSignal(false)
+
   const status = createMemo(() => props.status || (lengthError() ? 'error' : undefined))
   const needWrapper = props.addBefore || props.addAfter || hasSuffix || props.prefix
 
-  const [getFocus, setFocus] = createSignal(false)
   let inputRef!: HTMLInputElement
   let inputWrapperRef!: HTMLSpanElement
 
   const onInput = (val: string, e: InputEvent) => {
     if (!('value' in props)) {
-      setValue(val)
+      setInputValue(val)
     }
 
     isFunction(props.onInput) && props.onInput(val, e)
   }
 
-  const getAutoWidthStyle = createMemo(() => {
-    if (!props.autoWidth) {
-      return null
-    }
+  const wrapperStyle = createMemo(() => {
+    let autoWidth = {}
 
-    return {
-      'min-width': 0,
-      'max-width': '100%',
-      width: 'auto',
-      ...(isObject(props.autoWidth) ? props.autoWidth : {}),
-    } as JSX.CSSProperties
+    if (props.autoWidth)
+      autoWidth = {
+        'min-width': 0,
+        'max-width': '100%',
+        width: 'auto',
+        ...(isObject(props.autoWidth) ? props.autoWidth : {}),
+      }
+
+    return combineStyle(autoWidth, props.style)
   })
 
-  const style = createMemo(() => ({
-    ...getAutoWidthStyle(),
-    ...toCSSObject(props.style),
-  }))
-
-  const Input = (
-    <InputComponent
-      ref={inputRef}
-      {...mergedProps}
-      autoFitWidth={!!props.autoWidth}
-      style={style()}
-      status={status()}
-      onFocus={e => {
-        setFocus(true)
-        isFunction(props.onFocus) && props.onFocus(e)
-      }}
-      onBlur={e => {
-        setFocus(false)
-        isFunction(props.onBlur) && props.onBlur(e)
-      }}
-      onInput={onInput}
+  return (
+    <Wrapper
+      ref={inputWrapperRef}
+      needsWrapper={Boolean(needWrapper)}
       prefixCls={prefixCls}
-      value={getValue()}
-      hasParent={!!needWrapper || props.allowClear}
+      isCustomHeight={isCustomHeight}
+      hasSuffix={!!hasSuffix}
+      rtl={ctx.rtl}
+      onWrapperClick={e => {
+        if (inputWrapperRef && contains(inputWrapperRef, e.target)) {
+          inputRef.focus()
+        }
+      }}
+      wrapperStyle={combineStyle(
+        wrapperStyle(),
+        isCustomHeight ? { height: toPx(props.height) } : {},
+      )}
+      maxLength={maxLength!}
+      lengthError={lengthError()}
+      inputValueLength={inputValue()?.length ?? 0}
+      onWrapperClickedAlt={() => {
+        inputRef.focus()
+      }}
       size={props.size}
-    />
+      disabled={props.disabled}
+      autoWidth={props.autoWidth}
+      class={props.class}
+      addBefore={props.addBefore}
+      beforeStyle={props.beforeStyle}
+      addAfter={props.addAfter}
+      afterStyle={props.afterStyle}
+      showWordLimit={props.showWordLimit}
+      suffix={props.suffix}
+      allowClear={props.allowClear}
+      prefix={props.prefix}
+      innerWrapperClassnames={cs(`${prefixCls}-inner-wrapper`, {
+        [`${prefixCls}-inner-wrapper-${status()}`]: status(),
+        [`${prefixCls}-inner-wrapper-disabled`]: props.disabled,
+        [`${prefixCls}-inner-wrapper-focus`]: getFocus(),
+        [`${prefixCls}-inner-wrapper-has-prefix`]: props.prefix,
+        [`${prefixCls}-inner-wrapper-${props.size}`]: props.size,
+        [`${prefixCls}-clear-wrapper`]: props.allowClear,
+        [`${prefixCls}-inner-wrapper-rtl`]: ctx.rtl,
+      })}
+    >
+      <InputComponent
+        ref={mergeRefs(restProps.ref, el => (inputRef = el))}
+        {...mergedProps}
+        autoFitWidth={!!props.autoWidth}
+        style={wrapperStyle()}
+        status={status()}
+        onFocus={e => {
+          setFocus(true)
+          isFunction(props.onFocus) && props.onFocus(e)
+        }}
+        onBlur={e => {
+          setFocus(false)
+          isFunction(props.onBlur) && props.onBlur(e)
+        }}
+        onInput={onInput}
+        prefixCls={prefixCls}
+        value={inputValue()}
+        hasParent={!!needWrapper || props.allowClear}
+        size={props.size}
+      />
+    </Wrapper>
   )
+}
 
-  const innerWrapperClassnames = createMemo(() =>
-    cs(`${prefixCls}-inner-wrapper`, {
-      [`${prefixCls}-inner-wrapper-${status()}`]: status(),
-      [`${prefixCls}-inner-wrapper-disabled`]: props.disabled,
-      [`${prefixCls}-inner-wrapper-focus`]: getFocus(),
-      [`${prefixCls}-inner-wrapper-has-prefix`]: props.prefix,
-      [`${prefixCls}-inner-wrapper-${props.size}`]: props.size,
-      [`${prefixCls}-clear-wrapper`]: props.allowClear,
-      [`${prefixCls}-inner-wrapper-rtl`]: ctx.rtl,
-    }),
-  )
+Input.displayName = 'Input'
+
+Input.Search = Search
+
+Input.TextArea = TextArea
+
+Input.Password = Password
+
+Input.Group = Group
+
+export default Input
+
+interface WrapperProps extends ParentProps {
+  needsWrapper?: boolean
+  prefixCls?: string
+  isCustomHeight: boolean
+  hasSuffix?: boolean
+  rtl?: boolean
+  innerWrapperClassnames: string
+  ref: HTMLSpanElement
+  onWrapperClick: JSX.HTMLAttributes<HTMLSpanElement>['onClick']
+  wrapperStyle: JSX.CSSProperties | string
+  maxLength: number
+  lengthError?: boolean
+  inputValueLength: number
+  onWrapperClickedAlt: JSX.HTMLAttributes<HTMLSpanElement>['onClick']
+  size: InputProps['size']
+  disabled: InputProps['disabled']
+  autoWidth: InputProps['autoWidth']
+  class: InputProps['class']
+  addBefore: InputProps['addBefore']
+  beforeStyle: InputProps['beforeStyle']
+  addAfter: InputProps['addAfter']
+  afterStyle: InputProps['afterStyle']
+  showWordLimit: InputProps['showWordLimit']
+  suffix: InputProps['suffix']
+  allowClear: InputProps['allowClear']
+  prefix: InputProps['prefix']
+}
+
+export const Wrapper = (props: WrapperProps) => {
+  const inputSlot = children(() => props.children)
+  const prefixCls = props.prefixCls
+  let ref!: HTMLSpanElement
 
   return (
-    <Switch fallback={Input}>
-      <Match when={needWrapper}>
+    <Switch fallback={inputSlot()}>
+      <Match when={props.needsWrapper}>
         <div
           class={cs(
             `${prefixCls}-group-wrapper`,
             `${prefixCls}-group-wrapper-${props.size}`,
             {
-              [`${prefixCls}-custom-height`]: isCustomHeight,
-              [`${prefixCls}-has-suffix`]: hasSuffix,
+              [`${prefixCls}-custom-height`]: props.isCustomHeight,
+              [`${prefixCls}-has-suffix`]: props.hasSuffix,
               [`${prefixCls}-group-wrapper-disabled`]: props.disabled,
-              [`${prefixCls}-group-wrapper-rtl`]: ctx.rtl,
+              [`${prefixCls}-group-wrapper-rtl`]: props.rtl,
               [`${prefixCls}-group-wrapper-autowidth`]: props.autoWidth,
             },
             props.class,
           )}
-          style={{
-            ...style(),
-            ...(isCustomHeight ? { height: toPx(props.height) } : {}),
-          }}
+          style={props.wrapperStyle}
         >
           <span class={`${prefixCls}-group`}>
             <InputAddon class={`${prefixCls}-group-addbefore`} style={props.beforeStyle}>
@@ -227,33 +290,31 @@ function Input(baseProps: InputProps & { _ignorePropsFromGlobal?: boolean }) {
             </InputAddon>
 
             <span
-              class={innerWrapperClassnames()}
-              ref={inputWrapperRef}
+              class={props.innerWrapperClassnames}
+              ref={mergeRefs(props.ref, el => (ref = el))}
               onMouseDown={e => {
                 if ((e.target as HTMLElement).tagName !== 'INPUT') {
-                  if (inputWrapperRef.contains(e.target)) {
+                  if (contains(ref, e.target)) {
                     e.preventDefault()
                   }
                 }
               }}
               onClick={e => {
-                if (inputWrapperRef.contains(e.target)) {
-                  inputRef.focus()
-                }
+                isFunction(props.onWrapperClick) && props.onWrapperClick?.(e)
               }}
             >
               <InputAddon class={`${prefixCls}-group-prefix`}>{props.prefix}</InputAddon>
 
-              {Input}
+              {inputSlot()}
 
               <InputAddon class={`${prefixCls}-group-suffix`}>
                 <SuffixElement
-                  rtl={ctx.rtl}
-                  trueMaxLength={trueMaxLength}
-                  lengthError={lengthError()}
+                  rtl={props.rtl}
+                  trueMaxLength={props.maxLength}
+                  lengthError={props.lengthError}
                   prefixCls={prefixCls}
                   showWordLimit={props.showWordLimit}
-                  valueLength={getValueLength()}
+                  valueLength={props.inputValueLength}
                 >
                   {props.suffix}
                 </SuffixElement>
@@ -269,31 +330,26 @@ function Input(baseProps: InputProps & { _ignorePropsFromGlobal?: boolean }) {
 
       <Match when={props.allowClear}>
         <span
-          class={cs(props.class, innerWrapperClassnames())}
-          style={{
-            ...style(),
-            ...(isCustomHeight ? { height: toPx(props.height) } : {}),
-          }}
+          class={cs(props.class, props.innerWrapperClassnames)}
+          style={props.wrapperStyle}
           onMouseDown={keepFocus}
-          onClick={() => {
-            inputRef.focus()
-          }}
+          onClick={props.onWrapperClickedAlt}
         >
-          {Input}
+          {inputSlot}
         </span>
       </Match>
     </Switch>
   )
 }
 
-Input.displayName = 'Input'
+const InputAddon = (props: JSX.HTMLAttributes<HTMLSpanElement>) => {
+  const node = children(() => props.children)
 
-Input.Search = Search
-
-Input.TextArea = TextArea
-
-Input.Password = Password
-
-Input.Group = Group
-
-export default Input
+  return (
+    <Show when={node()}>
+      <span style={props.style} class={props.class} onClick={props.onClick}>
+        {node()}
+      </span>
+    </Show>
+  )
+}

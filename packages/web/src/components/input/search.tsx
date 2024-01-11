@@ -45,13 +45,7 @@ const Search = (baseProps: InputSearchProps) => {
     <Input
       {...restProps}
       disabled={props.disabled}
-      class={cs(
-        prefixCls,
-        {
-          [`${prefixCls}-button`]: props.searchButton,
-        },
-        props.class,
-      )}
+      class={cs(prefixCls, { [`${prefixCls}-button`]: props.searchButton }, props.class)}
       style={props.style}
       placeholder={props.placeholder}
       addAfter={
@@ -64,7 +58,11 @@ const Search = (baseProps: InputSearchProps) => {
             onClick={onSearch}
             loading={props.loading}
             loadingFixedWidth
-            icon={props.searchButton === true && !props.loading && <IconSearch />}
+            icon={
+              <Show when={props.searchButton === true && !props.loading}>
+                <IconSearch />
+              </Show>
+            }
           >
             <Show when={props.searchButton !== true}>{props.searchButton}</Show>
           </Button>

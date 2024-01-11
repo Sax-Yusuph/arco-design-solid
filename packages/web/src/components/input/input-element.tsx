@@ -1,51 +1,57 @@
-import { createResizeObserver } from '@solid-primitives/resize-observer'
-import { JSX, Match, Show, Switch, createMemo, createSignal, onMount, splitProps } from 'solid-js'
-import { Dynamic } from 'solid-js/web'
+import { combineStyle } from '@solid-primitives/props'
+import { mergeRefs } from '@solid-primitives/refs'
+import { ResizeHandler } from '@solid-primitives/resize-observer'
+import {
+	JSX,
+	ParentProps,
+	Show,
+	children,
+	createMemo,
+	onMount,
+	splitProps,
+	untrack,
+} from 'solid-js'
+import { createStore } from 'solid-js/store'
 import { IconClose } from '../../icons'
 import cs from '../../utils/classNames'
 import fillNBSP from '../../utils/fillNBSP'
 import { isArray, isFunction, isObject } from '../../utils/is'
+import ResizeObserver from '../../utils/resize-observer'
 import useKeyboardEvent from '../../utils/use-keyboard'
-import { hasIndex, toCSSObject, toPx } from '../../utils/util'
+import { hasIndex, toPx } from '../../utils/util'
 import IconHover from '../_class/icon-hover'
 import type { InputComponentProps, InputTriggers } from './interface'
 import useComposition from './useComposition'
-
-// 设置 input 元素缓冲宽度，避免 autoWidth.minWidth < padding + border 时，content 区域宽度为0，光标会看不到
-// 后续可考虑是否作为 autoWidth 的一个配置项暴露
+// Set the buffer width of the input element to avoid that when autoWidth.minWidth < padding + border,
+// the width of the content area is 0 and the cursor will not be visible.
+// this could also be added as a config prop in the future
 const inputContentWidth = 2
 
-const updateInputWidth = (ref: HTMLInputElement, width: number) => {
-  setTimeout(() => {
-    ref.style.width = `${width + inputContentWidth}px`
-  })
-}
-
-// 从 input 标签获取影响到宽度计算的"文本样式属性"和“布局”属性 https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text
-// 为什么不是直接把 input 标签的类名设置给 mirror 元素？避免用户对 input 类名自定义样式会影响到 mirror
-// 仅在 mounted 的时候执行一次
-const getStyleFromInput = (input: HTMLElement): JSX.CSSProperties => {
-  if (!input) {
+// Get the "text style attributes" and "layout" attributes that affect width calculation from the input tag https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_text
+// Why not directly set the class name of the input tag to the mirror element? Prevent users from customizing the style of the input class name from affecting the mirror
+// Only executed once when mounted
+const getStyleFromInput = (ref: HTMLElement): JSX.CSSProperties => {
+  if (!ref) {
     return {}
   }
 
-  const computeStyle = window.getComputedStyle(input)
+  const computeStyle = window.getComputedStyle(ref)
 
-  const cssKeys = [
+  const cssKeys: (keyof JSX.CSSProperties)[] = [
     'font',
-    'letterSpacing',
+    'letter-spacing',
     'overflow',
-    'tabSize',
-    'textIndent',
-    'textTransform',
-    'whiteSpace',
-    'wordBreak',
-    'wordSpacing',
-    'paddingLeft',
-    'paddingRight',
-    'borderLeft',
-    'borderRight',
-    'boxSizing',
+    'tab-size',
+    'text-indent',
+    'text-transform',
+    'white-space',
+    'word-break',
+    'word-spacing',
+    'padding-left',
+    'padding-right',
+    'border-left',
+    'border-right',
+    'box-sizing',
   ]
 
   return cssKeys.reduce((t, n) => {
@@ -78,6 +84,7 @@ const splitA = [
 ] as const
 
 const splitB = [
+  'ref',
   'error',
   'status',
   'showWordLimit',
@@ -94,17 +101,23 @@ const splitB = [
   'onBlur',
 ] as const
 
+type StoreType = {
+  inputComputedStyle?: JSX.CSSProperties
+  prevInputWidth: number
+}
+
 const InputComponent = (baseProps: InputComponentProps) => {
-  const [props, rest, otherProps] = splitProps(baseProps, splitA, splitB)
+  const [props, rest, domProps] = splitProps(baseProps, splitA, splitB)
 
-  const [getInputComputeStyle, setInputComputeStyle] = createSignal<JSX.CSSProperties>()
+  const [state, setState] = createStore<StoreType>({
+    inputComputedStyle: undefined,
+    prevInputWidth: 0,
+  })
 
-  let refInput!: HTMLInputElement
-  let refInputMirror!: HTMLSpanElement
+  let inputRef!: HTMLInputElement
+  let inputMirrorRef!: HTMLSpanElement
 
-  const [getPrevInputWidth, setPrefInputWidth] = createSignal(0)
-
-  const maxLength = createMemo(() => {
+  const maxLength = untrack(() => {
     if (isObject(props.maxLength)) {
       return props.maxLength.errorOnly ? undefined : props.maxLength.length
     }
@@ -127,72 +140,119 @@ const InputComponent = (baseProps: InputComponentProps) => {
   }
 
   const value = createMemo(() => props.value)
-  const [getCompositionValue, composition] = useComposition(value, maxLength, {
+  const [comp, composition] = useComposition(value, () => maxLength, {
     onInput: props.onInput,
     onKeyDown: props.onKeyDown,
     onPressEnter: props.onPressEnter,
     normalizeHandler,
   })
 
+  const updateInputWidth = (ref: HTMLInputElement, width: number) => {
+    ref.style.width = `${width + inputContentWidth}px`
+  }
+
   // Set the initial width of <input>, and subsequent updates are triggered by ResizeObserver
   onMount(() => {
-    if (props.autoFitWidth) {
+    if (props.autoFitWidth && inputMirrorRef) {
       if (!isObject(props.autoFitWidth) || !props.autoFitWidth.pure) {
-        setInputComputeStyle(getStyleFromInput(refInput))
+        setState('inputComputedStyle', getStyleFromInput(inputRef))
       }
-
-      updateInputWidth(refInput, refInputMirror.offsetWidth)
     }
   })
 
   // Here also need placeholder to trigger updateInputWidth after user-input is cleared
   const mirrorValue = createMemo(
-    () => getCompositionValue() || props.value || props.placeholder || '',
+    () => comp.compositionValue || props.value || props.placeholder || '',
   )
 
   const handleClear = (e: any) => {
-    refInput.focus()
+    inputRef.focus()
     composition.triggerValueChangeCallback?.('', e)
     props.onClear?.()
   }
 
   const { onKeyDown } = useKeyboardEvent()({ onPressEnter: handleClear })
 
-  onMount(() => {
-    createResizeObserver(refInputMirror, (_, el) => {
-      const element = el as HTMLSpanElement
+  const inputStyle = createMemo(() => {
+    const minWidth = isObject(props.autoFitWidth) ? props.autoFitWidth.minWidth : undefined
+    const maxWidth = isObject(props.autoFitWidth) ? props.autoFitWidth.maxWidth : undefined
 
-      if (element !== refInputMirror) {
-        return
-      }
+    if (props.allowClear || props.hasParent) {
+      return
+    }
 
-      const inputWidth = element.offsetWidth
+    return combineStyle(
+      {
+        ['min-width']: toPx(minWidth),
+        ['max-width']: toPx(maxWidth),
 
-      if (isObject(props.autoFitWidth)) {
-        const delay = isFunction(props.autoFitWidth.delay)
-          ? props.autoFitWidth.delay(inputWidth, getPrevInputWidth() || 0)
-          : props.autoFitWidth.delay
-
-        delay ? setTimeout(updateInputWidth, delay) : updateInputWidth(refInput, inputWidth)
-      } else {
-        updateInputWidth(refInput, inputWidth)
-      }
-
-      setPrefInputWidth(inputWidth)
-    })
+        ...('height' in props ? { height: toPx(props.height) } : {}),
+      },
+      props.style,
+    )
   })
 
-  const renderInput = (style?: JSX.CSSProperties) => {
-    return (
+  const mirrorInputStyle = createMemo(() => {
+    const obj = {
+      ...state.inputComputedStyle,
+    }
+
+    if (props.hasParent) {
+      return obj
+    }
+
+    if ('height' in props) {
+      obj.height = toPx(props.height)
+    }
+
+    return combineStyle(props.style, obj)
+  })
+
+  return (
+    <Wrapper
+      handleClear={handleClear}
+      onKeyDown={onKeyDown}
+      ref={inputMirrorRef}
+      mirrorValue={mirrorValue()}
+      mirrorInputStyle={mirrorInputStyle() || ''}
+      readOnly={props.readOnly}
+      autoFitWidth={props.autoFitWidth}
+      disabled={props.disabled}
+      prefixCls={props.prefixCls}
+      clearIcon={props.clearIcon}
+      allowClear={props.allowClear}
+      value={props.value}
+      onResize={(_, el) => {
+        const element = el as HTMLSpanElement
+
+        if (element !== inputMirrorRef) {
+          return
+        }
+
+        const inputWidth = element.offsetWidth
+
+        if (isObject(props.autoFitWidth)) {
+          const delay = isFunction(props.autoFitWidth.delay)
+            ? props.autoFitWidth.delay(inputWidth, state.prevInputWidth || 0)
+            : props.autoFitWidth.delay
+
+          delay ? setTimeout(updateInputWidth, delay) : updateInputWidth(inputRef, inputWidth)
+        } else {
+          updateInputWidth(inputRef, inputWidth)
+        }
+
+        setState('prevInputWidth', inputWidth)
+      }}
+    >
       <input
-        ref={refInput}
+        ref={mergeRefs(rest.ref, el => (inputRef = el))}
         aria-invalid={rest.status === 'error' || undefined}
-        {...otherProps}
+        {...domProps}
         readOnly={props.readOnly}
-        maxLength={maxLength()}
+        maxLength={maxLength}
         disabled={props.disabled}
         placeholder={props.placeholder}
-        value={getCompositionValue() || props.value || ''}
+        value={comp.compositionValue || props.value || ''}
         class={cs(
           props.prefixCls,
           props.prefixCls && {
@@ -216,91 +276,101 @@ const InputComponent = (baseProps: InputComponentProps) => {
             composition.triggerValueChangeCallback?.(normalize(e.currentTarget.value), e)
           }
         }}
-        style={style}
+        style={inputStyle()}
       />
-    )
-  }
-
-  return (
-    <>
-      <Switch>
-        <Match when={props.allowClear}>
-          <>
-            {renderInput()}
-
-            <Show when={!props.readOnly && !props.disabled && props.allowClear && props.value}>
-              <Dynamic
-                component={props.clearIcon !== undefined ? 'span' : IconHover}
-                tabIndex={0}
-                class={`${props.prefixCls}-clear-icon`}
-                onKeyDown={onKeyDown}
-                onClick={(e: MouseEvent) => {
-                  e.stopPropagation()
-                  handleClear(e)
-                }}
-                onMouseDown={(e: MouseEvent) => {
-                  if (!props.clearIcon !== undefined) {
-                    e.preventDefault()
-                  }
-                }}
-              >
-                <Show
-                  when={props.clearIcon}
-                  fallback={
-                    <IconClose
-                      // keep focus status
-                      onMouseDown={e => {
-                        e.preventDefault()
-                      }}
-                    />
-                  }
-                >
-                  {props.clearIcon}
-                </Show>
-              </Dynamic>
-            </Show>
-          </>
-        </Match>
-
-        <Match when={!props.allowClear}>
-          {renderInput(
-            props.hasParent
-              ? undefined
-              : {
-                  'min-width': isObject(props.autoFitWidth)
-                    ? props.autoFitWidth.minWidth
-                    : undefined,
-                  'max-width': isObject(props.autoFitWidth)
-                    ? props.autoFitWidth.maxWidth
-                    : undefined,
-                  ...(props.style as JSX.CSSProperties),
-                  ...('height' in props ? { height: toPx(props.height) } : {}),
-                },
-          )}
-        </Match>
-      </Switch>
-
-      <Show when={props.autoFitWidth}>
-        <span
-          class={cs(`${props.prefixCls}-mirror`)}
-          style={
-            props.hasParent
-              ? getInputComputeStyle()
-              : {
-                  ...getInputComputeStyle(),
-                  ...toCSSObject(props.style),
-                  ...('height' in props ? { height: toPx(props.height) } : {}),
-                }
-          }
-          ref={refInputMirror}
-        >
-          {fillNBSP(mirrorValue)}
-        </span>
-      </Show>
-    </>
+    </Wrapper>
   )
 }
 
 InputComponent.displayName = 'InputComponent'
 
 export default InputComponent
+
+interface WrapperProps {
+  handleClear(e: any): void
+  onKeyDown: JSX.HTMLAttributes<HTMLSpanElement>['onKeyDown']
+  onResize: ResizeHandler
+  mirrorInputStyle: JSX.CSSProperties | string
+  ref: HTMLSpanElement
+  mirrorValue: string
+  readOnly: InputComponentProps['readOnly']
+  disabled: InputComponentProps['disabled']
+  prefixCls: InputComponentProps['prefixCls']
+  clearIcon: InputComponentProps['clearIcon']
+  allowClear: InputComponentProps['allowClear']
+  autoFitWidth: InputComponentProps['autoFitWidth']
+  value: InputComponentProps['value']
+}
+
+const Wrapper = (props: ParentProps<WrapperProps>) => {
+  const inputSlot = children(() => props.children)
+
+  const canShowClearIcon = createMemo(
+    () => !props.readOnly && !props.disabled && props.allowClear && props.value,
+  )
+  const prefixCls = props.prefixCls
+  const onClick = (e: MouseEvent) => {
+    e.stopPropagation()
+    props.handleClear(e)
+  }
+
+  const onMouseDown = (e: MouseEvent) => {
+    if (!props.clearIcon !== undefined) {
+      e.preventDefault()
+    }
+  }
+
+  return (
+    <>
+      <Show when={props.allowClear} fallback={inputSlot()}>
+        <>
+          {inputSlot()}
+
+          <Show when={canShowClearIcon()}>
+            <Show
+              when={props.clearIcon}
+              fallback={
+                <IconHover
+                  tabIndex={0}
+                  class={`${prefixCls}-clear-icon`}
+                  onKeyDown={props.onKeyDown}
+                  onClick={onClick}
+                  onMouseDown={onMouseDown}
+                >
+                  <IconClose
+                    // keep focus status
+                    onMouseDown={e => {
+                      e.preventDefault()
+                    }}
+                  />
+                </IconHover>
+              }
+            >
+              <span
+                tabIndex={0}
+                class={`${prefixCls}-clear-icon`}
+                onKeyDown={props.onKeyDown}
+                onClick={onClick}
+                onMouseDown={onMouseDown}
+              >
+                {props.clearIcon}
+              </span>
+            </Show>
+          </Show>
+        </>
+      </Show>
+
+      <Show when={props.autoFitWidth}>
+        <ResizeObserver onResize={props.onResize}>
+          <span
+            class={cs(`${props.prefixCls}-mirror`)}
+            style={props.mirrorInputStyle}
+            ref={props.ref}
+          >
+            {fillNBSP(props.mirrorValue)}
+          </span>
+        </ResizeObserver>
+      </Show>
+    </>
+  )
+}

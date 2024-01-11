@@ -1,21 +1,23 @@
-import { Show, splitProps } from 'solid-js'
+import { Show, mergeProps, splitProps } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 import { IconEye, IconEyeInvisible } from '../../icons'
 import cs from '../../utils/classNames'
-import { createMergedValue } from '../../utils/store'
+import { syncValues } from '../../utils/store'
 import useKeyboardEvent from '../../utils/use-keyboard'
 import { useConfigContext } from '../config-provider'
 import Input from './input'
 import type { InputPasswordProps } from './interface'
+const defaultProps = {
+  defaultVisibility: false,
+  visibilityToggle: true,
+} as const
 
 const Password = (baseProps: InputPasswordProps) => {
-  const [isVisible, setVisibility] = createMergedValue(false, baseProps, [
-    'visibility',
-    'defaultVisibility',
-  ])
+  const mergedProps = mergeProps(defaultProps, baseProps)
+  const [isVisible, setVisibility] = syncValues(mergedProps, ['visibility', 'defaultVisibility'])
 
   const ctx = useConfigContext()
-  const [props, restProps] = splitProps(baseProps, [
+  const [props, restProps] = splitProps(mergedProps, [
     'class',
     'visibilityToggle',
     'onVisibilityChange',
@@ -35,7 +37,9 @@ const Password = (baseProps: InputPasswordProps) => {
   }
 
   const handleClickVisibility = () => {
-    onClickVisibility(!isVisible())
+    //wrapping in a settimeout allows the event to bubble up before the element
+    // that triggered the action is removed from dom
+    setTimeout(() => onClickVisibility(!isVisible()))
   }
 
   const { onKeyDown } = useKeyboardEvent()({ onPressEnter: handleClickVisibility })
@@ -44,13 +48,9 @@ const Password = (baseProps: InputPasswordProps) => {
     <Input
       {...restProps}
       type={isVisible() ? 'text' : 'password'}
-      class={cs(
-        prefixCls,
-        { [`${prefixCls}-visibility`]: props.visibilityToggle ?? true },
-        props.class,
-      )}
+      class={cs(prefixCls, { [`${prefixCls}-visibility`]: props.visibilityToggle }, props.class)}
       suffix={
-        <Show when={props.visibilityToggle ?? true} fallback={props.suffix}>
+        <Show when={props.visibilityToggle} fallback={props.suffix}>
           <Show
             when={!props.suffix}
             fallback={

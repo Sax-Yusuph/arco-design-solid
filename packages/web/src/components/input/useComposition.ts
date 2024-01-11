@@ -1,6 +1,7 @@
 import { isFunction } from 'remeda'
-import { Accessor, createSignal } from 'solid-js'
+import { Accessor } from 'solid-js'
 import { JSX } from 'solid-js/jsx-runtime'
+import { createStore } from 'solid-js/store'
 import { Enter } from '../../utils/keycode'
 import type { InputProps, InputTriggers, TextAreaProps } from './interface'
 
@@ -13,7 +14,10 @@ type CompositionProps = {
 }
 
 type CompositionReturn<T> = [
-  compositionValue: Accessor<string | undefined>,
+  composition: {
+    isComposition: boolean
+    compositionValue: string
+  },
   actions: {
     triggerValueChangeCallback: T
     compositionHandler: JSX.EventHandler<HTMLInputElement | HTMLTextAreaElement, CompositionEvent>
@@ -35,17 +39,13 @@ export default function useComposition(
     normalizeHandler,
   }: CompositionProps,
 ): CompositionReturn<typeof onInput> {
-  const [getIsComposition, setIsComposition] = createSignal(false)
-  const [getCompositionValue, setCompositionValue] = createSignal('')
+  const [state, setState] = createStore({ isComposition: false, compositionValue: '' })
 
   const triggerValueChangeCallback: typeof onInput = (newValue, e) => {
     beforeTriggerValueChangeCallback?.(newValue)
 
     if (
       onInput &&
-      // https://github.com/arco-design/arco-design/issues/520
-      // Avoid triggering onChange repeatedly for the same value
-      // Compositionend is earlier than onchange in Firefox, different with chrome
       newValue !== value() &&
       (maxLength() === undefined || newValue.length <= (maxLength() || 0))
     ) {
@@ -54,39 +54,34 @@ export default function useComposition(
   }
 
   return [
-    getCompositionValue,
+    state,
     {
       triggerValueChangeCallback,
       compositionHandler: (e: any) => {
-        setIsComposition(e.type !== 'compositionend')
+        setState('isComposition', e.type !== 'compositionend')
 
-        if (!getIsComposition()) {
-          setCompositionValue('')
+        if (!state.isComposition) {
+          setState('compositionValue', '')
           triggerValueChangeCallback(e.target.value, e)
         }
       },
 
       valueChangeHandler: (e: any) => {
         const newValue = e.target.value
-        const compositionValue = getCompositionValue()
-        const isComposition = getIsComposition()
+        const compositionValue = state.compositionValue
 
-        if (!isComposition) {
-          compositionValue && setCompositionValue('')
+        if (!state.isComposition) {
+          compositionValue && setState('compositionValue', '')
           triggerValueChangeCallback(newValue, e)
         } else {
-          // https://github.com/arco-design/arco-design/issues/397
-          // compositionupdate => onchange
-          setIsComposition(false)
-          setCompositionValue(newValue)
+          setState({ isComposition: false, compositionValue: newValue })
         }
       },
 
       keyDownHandler: (e: any) => {
         const keyCode = e.keyCode || e.which
-        const isComposition = getIsComposition()
 
-        if (!isComposition) {
+        if (!state.isComposition) {
           isFunction(onKeyDown) && onKeyDown(e)
           if (keyCode === Enter.code) {
             onPressEnter && onPressEnter(e)
@@ -96,5 +91,5 @@ export default function useComposition(
         }
       },
     },
-  ]
+  ] as const
 }

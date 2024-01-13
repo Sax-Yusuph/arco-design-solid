@@ -1,7 +1,7 @@
 import { JSX } from 'solid-js'
 
 export interface BaseButtonProps {
-  style?: JSX.CSSProperties
+  style?: JSX.CSSProperties | string
   class?: string
   children?: JSX.Element
   /**

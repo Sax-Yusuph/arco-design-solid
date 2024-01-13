@@ -1,5 +1,5 @@
-export { default as Alert } from './components/alert';
-export type { AlertProps } from './components/alert/interface';
+export { default as Alert } from './components/alert'
+export type { AlertProps } from './components/alert/interface'
 
 // export type { AnchorProps, AnchorLinkProps } from './Anchor/interface';
 // export { default as Anchor } from './Anchor';
@@ -10,8 +10,8 @@ export type { AlertProps } from './components/alert/interface';
 // export type { AutoCompleteProps } from './AutoComplete/interface';
 // export { default as AutoComplete } from './AutoComplete';
 
-export { default as Avatar } from './components/avatar';
-export type { AvatarGroupProps, AvatarProps } from './components/avatar/interface';
+export { default as Avatar } from './components/avatar'
+export type { AvatarGroupProps, AvatarProps } from './components/avatar/interface'
 
 // export type { BackTopProps } from './BackTop/interface';
 // export { default as BackTop } from './BackTop';
@@ -22,14 +22,14 @@ export type { AvatarGroupProps, AvatarProps } from './components/avatar/interfac
 // export type { BreadcrumbProps, BreadCrumbItemProps } from './Breadcrumb/interface';
 // export { default as Breadcrumb } from './Breadcrumb';
 
-export { default as Button } from './components/button';
-export type { ButtonGroupProps, ButtonProps } from './components/button/interface';
+export { default as Button } from './components/button'
+export type { ButtonGroupProps, ButtonProps } from './components/button/interface'
 
 // export type { CalendarProps } from './Calendar/interface';
 // export { default as Calendar } from './Calendar';
 
-export { default as Card } from './components/card';
-export type { CardGridProps, CardMetaProps, CardProps } from './components/card/interface';
+export { default as Card } from './components/card'
+export type { CardGridProps, CardMetaProps, CardProps } from './components/card/interface'
 
 // export type { CarouselProps } from './Carousel/interface';
 // export { default as Carousel } from './Carousel';
@@ -37,8 +37,8 @@ export type { CardGridProps, CardMetaProps, CardProps } from './components/card/
 // export type { CascaderProps } from './Cascader/interface';
 // export { default as Cascader } from './Cascader';
 
-export { default as Checkbox } from './components/checkbox';
-export type { CheckboxGroupProps, CheckboxProps } from './components/checkbox/interface';
+export { default as Checkbox } from './components/checkbox'
+export type { CheckboxGroupProps, CheckboxProps } from './components/checkbox/interface'
 
 // export type { CollapseProps, CollapseItemProps } from './Collapse/interface';
 // export { default as Collapse } from './Collapse';
@@ -46,8 +46,8 @@ export type { CheckboxGroupProps, CheckboxProps } from './components/checkbox/in
 // export type { CommentProps } from './Comment/interface';
 // export { default as Comment } from './Comment';
 
-export * from './components/config-provider';
-export type { ConfigProviderProps } from './components/config-provider/interface';
+export * from './components/config-provider'
+export type { ConfigProviderProps } from './components/config-provider/interface'
 
 // export type { DatePickerProps, MonthPickerProps, YearPickerProps, WeekPickerProps, QuarterPickerProps, RangePickerProps } from './DatePicker/interface';
 // export { default as DatePicker } from './DatePicker';
@@ -55,8 +55,8 @@ export type { ConfigProviderProps } from './components/config-provider/interface
 // export type { DescriptionsProps } from './Descriptions/interface';
 // export { default as Descriptions } from './Descriptions';
 
-export { default as Divider } from './components/divider';
-export type { DividerProps } from './components/divider/interface';
+export { default as Divider } from './components/divider'
+export type { DividerProps } from './components/divider/interface'
 
 // export type { DrawerProps } from './Drawer/interface';
 // export { default as Drawer } from './Drawer';
@@ -64,25 +64,25 @@ export type { DividerProps } from './components/divider/interface';
 // export type { DropdownProps, DropdownButtonProps } from './Dropdown/interface';
 // export { default as Dropdown } from './Dropdown';
 
-export { default as Empty } from './components/empty';
-export type { EmptyProps } from './components/empty/interface';
+export { default as Empty } from './components/empty'
+export type { EmptyProps } from './components/empty/interface'
 
 // export type { FormProps, FormItemProps, FormListProps, FormInstance, RulesProps } from './Form/interface';
 // export { default as Form } from './Form';
 
-export { default as Grid } from './components/grid';
-export type { ColProps, GridItemProps, GridProps, RowProps } from './components/grid/interface';
+export { default as Grid } from './components/grid'
+export type { ColProps, GridItemProps, GridProps, RowProps } from './components/grid/interface'
 
 // export { default as Icon } from './Icon';
 
-export { default as Input } from './components/input';
-export type { InputProps, TextAreaProps } from './components/input/interface';
+export { default as Input } from './components/input'
+export type { InputProps, TextAreaProps } from './components/input/interface'
 
 // export type { InputTagProps } from './InputTag/interface';
 // export { default as InputTag } from './InputTag';
 
-export { default as InputNumber } from './components/input-number';
-export type { InputNumberProps } from './components/input-number/interface';
+export { default as InputNumber } from './components/input-number'
+export type { InputNumberProps } from './components/input-number/interface'
 
 // export type { VerificationCodeProps } from './VerificationCode/interface';
 // export { default as VerificationCode } from './VerificationCode';
@@ -90,8 +90,8 @@ export type { InputNumberProps } from './components/input-number/interface';
 // export type { LayoutProps, HeaderProps, FooterProps, SiderProps, ContentProps } from './Layout/interface';
 // export { default as Layout } from './Layout';
 
-export { default as Link } from './components/link';
-export type { LinkProps } from './components/link/interface';
+export { default as Link } from './components/link'
+export type { LinkProps } from './components/link/interface'
 
 // export type { ListProps, ListItemProps, ListItemMetaProps } from './List/interface';
 // export { default as List } from './List';
@@ -134,23 +134,26 @@ export type { LinkProps } from './components/link/interface';
 // export type { ResizeBoxProps } from './ResizeBox/interface';
 // export { default as ResizeBox } from './ResizeBox';
 
-// export type { ResultProps } from './Result/interface';
-// export { default as Result } from './Result';
+export { default as Result } from './components/result'
+export type { ResultProps } from './components/result/interface'
 
 // export type { SelectProps, OptionProps as SelectOptionProps, OptGroupProps as SelectOptionGroupProps } from './Select/interface';
 // export { default as Select } from './Select';
 
-// export type { SkeletonProps, SkeletonImageProps, SkeletonTextProps } from './Skeleton/interface';
-// export { default as Skeleton } from './Skeleton';
+export type {
+	SkeletonImageProps, SkeletonProps, SkeletonTextProps
+} from './components/skeleton/interface'
+
+export { default as Skeleton } from './components/skeleton'
 
 // export type { SliderProps } from './Slider/interface';
 // export { default as Slider } from './Slider';
 
-export { default as Space } from './components/space';
-export type { SpaceProps } from './components/space/interface';
+export { default as Space } from './components/space'
+export type { SpaceProps } from './components/space/interface'
 
-// export type { SpinProps } from './Spin/interface';
-// export { default as Spin } from './Spin';
+export { default as Spin } from './components/spin'
+export type { SpinProps } from './components/spin/interface'
 
 // export type { StatisticProps, CountdownProps } from './Statistic/interface';
 // export { default as Statistic } from './Statistic';
@@ -158,8 +161,8 @@ export type { SpaceProps } from './components/space/interface';
 // export type { StepsProps, StepProps } from './Steps/interface';
 // export { default as Steps } from './Steps';
 
-export { default as Switch } from './components/switch';
-export type { SwitchProps } from './components/switch/interface';
+export { default as Switch } from './components/switch'
+export type { SwitchProps } from './components/switch/interface'
 
 // export type { TableProps, RowSelectionProps as TableRowSelectionProps, ColumnProps as TableColumnProps } from './Table/interface';
 // export type { TableInstance } from './Table/table';
@@ -168,8 +171,8 @@ export type { SwitchProps } from './components/switch/interface';
 // export type { TabsProps } from './Tabs/interface';
 // export { default as Tabs } from './Tabs';
 
-export { default as Tag } from './components/tag';
-export type { TagProps } from './components/tag/interface';
+export { default as Tag } from './components/tag'
+export type { TagProps } from './components/tag/interface'
 
 // export type { TimelineProps, TimelineItemProps } from './Timeline/interface';
 // export { default as Timeline } from './Timeline';

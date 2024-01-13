@@ -32,20 +32,35 @@ TODOS
 - [x] InputNumber
 - [x] Alert
 - [x] Affix
-- [ ] Autocomplete
-- [ ] VerificationCode
-- [ ] Calendar
+- [x] Grid
+- [x] Spin
+- [x] ConfigProvider
+- [ ] InputTag -- in progress
+- [x] Result
+- [ ] Skeleton
+- [ ] Steps
+- [ ] Statistic
+- [ ] Anchor
+- [ ] Backtop
+- [ ] Breadcrumb
+- [ ] Icon
+- [ ] Image
 - [ ] Badge
+- [ ] VerificationCode
+- [ ] Radio
+- [ ] Rate
+- [ ] Typograghy
+- [ ] Descriptions
+- [ ] List
+- [ ]
+- [ ] Autocomplete
+- [ ] Calendar
 - [ ] Cascader
 - [ ] CheckboxGroup
 - [ ] Collapse
 - [ ] Drawer
 - [ ] Dropdown
 - [ ] Form
-- [ ] Grid
-- [ ] Icon
-- [ ] Image
-- [ ] InputTag
 - [ ] Datepicker
 - [ ] Menu
 - [ ] Message
@@ -56,8 +71,6 @@ TODOS
 - [ ] Popover
 - [ ] Portal
 - [ ] Progress
-- [ ] Radio
-- [ ] Rate
 - [ ] Table
 - [ ] Tabs
 - [ ] Timeline
@@ -65,30 +78,18 @@ TODOS
 - [ ] Tooltip
 - [ ] Transfer
 - [ ] Trigger
-- [ ] Typograghy
 - [ ] Tree
 - [ ] Upload
 - [ ] TreeSelect
 - [ ] Layout
 - [ ]
-- [ ] Anchor
-- [ ] Backtop
-- [ ] Breadcrumb
 - [ ] Carousel
 - [ ] Comment
-- [ ] ConfigProvider
-- [ ] Descriptions
-- [ ] List
 - [ ] Mentions
 - [ ] PageHeader
 - [ ] ResizeBox
-- [ ] Result
 - [ ] Select
-- [ ] Skeleton
 - [ ] Slider
-- [ ] Spin
-- [ ] Statistic
-- [ ] Steps
 - [ ] Watermark
 
 > **Note** After using this template, you have to search and replace all `arco-design-solid` and similar strings

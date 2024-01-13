@@ -43,12 +43,12 @@ import { LinkProps } from '../link/interface'
 // import { RadioProps, RadioGroupProps } from '../Radio/interface';
 // import { RateProps } from '../Rate/interface';
 // import { ResizeBoxProps } from '../ResizeBox/interface';
-// import { ResultProps } from '../Result/interface';
+import { ResultProps } from '../result/interface'
 // import { SelectProps } from '../Select/interface';
-// import { SkeletonProps } from '../Skeleton/interface';
+import { SkeletonProps } from '../skeleton/interface'
 // import { SliderProps } from '../Slider/interface';
 import { SpaceProps } from '../space/interface'
-// import { SpinProps } from '../Spin/interface';
+import { SpinProps } from '../spin/interface'
 // import { StatisticProps } from '../Statistic/interface';
 // import { StepsProps } from '../Steps/interface';
 import { SwitchProps } from '../switch/interface'
@@ -135,12 +135,12 @@ export type ComponentConfig = {
   // 'Radio.Group'?: RadioGroupProps;
   // Rate?: RateProps;
   // ResizeBox?: ResizeBoxProps
-  // Result?: ResultProps;
+  Result?: ResultProps;
   // Select?: SelectProps;
-  // Skeleton?: SkeletonProps;
+  Skeleton?: SkeletonProps;
   // Slider?: SliderProps;
   Space?: SpaceProps
-  // Spin?: SpinProps;
+  Spin?: SpinProps;
   // Statistic?: StatisticProps;
   // Steps?: StepsProps;
   Switch?: SwitchProps

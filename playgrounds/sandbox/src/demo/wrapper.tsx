@@ -6,7 +6,7 @@ export const Demo = (props: ParentProps<{ name: string; description?: string }>)
 
   return (
     <Space direction="vertical" style="width:100% !important">
-      <h6 class="arco-typography">{props.name}</h6>
+      <h5 class="arco-typography">{props.name}</h5>
       {typeof description() === 'string' ? (
         <p class="arco-typography">{props.description}</p>
       ) : (

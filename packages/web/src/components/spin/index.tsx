@@ -19,8 +19,6 @@ import { useConfigContext } from '../config-provider'
 import DotLoading from './dot-loading'
 import type { SpinProps } from './interface'
 
-
-
 const LoadingIcon = (
   props: Pick<SpinProps, 'icon' | 'element' | 'size' | 'dot'> & { prefixCls?: string },
 ) => {
@@ -67,7 +65,8 @@ function Spin(baseProps: SpinProps) {
   const [delayedLoading, setDelayedLoading] = createSignal(props.delay ? false : props.loading)
 
   const debouncedSetLoading = debounce((v: boolean) => setDelayedLoading(v), props.delay)
-  const _usedLoading = createMemo(() => (props.delay ? delayedLoading : props.loading))
+
+  const _usedLoading = createMemo(() => (props.delay ? delayedLoading() : props.loading))
   const prefixCls = ctx.getPrefixCls?.('spin')
 
   createComputed(() => {
@@ -89,7 +88,7 @@ function Spin(baseProps: SpinProps) {
         prefixCls,
         {
           [`${prefixCls}-block`]: props.block,
-          [`${prefixCls}-loading`]: _usedLoading,
+          [`${prefixCls}-loading`]: _usedLoading(),
           [`${prefixCls}-with-tip`]: props.tip && !children,
         },
         props.class,

@@ -12,7 +12,7 @@ export const Demo = (props: ParentProps<{ name: string; description?: string }>)
       ) : (
         description
       )}
-      <Card>{props.children}</Card>
+      <Card bodyStyle={{ padding: '35px' }}>{props.children}</Card>
     </Space>
   )
 }

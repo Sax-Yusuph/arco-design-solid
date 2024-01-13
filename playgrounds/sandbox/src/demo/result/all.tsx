@@ -11,7 +11,7 @@ const App = () => {
         subTitle="DNS_PROBE_FINISHED_NO_INTERNET"
         extra={<Button type="primary">Refresh</Button>}
       >
-        <div class="result-content" style={{ background: 'var(--color-fill-2)', padding: '24px' }}>
+        <div class="result-content " style={{ background: 'var(--color-fill-2)', padding: '24px' }}>
           <span>Try:</span>
           <ul>
             <li> Checking the network cables, modem, and router </li>

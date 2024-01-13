@@ -6,7 +6,7 @@ const App = () => {
     <div>
       <Result
         status={null}
-        icon={<AiFillSmile style={{ color: 'rgb(var(--arcoblue-6))' }} />}
+        icon={<AiFillSmile class='arco-icon' style={{ color: 'rgb(var(--arcoblue-6))' }} />}
         title="Your operation has been performed."
         extra={<Button type="primary">Back</Button>}
       ></Result>

@@ -70,17 +70,20 @@ export function createMergedStore<P extends Record<string, any>, K extends keyof
 
 export function syncValues<P extends Record<string, any>, K extends keyof P>(
   props: P,
-  keys: [value: K, defaultValue: K],
-  formmater?: (value: P[K]) => P[K],
+  keys: [value: K, defaultValue?: K],
+  formmater?: (value?: P[K]) => P[K],
 ) {
   const [valueKey, defaultValueKey] = keys
 
-  const normalize = (v: P[K]) => {
+  const normalize = (v?: P[K]) => {
     return formmater ? formmater(v) : v
   }
 
-  const source = createMemo(() => normalize(props[valueKey] || props[defaultValueKey]))
-  const [value, setValue] = createSignal(normalize(props[defaultValueKey]))
+  const initialValue = props[valueKey]
+  const initialDefaultValue = defaultValueKey ? props[defaultValueKey] : undefined
+
+  const source = createMemo(() => normalize(initialValue || initialDefaultValue))
+  const [value, setValue] = createSignal(normalize(initialDefaultValue))
 
   syncSignals(source, setValue)
 

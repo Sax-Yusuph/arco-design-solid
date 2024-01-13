@@ -1,3 +1,4 @@
+import { ResolvedJSXElement } from '@solid-primitives/refs'
 import { JSX } from 'solid-js'
 import { isObject } from './is'
 export const getKeys = Object.keys as <T extends object>(obj: T) => Array<keyof T>
@@ -70,4 +71,51 @@ export const contains = function (root: HTMLElement, ele: any) {
     node = node.parentNode
   }
   return false
+}
+
+export const addStyle = <T extends ResolvedJSXElement, K extends keyof JSX.CSSProperties>(
+  node: T,
+  property: K,
+  value: JSX.CSSProperties[K],
+) => {
+  if (node instanceof Element) {
+    //@ts-ignore
+    node.style[property] = value
+  }
+}
+
+export const addStyles = <T extends ResolvedJSXElement>(node: T, values: JSX.CSSProperties) => {
+  if (node instanceof Element) {
+    getKeys(values).forEach(key => {
+      //@ts-ignore
+      node.style[key] = value
+    })
+  }
+}
+
+export const addClass = <T extends ResolvedJSXElement>(node: T, value: string) => {
+  if (node instanceof Element) {
+    node.classList.add(value)
+  }
+}
+
+export function pickDataAttributes<T extends object, K extends keyof T>(
+  obj: T,
+): { [key in K]: any } {
+  const clone = {} as { [key in K]: any }
+
+  obj &&
+    getKeys(obj).forEach(key => {
+      const k = String(key)
+      if (k.indexOf('data-') === 0) {
+				//@ts-ignore
+        clone[k] = obj[k]
+      }
+      if (k.indexOf('aria-') === 0) {
+				//@ts-ignore
+        clone[k] = obj[k]
+      }
+    })
+
+  return clone
 }

@@ -192,7 +192,7 @@ function InputNumber(baseProps: InputNumberProps) {
     if (needRepeat) {
       const isFirstRepeat = state.autoTimer === null
       const id = window.setTimeout(
-        () => event.target.dispatchEvent(event.nativeEvent),
+        () => event.nativeEvent instanceof Event && event.target.dispatchEvent(event.nativeEvent),
         isFirstRepeat ? AUTO_CHANGE_START_DELAY : AUTO_CHANGE_INTERVAL,
       )
 

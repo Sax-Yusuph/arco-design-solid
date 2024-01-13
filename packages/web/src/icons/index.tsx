@@ -217,6 +217,118 @@ export const IconCheckCircleFill = (props: JSX.SvgSVGAttributes<SVGSVGElement>) 
   )
 }
 
+export const IconCheck = (props: JSX.SvgSVGAttributes<SVGSVGElement>) => {
+  return (
+    <svg
+      width="48"
+      height="48"
+      viewBox="0 0 48 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+      stroke-width="4"
+      {...props}
+      class={cs(props.class, 'arco-icon')}
+    >
+      <path d="M41.6776 11.0503L19.0502 33.6777L6.32227 20.9498" stroke-linecap="butt"></path>
+    </svg>
+  )
+}
+
+export const IconInfo = (props: JSX.SvgSVGAttributes<SVGSVGElement>) => {
+  return (
+    <svg
+      width="48"
+      height="48"
+      viewBox="0 0 48 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+      stroke-width="4"
+      {...props}
+      class={cs(props.class, 'arco-icon')}
+    >
+      <rect
+        x="25"
+        y="39"
+        width="2"
+        height="21"
+        transform="rotate(180 25 39)"
+        stroke-linecap="butt"
+      ></rect>
+      <rect
+        x="25"
+        y="39"
+        width="2"
+        height="21"
+        transform="rotate(180 25 39)"
+        fill="currentColor"
+        stroke="none"
+        stroke-width="none"
+        stroke-linecap="butt"
+      ></rect>
+      <rect
+        x="25"
+        y="11"
+        width="2"
+        height="2"
+        transform="rotate(180 25 11)"
+        stroke-linecap="butt"
+      ></rect>
+      <rect
+        x="25"
+        y="11"
+        width="2"
+        height="2"
+        transform="rotate(180 25 11)"
+        fill="currentColor"
+        stroke="none"
+        stroke-width="none"
+        stroke-linecap="butt"
+      ></rect>
+    </svg>
+  )
+}
+
+export const IconExclamation = (props: JSX.SvgSVGAttributes<SVGSVGElement>) => {
+  return (
+    <svg
+      width="48"
+      height="48"
+      viewBox="0 0 48 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke="currentColor"
+      stroke-width="4"
+			{...props}
+      class={cs(props.class, 'arco-icon')}
+    >
+      <rect x="23" y="9" width="2" height="21" stroke-linecap="butt"></rect>
+      <rect
+        x="23"
+        y="9"
+        width="2"
+        height="21"
+        fill="currentColor"
+        stroke="none"
+        stroke-width="none"
+        stroke-linecap="butt"
+      ></rect>
+      <rect x="23" y="37" width="2" height="2" stroke-linecap="butt"></rect>
+      <rect
+        x="23"
+        y="37"
+        width="2"
+        height="2"
+        fill="currentColor"
+        stroke="none"
+        stroke-width="none"
+        stroke-linecap="butt"
+      ></rect>
+    </svg>
+  )
+}
+
 export const IconCloseCircleFill = (props: JSX.SvgSVGAttributes<SVGSVGElement>) => {
   return (
     <svg

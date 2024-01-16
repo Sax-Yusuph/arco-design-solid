@@ -2,19 +2,12 @@
   <img width="100%" src="https://assets.solidjs.com/banner?type=arco-design-solid&background=tiles&project=Monorepo" alt="arco-design-solid">
 </p>
 
-# arco-design-solid
+# Arco-design-solid (WIP)
 
 [![pnpm](https://img.shields.io/badge/maintained%20with-pnpm-cc00ff.svg?style=for-the-badge&logo=pnpm)](https://pnpm.io/)
 [![turborepo](https://img.shields.io/badge/built%20with-turborepo-cc00ff.svg?style=for-the-badge&logo=turborepo)](https://turborepo.org/)
 
-Awesome UI Components based on Arco design
-
-
-TODOS
-1. avatar component needs trigger props in interface.ts
-2. config provider also needs some completions for panelProps in its interface
-3. Optimize input component
-
+Awesome UI Components for solidjs based on Arco design.
 
 ## Supported components
 - [x] Button
@@ -37,7 +30,7 @@ TODOS
 - [x] ConfigProvider
 - [ ] InputTag -- in progress
 - [x] Result
-- [ ] Skeleton
+- [x] Skeleton
 - [ ] Steps
 - [ ] Statistic
 - [ ] Anchor
@@ -46,7 +39,7 @@ TODOS
 - [ ] Icon
 - [ ] Image
 - [ ] Badge
-- [ ] VerificationCode
+- [ ] VerificationCo
 - [ ] Radio
 - [ ] Rate
 - [ ] Typograghy
@@ -91,19 +84,6 @@ TODOS
 - [ ] Select
 - [ ] Slider
 - [ ] Watermark
-
-> **Note** After using this template, you have to search and replace all `arco-design-solid` and similar strings
-> with appropriate texts.
->
-> `arco-design-solid` should be a **kebab-case** string representing the name of you monorepo.
->
-> `your-repository-desc` should be a **Normal case** string with the description of the repository.
->
-> `sax-yusuph` should be a **kebab-case** string from your profile URL.
->
-> `sax yusuph` should be a **Normal case** string with your first and last name.
->
->
 
 
 ## Quick start

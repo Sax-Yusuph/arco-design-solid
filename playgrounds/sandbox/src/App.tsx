@@ -1,6 +1,6 @@
 import { ConfigProvider, Space } from '@arco-design/web-solid'
 import type { Component } from 'solid-js'
-import SkeletonDemo from './demo/skeleton'
+import StepsDemo from './demo/steps'
 
 const App: Component = () => {
   return (
@@ -20,7 +20,8 @@ const App: Component = () => {
           {/* <InputNumberDemo /> */}
           {/* <SpinDemo /> */}
           {/* <ResultDemo /> */}
-          <SkeletonDemo />
+          {/* <SkeletonDemo /> */}
+          <StepsDemo />
         </Space>
       </ConfigProvider>
     </div>

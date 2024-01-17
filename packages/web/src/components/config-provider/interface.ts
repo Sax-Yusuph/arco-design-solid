@@ -50,7 +50,7 @@ import { SkeletonProps } from '../skeleton/interface'
 import { SpaceProps } from '../space/interface'
 import { SpinProps } from '../spin/interface'
 // import { StatisticProps } from '../Statistic/interface';
-// import { StepsProps } from '../Steps/interface';
+import { StepsProps } from '../steps/interface'
 import { SwitchProps } from '../switch/interface'
 // import { TableProps } from '../Table/interface';
 // import { TabsProps } from '../Tabs/interface';
@@ -142,7 +142,7 @@ export type ComponentConfig = {
   Space?: SpaceProps
   Spin?: SpinProps;
   // Statistic?: StatisticProps;
-  // Steps?: StepsProps;
+  Steps?: StepsProps;
   Switch?: SwitchProps
   // Table?: TableProps;
   // Tabs?: TabsProps;

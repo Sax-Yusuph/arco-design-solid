@@ -1,8 +1,8 @@
-import { type } from 'remeda'
-import { children, createMemo, mergeProps, splitProps } from 'solid-js'
+import { createMemo, mergeProps, splitProps } from 'solid-js'
 import cs from '../../utils/classNames'
 import { pickDataAttributes } from '../../utils/util'
 import { useConfigContext } from '../config-provider'
+import { StepProvider } from './context'
 import type { StepsProps } from './interface'
 import Step from './step'
 
@@ -57,60 +57,47 @@ function Steps(baseProps: StepsProps) {
   })
 
   return (
-    <div
-      {...pickDataAttributes(restProps)}
-      ref={restProps.ref}
-      style={props.style}
-      class={cs(
-        prefixCls,
-        `${prefixCls}-${innerDirection()}`,
-        `${prefixCls}-label-${innerLabelPlacement()}`,
-        `${prefixCls}-size-${props.size}`,
-        {
-          [`${prefixCls}-change-onclick`]: typeof props.onChange === 'function',
-          [`${prefixCls}-mode-${props.type}`]: props.type !== 'default',
-          [`${prefixCls}-lineless`]: props.lineless,
-          [`${prefixCls}-rtl`]: ctx.rtl,
-        },
-        props.class,
-      )}
+    <StepProvider
+      customDot={props.customDot}
+      onChange={props.onChange}
+      lineless={props.lineless}
+      direction={innerDirection()}
+      labelPlacement={innerLabelPlacement()}
+      type={props.type}
+      prefixCls={prefixCls}
+      status={props.status}
+      current={props.current}
     >
-      {React.Children.toArray(children)
-        .filter(
-          (child: ReactElement) =>
-            child && child.type && (child.type as { displayName? }).displayName === 'Step',
-        )
-        .map((child: ReactElement, index) => {
-          // step 的 index 从 1 开始
-          index += 1
-          if (child) {
-            const childProps = {
-              prefixCls,
-              type,
-              index,
-              current,
-              status: current === index ? status : undefined,
-              customDot,
-              labelPlacement: innerLabelPlacement,
-              direction: innerDirection,
-              onChange,
-              lineless,
-              ...child.props,
-            }
-            if (status === 'error' && current === index + 1) {
-              childProps.nextStepError = true
-            }
-            return React.cloneElement(child, childProps)
-          }
-          return null
-        })}
-    </div>
+      <div
+        {...pickDataAttributes(restProps)}
+        ref={restProps.ref}
+        style={props.style}
+        class={cs(
+          prefixCls,
+          `${prefixCls}-${innerDirection()}`,
+          `${prefixCls}-label-${innerLabelPlacement()}`,
+          `${prefixCls}-size-${props.size}`,
+          {
+            [`${prefixCls}-change-onclick`]: typeof props.onChange === 'function',
+            [`${prefixCls}-mode-${props.type}`]: props.type !== 'default',
+            [`${prefixCls}-lineless`]: props.lineless,
+            [`${prefixCls}-rtl`]: ctx.rtl,
+          },
+          props.class,
+        )}
+      >
+        {props.children}
+      </div>
+    </StepProvider>
   )
 }
 
-Steps.displayName = 'Steps'
-Steps.Step = Step
+const StepsComponent = Steps as typeof Steps & {
+  Step: typeof Step
+}
 
-export default Steps
+StepsComponent.Step = Step
+
+export default StepsComponent
 
 export type { StepsProps }

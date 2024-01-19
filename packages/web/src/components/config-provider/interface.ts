@@ -1,37 +1,37 @@
 // import { ReactNode } from 'react';
 // import { Omit } from '../_util/type';
 // import { PaginationProps } from '../Pagination/interface';
-import { AffixProps } from '../affix/interface'
-import { AlertProps } from '../alert/interface'
+import { AffixProps } from '../affix/interface';
+import { AlertProps } from '../alert/interface';
 // import { AnchorLinkProps, AnchorProps } from '../Anchor/interface';
 // import { AutoCompleteProps } from '../AutoComplete/interface';
-import { Locale } from '../../locale/interface'
-import { AvatarGroupProps, AvatarProps } from '../avatar'
-// import { BackTopProps } from '../BackTop/interface';
+import { Locale } from '../../locale/interface';
+import { AvatarGroupProps, AvatarProps } from '../avatar';
+import { BackTopProps } from '../backTop/interface';
 // import { BadgeProps } from '../Badge/interface';
 // import { BreadcrumbProps } from '../Breadcrumb/interface';
-import { ButtonProps } from '../button/interface'
+import { ButtonProps } from '../button/interface';
 // import { CalendarProps } from '../Calendar/interface';
-import { CardProps } from '../card/interface'
+import { CardProps } from '../card/interface';
 // import { CarouselProps } from '../Carousel/interface';
 // import { CascaderProps } from '../Cascader/interface';
-import { CheckboxProps } from '../checkbox/interface'
+import { CheckboxProps } from '../checkbox/interface';
 // import { CollapseProps } from '../Collapse/interface';
 // import { CommentProps } from '../Comment/interface';
 // import { PickerProps as DatePickerCommonProps } from '../DatePicker/interface';
 // import { DescriptionsProps } from '../Descriptions/interface';
-import { DividerProps } from '../divider/interface'
+import { DividerProps } from '../divider/interface';
 // import { DrawerProps } from '../Drawer/interface';
 // import { DropdownProps, DropdownButtonProps } from '../Dropdown/interface';
-import { EmptyProps } from '../empty/interface'
+import { EmptyProps } from '../empty/interface';
 // import { FormProps } from '../Form/interface';
-import { ColProps, GridItemProps, GridProps, RowProps } from '../grid/interface'
+import { ColProps, GridItemProps, GridProps, RowProps } from '../grid/interface';
 // import { ImageProps } from '../Image/interface';
-import { InputTagProps } from '../Input-tag/interface'
-import { InputNumberProps } from '../input-number/interface'
-import { InputProps } from '../input/interface'
+import { InputNumberProps } from '../input-number/interface';
+import { InputTagProps } from '../Input-tag/interface';
+import { InputProps } from '../input/interface';
 // import { LayoutProps } from '../Layout/interface';
-import { LinkProps } from '../link/interface'
+import { LinkProps } from '../link/interface';
 // import { ListItemProps, ListProps } from '../List/interface';
 // import { MentionsProps } from '../Mentions/interface';
 // import { MenuProps } from '../Menu/interface';
@@ -43,15 +43,15 @@ import { LinkProps } from '../link/interface'
 // import { RadioProps, RadioGroupProps } from '../Radio/interface';
 // import { RateProps } from '../Rate/interface';
 // import { ResizeBoxProps } from '../ResizeBox/interface';
-import { ResultProps } from '../result/interface'
+import { ResultProps } from '../result/interface';
 // import { SelectProps } from '../Select/interface';
-import { SkeletonProps } from '../skeleton/interface'
+import { SkeletonProps } from '../skeleton/interface';
 // import { SliderProps } from '../Slider/interface';
-import { SpaceProps } from '../space/interface'
-import { SpinProps } from '../spin/interface'
-// import { StatisticProps } from '../Statistic/interface';
-import { StepsProps } from '../steps/interface'
-import { SwitchProps } from '../switch/interface'
+import { SpaceProps } from '../space/interface';
+import { SpinProps } from '../spin/interface';
+import { StatisticProps } from '../statistic/interface';
+import { StepsProps } from '../steps/interface';
+import { SwitchProps } from '../switch/interface';
 // import { TableProps } from '../Table/interface';
 // import { TabsProps } from '../Tabs/interface';
 // import { TimelineProps, TimelineItemProps } from '../Timeline/interface';
@@ -63,12 +63,12 @@ import { SwitchProps } from '../switch/interface'
 // import { TriggerProps } from '../Trigger/interface';
 // // import { TypographyProps } from '../Typography/interface';
 // import { UploadProps } from '../Upload/interface';
-// import { VerificationCodeProps } from '../VerificationCode/interface';
+import { VerificationCodeProps } from '../verification-code/interface';
 // import { WatermarkProps } from '../Watermark/interface';
 
-import { JSXElement } from 'solid-js'
+import { JSXElement } from 'solid-js';
 
-import { TagProps } from '../tag'
+import { TagProps } from '../tag';
 // import { AffixProps } from '../Affix'
 
 export type ThemeConfig = Record<string, any>
@@ -81,7 +81,7 @@ export type ComponentConfig = {
   'Avatar.Group'?: AvatarGroupProps
   // Anchor?: AnchorProps;
   // 'Anchor.Link'?: AnchorLinkProps;
-  // BackTop?: BackTopProps;
+  BackTop?: BackTopProps;
   // Badge?: BadgeProps;
   // Breadcrumb?: BreadcrumbProps;
   Button?: ButtonProps
@@ -116,7 +116,7 @@ export type ComponentConfig = {
   // Image?: ImageProps;
   Input?: InputProps
   InputNumber?: InputNumberProps;
-  // VerificationCode?: VerificationCodeProps;
+  VerificationCode?: VerificationCodeProps;
   // Watermark?: WatermarkProps;
   InputTag?: InputTagProps;
   // Layout?: LayoutProps
@@ -141,7 +141,7 @@ export type ComponentConfig = {
   // Slider?: SliderProps;
   Space?: SpaceProps
   Spin?: SpinProps;
-  // Statistic?: StatisticProps;
+  Statistic?: StatisticProps;
   Steps?: StepsProps;
   Switch?: SwitchProps
   // Table?: TableProps;

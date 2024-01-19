@@ -70,3 +70,7 @@ export function isFunction<T>(data: T | Function): data is DefinitelyFunction<T>
 export function isUndefined(obj: any): obj is undefined {
   return obj === undefined
 }
+
+export function isExist(obj: any): boolean {
+  return obj || obj === 0;
+}

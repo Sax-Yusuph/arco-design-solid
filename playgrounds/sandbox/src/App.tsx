@@ -1,10 +1,10 @@
 import { ConfigProvider, Space } from '@arco-design/web-solid'
 import type { Component } from 'solid-js'
-import StepsDemo from './demo/steps'
+import BacktopDemo from './demo/backtop'
 
 const App: Component = () => {
   return (
-    <div style="width:50vw; margin:auto; min-width:600px">
+    <div style="width:60vw; margin:auto; min-width:600px">
       <ConfigProvider>
         <Space size={'large'} direction="vertical" style="width:100%">
           {/* <AvatarDemo /> */}
@@ -21,7 +21,10 @@ const App: Component = () => {
           {/* <SpinDemo /> */}
           {/* <ResultDemo /> */}
           {/* <SkeletonDemo /> */}
-          <StepsDemo />
+          {/* <StepsDemo /> */}
+          {/* <StatisticDemo /> */}
+          {/* <VerificationCodeDemo /> */}
+          <BacktopDemo />
         </Space>
       </ConfigProvider>
     </div>

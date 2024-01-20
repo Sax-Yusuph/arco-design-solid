@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 import fs from 'fs-extra';
 import path from 'path';
-import icongen from './scripts/icongen';
+import icongen from './icongen';
 // import screentshotTest from './scripts/test/screentshot';
 
 const program = new Command();

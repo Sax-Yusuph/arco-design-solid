@@ -55,7 +55,7 @@
     "test:client": "vitest -c ../../configs/vitest.config.ts",
     "test:ssr": "pnpm run test:client --mode ssr",
     "typecheck": "tsc --noEmit",
-    "icongen": "arco-solid-scripts icongen"
+    "icon": "arco-solid-scripts icongen"
   },
   "devDependencies": {
     "@arco-design/arco-solid-scripts": "workspace:^",

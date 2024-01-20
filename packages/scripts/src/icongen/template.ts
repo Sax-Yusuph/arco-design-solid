@@ -8,6 +8,27 @@ export const createIconContext = () => {
 
 		export const useIconContext = () => useContext(IconContext)
 
+
+		type ClassValue = ClassArray | ClassDictionary | string | number | null | boolean | undefined
+		type ClassDictionary = Record<string, any>
+		type ClassArray = ClassValue[]
+
+		export function cs(...args: ClassValue[]) {
+			var i = 0,
+				tmp,
+				str = '',
+				len = args.length
+			for (; i < len; i++) {
+				if ((tmp = args[i])) {
+					if (typeof tmp === 'string') {
+						str += (str && ' ') + tmp
+					}
+				}
+			}
+			return str
+		}
+
+
 	`
 }
 
@@ -22,29 +43,23 @@ export const getIcon = ({
 }) => {
   return `
 	import type { IconProps } from '../types'
-	import { JSX, mergeProps, splitProps } from 'solid-js'
-	import { useIconContext } from '../context';
+	import { splitProps, Component} from 'solid-js'
+	import { useIconContext, cs } from '../context';
 
-   function ${componentName}(baseProps: IconProps): JSX.Element {
+   const ${componentName}: Component<IconProps> = (baseProps: IconProps) => {
 		const { prefixCls = 'arco' } = useIconContext()
-		const addPrefix = (str: string) => prefixCls + str
+		const prefix = prefixCls + 'icon'
 
+		const [_, props] = splitProps(baseProps, ['spin'])
 
-		const combined = mergeProps(baseProps, {
-			'aria-hidden': true,
-			focusable: false,
-			class: [
-				baseProps.class ? baseProps.class : '',
-				addPrefix('-icon'),
-				addPrefix('-icon-${name.replace('-icon', '')}'),
-				baseProps.spin ? addPrefix('-icon-loading') : '',
-			].join(' '),
-		})
-
-		const [_, props] = splitProps(combined, ['spin'])
-
-		return ${svgHtml.replace('{...props}=""', '{...props}')}
-
+		return ${svgHtml.replace(
+      '>',
+      `{...props} class={
+			cs(baseProps.class,prefix,
+			\`\${prefix}-${name.replace('icon-', '')}\`,
+			{ [\`\${prefix}-loading\`]: baseProps.spin }
+			)}>`,
+    )}
 	}
 
 	export default ${componentName}

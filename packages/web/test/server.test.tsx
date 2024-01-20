@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest'
 import { isServer, renderToString } from 'solid-js/web'
-import { Hello, createHello } from '../src'
+import { describe, expect, it } from 'vitest'
+import { Hello, createHello } from '../components'
 
 describe('environment', () => {
   it('runs on server', () => {

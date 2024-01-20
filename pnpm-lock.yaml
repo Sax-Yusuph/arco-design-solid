@@ -48,7 +48,7 @@ importers:
         specifier: ^0.27.2
         version: 0.27.2(jsdom@21.0.0)
 
-  packages/arco-solid-scripts:
+  packages/scripts:
     dependencies:
       chalk:
         specifier: ^5.3.0
@@ -120,7 +120,7 @@ importers:
     devDependencies:
       '@arco-design/arco-solid-scripts':
         specifier: workspace:^
-        version: link:../arco-solid-scripts
+        version: link:../scripts
       solid-js:
         specifier: ^1.6.9
         version: 1.6.9

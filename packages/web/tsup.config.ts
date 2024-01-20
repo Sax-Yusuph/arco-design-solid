@@ -3,14 +3,14 @@ import { defineConfig } from 'tsup-preset-solid'
 export default defineConfig(
   [
     {
-      entry: 'src/index.tsx',
+      name: 'lib',
+      entry: './components/index.tsx',
       devEntry: true,
     },
     {
       name: 'icon',
-      entry: 'src/components/icon/index.ts',
+      entry: './icon/arco-icons/index.ts',
       devEntry: true,
-
     },
   ],
   {

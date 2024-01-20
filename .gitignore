@@ -16,7 +16,7 @@ lerna-debug.log
 
 # turbo
 .turbo
-
+**/.turbo
 # solid
 .solid
 
@@ -28,4 +28,4 @@ lerna-debug.log
 
 .DS_Store
 Thumbs.db
-**/components/icon/*
+**/arco-icons/*

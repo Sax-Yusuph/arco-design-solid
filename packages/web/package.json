@@ -54,24 +54,29 @@
     "test": "concurrently pnpm:test:*",
     "test:client": "vitest -c ../../configs/vitest.config.ts",
     "test:ssr": "pnpm run test:client --mode ssr",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "icongen": "arco-solid-scripts icongen"
   },
   "devDependencies": {
+    "@arco-design/arco-solid-scripts": "workspace:^",
     "solid-js": "^1.6.9"
   },
   "peerDependencies": {
     "solid-js": "^1.6.0"
   },
   "dependencies": {
+    "@solid-primitives/context": "^0.2.2",
     "@solid-primitives/map": "^0.4.8",
     "@solid-primitives/props": "^3.1.8",
     "@solid-primitives/refs": "^1.0.5",
     "@solid-primitives/resize-observer": "^2.0.22",
     "@solid-primitives/scheduled": "^1.4.1",
+    "b-tween": "^0.3.3",
     "b-validate": "^1.5.3",
     "dayjs": "^1.11.10",
     "remeda": "^1.33.0",
     "solid-transition-group": "^0.2.3",
-    "solidjs-use": "^2.3.0"
+    "solidjs-use": "^2.3.0",
+    "svgo": "^3.2.0"
   }
 }

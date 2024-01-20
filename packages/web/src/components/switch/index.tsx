@@ -8,11 +8,11 @@ import {
 	splitProps
 } from 'solid-js'
 import { Transition } from 'solid-transition-group'
-import { IconLoading } from '../../icons'
 import cs from '../../utils/classNames'
 import { isFunction } from '../../utils/is'
 import { createMergedValue } from '../../utils/store'
 import { useConfigContext } from '../config-provider'
+import { IconLoading } from '../icon'
 import { type SwitchProps } from './interface'
 
 export interface SwitchState {

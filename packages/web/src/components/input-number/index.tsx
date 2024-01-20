@@ -8,11 +8,11 @@ import {
 	splitProps,
 } from 'solid-js'
 import { createStore } from 'solid-js/store'
-import { IconDown, IconMinus, IconPlus, IconUp } from '../../icons'
 import cs from '../../utils/classNames'
 import { isFunction, isNumber } from '../../utils/is'
 import { ArrowDown, ArrowUp } from '../../utils/keycode'
 import { useConfigContext } from '../config-provider'
+import { IconDown, IconMinus, IconPlus, IconUp } from '../icon'
 import Input from '../input/input'
 import { getDecimal, type Decimal } from './Decimal'
 import type { InputNumberProps } from './interface'

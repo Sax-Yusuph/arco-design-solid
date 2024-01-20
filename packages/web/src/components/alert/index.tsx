@@ -1,14 +1,14 @@
 import { JSXElement, Match, Show, Switch, createSignal, mergeProps, splitProps } from 'solid-js'
 import { Transition } from 'solid-transition-group'
+import cs from '../../utils/classNames'
+import { useConfigContext } from '../config-provider'
 import {
 	IconCheckCircleFill,
 	IconClose,
 	IconCloseCircleFill,
 	IconExclamationCircleFill,
 	IconInfoCircleFill,
-} from '../../icons'
-import cs from '../../utils/classNames'
-import { useConfigContext } from '../config-provider'
+} from '../icon'
 import { type AlertProps } from './interface'
 
 const defaultProps: AlertProps = {

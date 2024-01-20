@@ -28,28 +28,28 @@ Awesome UI Components for solidjs based on Arco design.
 - [x] Grid
 - [x] Spin
 - [x] ConfigProvider
-- [ ] InputTag -- in progress
 - [x] Result
 - [x] Skeleton
-- [ ] Steps
-- [ ] Statistic
-- [ ] Anchor
-- [ ] Backtop
+- [x] Steps
+- [x] Statistic
+- [x] VerificationCode
+- [x] Backtop
+- [ ] InputTag -- in progress
 - [ ] Breadcrumb
 - [ ] Icon
 - [ ] Image
 - [ ] Badge
-- [ ] VerificationCo
 - [ ] Radio
 - [ ] Rate
 - [ ] Typograghy
 - [ ] Descriptions
 - [ ] List
+- [ ] Upload
+- [x] CheckboxGroup
 - [ ]
-- [ ] Autocomplete
 - [ ] Calendar
+- [ ] Anchor
 - [ ] Cascader
-- [ ] CheckboxGroup
 - [ ] Collapse
 - [ ] Drawer
 - [ ] Dropdown
@@ -70,9 +70,7 @@ Awesome UI Components for solidjs based on Arco design.
 - [ ] Timepicker
 - [ ] Tooltip
 - [ ] Transfer
-- [ ] Trigger
 - [ ] Tree
-- [ ] Upload
 - [ ] TreeSelect
 - [ ] Layout
 - [ ]
@@ -81,6 +79,8 @@ Awesome UI Components for solidjs based on Arco design.
 - [ ] Mentions
 - [ ] PageHeader
 - [ ] ResizeBox
+- [ ] Trigger
+- [ ] Autocomplete
 - [ ] Select
 - [ ] Slider
 - [ ] Watermark

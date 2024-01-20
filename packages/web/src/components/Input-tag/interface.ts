@@ -8,11 +8,18 @@ export type ObjectValueType = {
 
 export type ValueChangeReason = 'add' | 'remove' | 'clear' | 'sort'
 
+export type InputTagHandle = {
+  focus: () => void
+  blur: () => void
+}
+
 /**
  * @title InputTag
  */
-export interface InputTagProps<T = any> {
-  className?: string
+export interface InputTagProps<T = any>
+  extends Omit<JSX.HTMLAttributes<HTMLDivElement>, 'ref' | 'prefix' | 'onChange'> {
+  ref?: InputTagHandle | ((e: InputTagHandle) => void)
+  class?: string
   style?: JSX.CSSProperties | string
   /**
    * @zh 不同尺寸
@@ -192,18 +199,14 @@ export interface InputTagProps<T = any> {
    * @zh 输入框文本粘贴的回调。
    * @en Callback when you paste text in input box
    */
-  onPaste?: (e: any) => void
+  onPaste?: (e: ClipboardEvent) => void
   /**
    * @zh 点击清除按钮的回调
    * @en Callback when clear button is clicked
    * @version 2.20.0
    */
   onClear?: () => void
-  /**
-   * @zh 单击组件的回调。
-   * @en Callback when the component is clicked
-   */
-  onClick?: (e: PointerEvent) => void
+
   tagClassName?: string
   disableInput?: boolean
 }

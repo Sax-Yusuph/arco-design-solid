@@ -9,10 +9,9 @@ import {
 	createMemo,
 	onMount,
 	splitProps,
-	untrack,
+	untrack
 } from 'solid-js'
 import { createStore } from 'solid-js/store'
-import { IconClose } from '../../icons'
 import cs from '../../utils/classNames'
 import fillNBSP from '../../utils/fillNBSP'
 import { isArray, isFunction, isObject } from '../../utils/is'
@@ -20,6 +19,7 @@ import ResizeObserver from '../../utils/resize-observer'
 import useKeyboardEvent from '../../utils/use-keyboard'
 import { hasIndex, toPx } from '../../utils/util'
 import IconHover from '../_class/icon-hover'
+import { IconClose } from '../icon'
 import type { InputComponentProps, InputTriggers } from './interface'
 import useComposition from './useComposition'
 // Set the buffer width of the input element to avoid that when autoWidth.minWidth < padding + border,

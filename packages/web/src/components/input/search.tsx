@@ -1,10 +1,10 @@
 import { Show, splitProps } from 'solid-js'
-import { IconLoading, IconSearch } from '../../icons'
 import cs from '../../utils/classNames'
 import { isObject } from '../../utils/is'
 import { createMergedValue } from '../../utils/store'
 import Button from '../button'
 import { useConfigContext } from '../config-provider'
+import { IconLoading, IconSearch } from '../icon'
 import Input, { formatValue } from './input'
 import type { InputSearchProps } from './interface'
 

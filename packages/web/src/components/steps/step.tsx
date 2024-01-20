@@ -1,8 +1,8 @@
 import { mergeRefs } from '@solid-primitives/refs'
 import { Match, Show, Switch, createMemo, createSignal, mergeProps, onMount } from 'solid-js'
-import { IconCheck, IconClose } from '../../icons'
 import cs from '../../utils/classNames'
 import { getIndex } from '../../utils/use-index'
+import { IconCheck, IconClose } from '../icon'
 import { useStepContext } from './context'
 import type { StepProps } from './interface'
 

@@ -2,9 +2,9 @@
 import { JSX, Show, children, createMemo, mergeProps, splitProps } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
 
-import { IconLoading } from '../../icons'
 import cs from '../../utils/classNames'
 import { useConfigContext } from '../config-provider'
+import { IconLoading } from '../icon'
 import Group from './group'
 import { type ButtonProps } from './interface'
 

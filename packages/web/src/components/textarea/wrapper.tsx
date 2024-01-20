@@ -1,8 +1,8 @@
 import { JSXElement, Match, ParentProps, Show, Switch, children } from "solid-js"
 import { JSX } from "solid-js/jsx-runtime"
-import { IconClose } from "../../icons"
 import cs from "../../utils/classNames"
 import IconHover from "../_class/icon-hover"
+import { IconClose } from "../icon"
 
 type WrapperProps = ParentProps<{
   withWrapper?: boolean

@@ -1,9 +1,9 @@
 import { Show, mergeProps, splitProps } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
-import { IconLink } from '../../icons'
 import cs from '../../utils/classNames'
 import useKeyboardEvent from '../../utils/use-keyboard'
 import { useConfigContext } from '../config-provider'
+import { IconLink } from '../icon'
 import type { LinkProps } from './interface'
 
 const defaultProps: LinkProps = {

@@ -12,10 +12,10 @@ import {
 	onCleanup,
 	splitProps,
 } from 'solid-js'
-import { IconLoading } from '../../icons'
 import cs from '../../utils/classNames'
 import { addClass, addStyle, toPx } from '../../utils/util'
 import { useConfigContext } from '../config-provider'
+import { IconLoading } from '../icon'
 import DotLoading from './dot-loading'
 import type { SpinProps } from './interface'
 

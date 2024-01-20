@@ -41,7 +41,7 @@ import { LinkProps } from '../link/interface';
 // import { PopoverProps } from '../Popover/interface';
 // import { ProgressProps } from '../Progress/interface';
 // import { RadioProps, RadioGroupProps } from '../Radio/interface';
-// import { RateProps } from '../Rate/interface';
+import { RateProps } from '../rate/interface';
 // import { ResizeBoxProps } from '../ResizeBox/interface';
 import { ResultProps } from '../result/interface';
 // import { SelectProps } from '../Select/interface';
@@ -133,7 +133,7 @@ export type ComponentConfig = {
   // Progress?: ProgressProps;
   // Radio?: RadioProps;
   // 'Radio.Group'?: RadioGroupProps;
-  // Rate?: RateProps;
+  Rate?: RateProps;
   // ResizeBox?: ResizeBoxProps
   Result?: ResultProps;
   // Select?: SelectProps;

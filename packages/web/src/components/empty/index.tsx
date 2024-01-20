@@ -1,8 +1,8 @@
 // import IconEmpty from '../../icon/react-icon/IconEmpty'
 import { Match, Switch, mergeProps, splitProps, untrack } from 'solid-js'
-import { IconEmpty } from '../../icons'
 import cs from '../../utils/classNames'
 import { useConfigContext } from '../config-provider'
+import { IconEmpty } from '../icon'
 import { type EmptyProps } from './interface'
 
 function EmptyComponent(baseProps: EmptyProps) {

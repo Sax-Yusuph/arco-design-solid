@@ -1,10 +1,10 @@
 import { Show, mergeProps, splitProps } from 'solid-js'
 import { Dynamic } from 'solid-js/web'
-import { IconEye, IconEyeInvisible } from '../../icons'
 import cs from '../../utils/classNames'
 import { syncValues } from '../../utils/store'
 import useKeyboardEvent from '../../utils/use-keyboard'
 import { useConfigContext } from '../config-provider'
+import { IconEye, IconEyeInvisible } from '../icon'
 import Input from './input'
 import type { InputPasswordProps } from './interface'
 const defaultProps = {

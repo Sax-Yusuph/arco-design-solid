@@ -1,11 +1,11 @@
 import { Show, createMemo, createSignal, mergeProps, splitProps } from 'solid-js'
-import { IconClose, IconLoading } from '../../icons'
 import cs from '../../utils/classNames'
 import { createMergedValue } from '../../utils/store'
 import useKeyboardEvent from '../../utils/use-keyboard'
 import { toCSSObject } from '../../utils/util'
 import IconHover from '../_class/icon-hover'
 import { useConfigContext } from '../config-provider'
+import { IconClose, IconLoading } from '../icon'
 import type { TagProps } from './interface'
 
 // 色板里的 12 个颜色

@@ -1,47 +1,47 @@
-import React, {
-  useContext,
-  useState,
-  useRef,
-  useImperativeHandle,
-  ElementRef,
-  useEffect,
-  PropsWithChildren,
-  ReactNode,
-} from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { ConfigContext } from '../ConfigProvider';
-import Tag from '../Tag';
-import useMergeValue from '../_util/hooks/useMergeValue';
-import cs from '../_util/classNames';
-import InputComponent from '../Input/input-element';
-import IconHover from '../_class/icon-hover';
-import IconClose from '../../icon/react-icon/IconClose';
-import { isObject, isArray } from '../_util/is';
-import getHotkeyHandler from '../_util/getHotkeyHandler';
-import { Backspace } from '../_util/keycode';
-// import { pickTriggerPropsFromRest } from '../_util/constant';
-import { ObjectValueType, InputTagProps, ValueChangeReason } from './interface';
-import useMergeProps from '../_util/hooks/useMergeProps';
-import Draggable from '../_class/Draggable';
-import omit from '../_util/omit';
-import fillNBSP from '../_util/fillNBSP';
+import {
+	Accessor,
+	JSXElement,
+	ParentProps,
+	Show,
+	children,
+	createMemo,
+	mergeProps,
+	onMount,
+	splitProps,
+} from 'solid-js'
+import { createStore } from 'solid-js/store'
+import { Transition, TransitionGroup } from 'solid-transition-group'
+import { usePrevious } from 'solidjs-use'
+import cs from '../../utils/classNames'
+import fillNBSP from '../../utils/fillNBSP'
+import getHotkeyHandler from '../../utils/getHotkeyHandler'
+import { isArray, isFunction, isObject } from '../../utils/is'
+import { Backspace } from '../../utils/keycode'
+import { syncValues } from '../../utils/store'
+import Draggable from '../_class/Draggable'
+import IconHover from '../_class/icon-hover'
+import { useConfigContext } from '../config-provider'
+import { IconClose } from '../icon'
+import InputComponent from '../input/input-element'
+import Tag from '../tag'
+import type { InputTagProps, ObjectValueType, ValueChangeReason } from './interface'
 
-const CSS_TRANSITION_DURATION = 300;
-const REACT_KEY_FOR_INPUT = `__input_${Math.random().toFixed(10).slice(2)}`;
+const CSS_TRANSITION_DURATION = 300
+const REACT_KEY_FOR_INPUT = `__input_${Math.random().toFixed(10).slice(2)}`
 
-const isEmptyNode = (node: ReactNode): boolean => {
-  return node === null || node === undefined;
-};
+const isEmptyNode = (node: JSXElement): boolean => {
+  return node === null || node === undefined
+}
 
-const keepFocus = (e) => {
-  e.target.tagName !== 'INPUT' && e.preventDefault();
-};
+const keepFocus = e => {
+  e.target.tagName !== 'INPUT' && e.preventDefault()
+}
 
 const formatValue = (value: (ObjectValueType | string)[]) => {
   if (!isArray(value)) {
-    return [];
+    return []
   }
-  return value.map((item) => {
+  return value.map(item => {
     return isObject(item)
       ? {
           ...item,
@@ -52,177 +52,188 @@ const formatValue = (value: (ObjectValueType | string)[]) => {
       : {
           label: item,
           value: item,
-        };
-  });
-};
+        }
+  })
+}
 
 type InputTagHandle = {
-  focus: () => void;
-  blur: () => void;
-};
+  focus: () => void
+  blur: () => void
+}
 
 // Deal with the delay of recomputing input width
-const useComputeAutoWidthDelay = (value: InputTagProps<any>['value']) => {
-  const refDelay = useRef(0);
-  const refPrevValueLength = useRef(value.length);
+const useComputeAutoWidthDelay = (value: Accessor<InputTagProps<any>['value']>) => {
+  const prevValue = usePrevious(value)
 
-  useEffect(() => {
-    refDelay.current =
-      value.length === 0 && refPrevValueLength.current > 0 ? CSS_TRANSITION_DURATION : 0;
-    refPrevValueLength.current = value.length;
-  }, [value]);
+  const delay = createMemo(() => {
+    const val = value()
+    const prev = prevValue() || []
+    if (val) {
+      return val.length === 0 && prev.length > 0 ? CSS_TRANSITION_DURATION : 0
+    }
 
-  return refDelay;
-};
+    return 0
+  })
 
-const UsedTransitionGroup = ({
-  prefixCls,
-  children,
-  animation,
-}: PropsWithChildren<{ prefixCls: string; animation: boolean }>) => {
-  return animation ? (
-    <TransitionGroup component="div" className={`${prefixCls}-inner`}>
-      {children}
-    </TransitionGroup>
-  ) : (
-    <div className={`${prefixCls}-inner`}>{children}</div>
-  );
-};
+  return delay
+}
 
-const defaultProps: InputTagProps = {
-  animation: true,
-  validate: (inputValue, values) => inputValue && values.every((item) => item.value !== inputValue),
-};
+const UsedTransitionGroup = (props: ParentProps<{ prefixCls?: string; animation?: boolean }>) => {
+  const nodes = children(() => props.children)
+  return (
+    <Show when={props.animation} fallback={<div class={`${props.prefixCls}-inner`}>{nodes()}</div>}>
+      <TransitionGroup name={`${props.prefixCls}-inner`}>{nodes()}</TransitionGroup>
+    </Show>
+  )
+}
 
-function InputTag(baseProps: InputTagProps<string | ObjectValueType>, ref) {
-  const { getPrefixCls, size: ctxSize, componentConfig, rtl } = useContext(ConfigContext);
-  const props = useMergeProps<InputTagProps>(baseProps, defaultProps, componentConfig?.InputTag);
-  const {
-    className,
-    style,
-    placeholder,
-    error,
-    disabled,
-    readOnly,
-    allowClear,
-    autoFocus,
-    labelInValue,
-    disableInput,
-    animation,
-    saveOnBlur,
-    dragToSort,
-    icon,
-    prefix,
-    suffix,
-    addBefore,
-    addAfter,
-    tokenSeparators,
-    validate,
-    renderTag,
-    tagClassName,
-    onInputChange,
-    onKeyDown,
-    onPaste,
-    onChange,
-    onFocus,
-    onBlur,
-    onPressEnter,
-    onRemove,
-    onClear,
-    onClick,
-    ...rest
-  } = props;
-  const prefixCls = getPrefixCls('input-tag');
-  const size = 'size' in props ? props.size : ctxSize;
+const splitabble = [
+  'class',
+  'style',
+  'placeholder',
+  'error',
+  'disabled',
+  'readOnly',
+  'allowClear',
+  'autoFocus',
+  'labelInValue',
+  'disableInput',
+  'animation',
+  'saveOnBlur',
+  'dragToSort',
+  'icon',
+  'prefix',
+  'suffix',
+  'addBefore',
+  'addAfter',
+  'tokenSeparators',
+  'validate',
+  'renderTag',
+  'tagClassName',
+  'onInputChange',
+  'onKeyDown',
+  'onPaste',
+  'onChange',
+  'onFocus',
+  'onBlur',
+  'onPressEnter',
+  'onRemove',
+  'onClear',
+  'onClick',
+  'size',
+  'status',
+  'defaultValue',
+  'value',
+  'inputValue',
+  'ref',
+] as const
 
-  const refInput = useRef<ElementRef<typeof InputComponent>>();
-  const refTSLastSeparateTriggered = useRef<number>(null);
+function InputTag(baseProps: InputTagProps<string | ObjectValueType>) {
+  const ctx = useConfigContext()
+  const defaultProps: InputTagProps = {
+    animation: true,
+    validate: (inputValue, values) => inputValue && values.every(item => item.value !== inputValue),
+    size: ctx.size,
+    defaultValue: [],
+  }
 
-  const [focused, setFocused] = useState(false);
-  const [value, setValue] = useMergeValue<ObjectValueType[]>([], {
-    defaultValue: 'defaultValue' in props ? formatValue(props.defaultValue) : undefined,
-    value: 'value' in props ? formatValue(props.value) : undefined,
-  });
-  const [inputValue, setInputValue] = useMergeValue('', {
-    value: props.inputValue,
-  });
-  const refDelay = useComputeAutoWidthDelay(value);
-  const draggable = !!(dragToSort && !readOnly && !disabled);
+  const mergedProps = mergeProps(defaultProps, ctx.componentConfig?.InputTag, baseProps)
 
-  useImperativeHandle<any, InputTagHandle>(
-    ref,
-    () => {
-      return {
-        blur: refInput.current?.blur,
-        focus: refInput.current?.focus,
-      };
-    },
-    []
-  );
+  const [props, restProps] = splitProps(mergedProps, splitabble)
+
+  const prefixCls = ctx.getPrefixCls?.('input-tag')
+
+  let refInput!: HTMLInputElement
+
+  const [state, setState] = createStore<{
+    focused: boolean
+    TSLastSeparateTriggered: number | null
+  }>({
+    focused: false,
+    TSLastSeparateTriggered: null,
+  })
+  const [value, setValue] = syncValues(baseProps, ['value', 'defaultValue'], v => {
+    return v ? formatValue(v) : undefined
+  })
+
+  const [inputValue, setInputValue] = syncValues(baseProps, ['inputValue'])
+
+  const delay = useComputeAutoWidthDelay(value)
+
+  const draggable = !!(props.dragToSort && !props.readOnly && !props.disabled)
 
   const valueChangeHandler = (value: ObjectValueType[], reason: ValueChangeReason) => {
-    if (disabled || readOnly) {
-      return;
+    if (props.disabled || props.readOnly) {
+      return
     }
     if (!('value' in props)) {
-      setValue(value);
+      setValue(value)
     }
 
-    onChange && onChange(labelInValue ? value : value.map((x) => x.value), reason);
-  };
+    props.onChange && props.onChange(props.labelInValue ? value : value.map(x => x.value), reason)
+  }
 
-  const tagCloseHandler = (itemValue: ObjectValueType, index: number, event) => {
-    onRemove && onRemove(itemValue, index, event);
-    valueChangeHandler([...value.slice(0, index), ...value.slice(index + 1)], 'remove');
-  };
+  const tagCloseHandler = (itemValue: ObjectValueType, index: number, event: any) => {
+    props.onRemove && props.onRemove(itemValue, index, event)
+
+    const v = (value() || []) as ObjectValueType[]
+    valueChangeHandler([...v.slice(0, index), ...v.slice(index + 1)], 'remove')
+  }
 
   const hotkeyHandler = getHotkeyHandler(
     new Map([
       [
         Backspace.code,
-        (event) => {
+        (event: any) => {
           if (!event.target.value && value.length) {
-            for (let index = value.length - 1; index >= 0; index--) {
-              const itemValue = value[index];
-              if (itemValue.closable !== false) {
-                tagCloseHandler(itemValue, index, event);
-                return;
+            const v = (value() || []) as ObjectValueType[]
+
+            for (let index = v.length - 1; index >= 0; index--) {
+              const itemValue = v[index]
+              if (itemValue?.closable !== false) {
+                tagCloseHandler(itemValue, index, event)
+                return
               }
             }
           }
         },
       ],
-    ])
-  );
+    ]),
+  )
 
   const tryAddInputValueToTag = async () => {
+    const tags = value() as ObjectValueType[]
+
     try {
-      const validateResult =
-        typeof validate === 'function' ? await validate(inputValue, value) : true;
+      const validateResult = isFunction(props.validate)
+        ? await props.validate(inputValue() || '', tags)
+        : true
+
       if (validateResult) {
         valueChangeHandler(
-          value.concat({
+          tags.concat({
             value: validateResult === true ? inputValue : validateResult,
             label: inputValue,
           }),
-          'add'
-        );
-        setInputValue('');
+          'add',
+        )
+        setInputValue('')
       }
     } catch (error) {
-      console.error(error);
+      console.error(error)
     }
-  };
+  }
 
   const mergedRenderTag = (item: ObjectValueType, index: number) => {
-    const { value: itemValue, label } = item;
-    const closable = !readOnly && !disabled && item.closable !== false;
-    const onClose = (event) => {
-      tagCloseHandler(item, index, event);
-    };
+    const { value: itemValue, label } = item
+    const closable = !props.readOnly && !props.disabled && item.closable !== false
 
-    if (renderTag) {
-      return renderTag(
+    const onClose = (event: any) => {
+      tagCloseHandler(item, index, event)
+    }
+
+    if (props.renderTag) {
+      return props.renderTag(
         {
           value: itemValue,
           label,
@@ -230,18 +241,18 @@ function InputTag(baseProps: InputTagProps<string | ObjectValueType>, ref) {
           onClose,
         },
         index,
-        value
-      );
+        value() as ObjectValueType[],
+      )
     }
 
     return (
       <Tag
         visible
-        className={cs(`${prefixCls}-tag`, {
-          [tagClassName]: tagClassName,
+        class={cs(`${prefixCls}-tag`, {
+          [props.tagClassName || '']: props.tagClassName,
         })}
         closable={closable}
-        closeIcon={icon && icon.removeIcon}
+        closeIcon={props.icon?.removeIcon}
         __closeIconProps={{
           onMouseDown: keepFocus,
         }}
@@ -250,75 +261,77 @@ function InputTag(baseProps: InputTagProps<string | ObjectValueType>, ref) {
       >
         {fillNBSP(label)}
       </Tag>
-    );
-  };
+    )
+  }
 
   const handleTokenSeparators = async (str: string) => {
     // clear the timestamp, and then we can judge whether tokenSeparators has been triggered
     // according to timestamp value
-    refTSLastSeparateTriggered.current = null;
 
-    if (isArray(tokenSeparators) && tokenSeparators.length) {
-      const splitTextList = str.split(new RegExp(`[${tokenSeparators.join('')}]`));
+    setState('TSLastSeparateTriggered', null)
+
+    if (isArray(props.tokenSeparators) && props.tokenSeparators.length) {
+      const splitTextList = str.split(new RegExp(`[${props.tokenSeparators.join('')}]`))
+      const tags = value() as ObjectValueType[]
 
       if (splitTextList.length > 1) {
         // record the timestamp of tokenSeparators triggered
-        refTSLastSeparateTriggered.current = Date.now();
+        setState('TSLastSeparateTriggered', Date.now())
 
-        const validatedValueList: ObjectValueType[] = [];
+        const validatedValueList: ObjectValueType[] = []
 
         await Promise.all(
-          splitTextList.map(async (text) => {
+          splitTextList.map(async text => {
             // filter empty string and validate it
             const validateResult = text
-              ? typeof validate === 'function'
-                ? await validate(text, value)
+              ? isFunction(props.validate)
+                ? await props.validate(text, tags)
                 : true
-              : false;
+              : false
+
             if (validateResult) {
               validatedValueList.push({
                 value: validateResult === true ? text : validateResult,
                 label: text,
-              });
+              })
             }
-          })
-        );
+          }),
+        )
 
         if (validatedValueList.length) {
-          valueChangeHandler(value.concat(validatedValueList), 'add');
+          valueChangeHandler(tags.concat(validatedValueList), 'add')
         }
       }
     }
-  };
+  }
 
   const clearIcon =
-    allowClear && !disabled && !readOnly && value.length ? (
+    props.allowClear && !props.disabled && !props.readOnly && value.length ? (
       <IconHover
-        size={size}
-        key="clearIcon"
-        className={`${prefixCls}-clear-icon`}
-        onClick={(e) => {
-          e.stopPropagation();
-          valueChangeHandler([], 'clear');
-          if (!focused) {
-            refInput.current?.focus();
+        size={props.size}
+        class={`${prefixCls}-clear-icon`}
+        onClick={e => {
+          e.stopPropagation()
+          valueChangeHandler([], 'clear')
+          if (!state.focused) {
+            refInput.focus()
           }
-          onClear?.();
+          props.onClear?.()
         }}
       >
-        {(icon && icon.clearIcon) || <IconClose />}
+        {props.icon?.clearIcon || <IconClose />}
       </IconHover>
-    ) : null;
+    ) : null
 
-  const disableInputComponent = disabled || disableInput;
+  const disableInputComponent = props.disabled || props.disableInput
 
   // CSSTransition needs to be a direct child of TransitionGroup, otherwise the animation will NOT work
   // https://github.com/arco-design/arco-design/issues/622
   const childrenWithAnimation = value
     .map((x, i) => {
       // Check whether two tags have same value. If so, set different key for them to avoid only rendering one tag.
-      const isRepeat = value.findIndex((item) => item.value === x.value) !== i;
-      const eleTag = mergedRenderTag(x, i);
+      const isRepeat = value.findIndex(item => item.value === x.value) !== i
+      const eleTag = mergedRenderTag(x, i)
       return React.isValidElement(eleTag) ? (
         <CSSTransition
           key={typeof x.value === 'object' ? i : isRepeat ? `${x.value}-${i}` : x.value}
@@ -329,180 +342,187 @@ function InputTag(baseProps: InputTagProps<string | ObjectValueType>, ref) {
         </CSSTransition>
       ) : (
         eleTag
-      );
+      )
     })
     .concat(
-      <CSSTransition
-        key={REACT_KEY_FOR_INPUT}
-        timeout={CSS_TRANSITION_DURATION}
-        classNames="zoomIn"
-      >
+      <Transition name="zoomIn">
         <InputComponent
           autoComplete="off"
-          size={size}
+          size={props.size}
           disabled={disableInputComponent}
-          readOnly={readOnly}
+          readOnly={props.readOnly}
           ref={refInput}
-          autoFocus={autoFocus}
-          placeholder={!value.length ? placeholder : ''}
+          autoFocus={props.autoFocus}
+          placeholder={!value.length ? props.placeholder : ''}
           prefixCls={`${prefixCls}-input`}
           autoFitWidth={{
-            delay: () => refDelay.current,
+            delay,
             pure: true,
           }}
-          onPressEnter={async (e) => {
-            inputValue && e.preventDefault();
-            onPressEnter?.(e);
-            await tryAddInputValueToTag();
+          onPressEnter={async e => {
+            inputValue() && e.preventDefault()
+            props.onPressEnter?.(e)
+            await tryAddInputValueToTag()
           }}
-          onFocus={(e) => {
-            if (!disableInputComponent && !readOnly) {
-              setFocused(true);
-              onFocus?.(e);
+          onFocus={e => {
+            if (!disableInputComponent && !props.readOnly) {
+              setState('focused', true)
+              props.onFocus?.(e)
             }
           }}
-          onBlur={async (e) => {
-            setFocused(false);
-            onBlur?.(e);
-            if (saveOnBlur) {
-              await tryAddInputValueToTag();
+          onBlur={async e => {
+            setState('focused', false)
+            props.onBlur?.(e)
+            if (props.saveOnBlur) {
+              await tryAddInputValueToTag()
             }
-            setInputValue('');
+            setInputValue('')
           }}
-          value={inputValue}
-          onChange={(value, event) => {
+          value={inputValue()}
+          onInput={(value, event) => {
             // Only fire callback on user input to ensure parent component can get real input value on controlled mode.
-            onInputChange?.(value, event);
+            props.onInputChange?.(value, event)
 
             // Pasting in the input box will trigger onPaste first and then onChange, but the value of onChange does not contain a newline character.
             // If word segmentation has just been triggered due to pasting, onChange will no longer attempt word segmentation.
             // Do NOT use await, need to update input value right away.
-            event.nativeEvent.inputType !== 'insertFromPaste' && handleTokenSeparators(value);
+            event.nativeEvent.inputType !== 'insertFromPaste' && handleTokenSeparators(value)
 
-            if (refTSLastSeparateTriggered.current) {
-              setInputValue('');
+            if (state.TSLastSeparateTriggered) {
+              setInputValue('')
             } else {
-              setInputValue(value);
+              setInputValue(value)
             }
           }}
-          onKeyDown={(event) => {
-            hotkeyHandler(event as any);
-            onKeyDown?.(event);
+          onKeyDown={event => {
+            hotkeyHandler(event as any)
+            props.onKeyDown?.(event)
           }}
-          onPaste={(event) => {
-            onPaste?.(event);
-            handleTokenSeparators(event.clipboardData.getData('text'));
+          onPaste={event => {
+            props.onPaste?.(event)
+            const clipboardData = event.clipboardData?.getData('text') ?? ''
+            handleTokenSeparators(clipboardData)
           }}
         />
-      </CSSTransition>
-    );
+      </Transition>,
+    )
 
-  const hasPrefix = !isEmptyNode(prefix);
-  const hasSuffix = !isEmptyNode(suffix) || !isEmptyNode(clearIcon);
-  const needAddBefore = !isEmptyNode(addBefore);
-  const needAddAfter = !isEmptyNode(addAfter);
-  const needWrapper = needAddBefore || needAddAfter;
+  const hasPrefix = !isEmptyNode(props.prefix)
+  const hasSuffix = !isEmptyNode(props.suffix) || !isEmptyNode(clearIcon)
+  const needAddBefore = !isEmptyNode(props.addBefore)
+  const needAddAfter = !isEmptyNode(props.addAfter)
+  const needWrapper = needAddBefore || needAddAfter
 
-  const status = props.status || (error ? 'error' : undefined);
+  const status = props.status || (props.error ? 'error' : undefined)
   const innerClassNames = cs(prefixCls, {
-    [`${prefixCls}-size-${size}`]: size,
-    [`${prefixCls}-disabled`]: disabled,
+    [`${prefixCls}-size-${props.size}`]: props.size,
+    [`${prefixCls}-disabled`]: props.disabled,
     [`${prefixCls}-${status}`]: status,
-    [`${prefixCls}-focus`]: focused,
-    [`${prefixCls}-readonly`]: readOnly,
+    [`${prefixCls}-focus`]: state.focused,
+    [`${prefixCls}-readonly`]: props.readOnly,
     [`${prefixCls}-has-suffix`]: hasSuffix,
     [`${prefixCls}-has-placeholder`]: !value.length,
-    [`${prefixCls}-rtl`]: rtl,
-  });
-  const propsAppliedToRoot = { style, className };
+    [`${prefixCls}-rtl`]: ctx.rtl,
+  })
+  const propsAppliedToRoot = { style: props.style, class: props.class }
+
+  onMount(() => {
+    if ('ref' in baseProps) {
+      const handle: InputTagHandle = {
+        blur: refInput.blur,
+        focus: refInput.focus,
+      }
+
+      isFunction(baseProps.ref) && baseProps.ref(handle)
+    }
+  })
 
   const eleInputTagCore = (
     <div
-      {...omit(rest, ['status', 'size', 'defaultValue', 'value', 'inputValue'])}
+      {...restProps}
       {...(needWrapper ? {} : propsAppliedToRoot)}
-      className={needWrapper ? innerClassNames : cs(innerClassNames, propsAppliedToRoot.className)}
-      onMouseDown={(event) => {
-        focused && keepFocus(event);
+      class={needWrapper ? innerClassNames : cs(innerClassNames, propsAppliedToRoot.class)}
+      onMouseDown={event => {
+        state.focused && keepFocus(event)
       }}
-      onClick={(e) => {
-        !focused && refInput.current?.focus();
-        if (onClick) {
-          onClick(e);
-        }
+      onClick={e => {
+        !state.focused && refInput.focus()
+        isFunction(props.onClick) && props.onClick?.(e)
       }}
     >
-      <div className={`${prefixCls}-view`}>
+      <div class={`${prefixCls}-view`}>
         {hasPrefix && (
-          <div className={`${prefixCls}-prefix`} onMouseDown={keepFocus}>
-            {prefix}
+          <div class={`${prefixCls}-prefix`} onMouseDown={keepFocus}>
+            {props.prefix}
           </div>
         )}
 
-        {draggable ? (
-          <UsedTransitionGroup
-            key="transitionGroupWithDrag"
-            prefixCls={prefixCls}
-            animation={animation}
-          >
+        <Show
+          when={draggable}
+          fallback={
+            <UsedTransitionGroup prefixCls={prefixCls} animation={props.animation}>
+              {childrenWithAnimation}
+            </UsedTransitionGroup>
+          }
+        >
+          <UsedTransitionGroup prefixCls={prefixCls} animation={props.animation}>
             <Draggable
               itemWrapperStyle={{ display: 'inline-block' }}
               direction="horizontal"
               onIndexChange={(index, prevIndex) => {
-                const moveItem = function (arr, fromIndex, toIndex) {
-                  arr = arr.slice();
-                  const isMoveLeft = fromIndex > toIndex;
-                  const [item] = arr.splice(fromIndex, 1);
-                  arr.splice(isMoveLeft ? toIndex : toIndex - 1, 0, item);
-                  return arr;
-                };
-                valueChangeHandler(moveItem(value, prevIndex, index), 'sort');
+                const moveItem = function (
+                  arr: ObjectValueType[],
+                  fromIndex: number,
+                  toIndex: number,
+                ) {
+                  arr = arr.slice()
+                  const isMoveLeft = fromIndex > toIndex
+                  const [item] = arr.splice(fromIndex, 1)
+
+                  arr.splice(isMoveLeft ? toIndex : toIndex - 1, 0, item)
+                  return arr
+                }
+
+                valueChangeHandler(moveItem(value() as ObjectValueType[], prevIndex, index), 'sort')
               }}
             >
               {childrenWithAnimation}
             </Draggable>
           </UsedTransitionGroup>
-        ) : (
-          <UsedTransitionGroup prefixCls={prefixCls} animation={animation}>
-            {childrenWithAnimation}
-          </UsedTransitionGroup>
-        )}
+        </Show>
 
-        {hasSuffix && (
-          <div className={`${prefixCls}-suffix`} onMouseDown={keepFocus}>
+        <Show when={hasSuffix}>
+          <div class={`${prefixCls}-suffix`} onMouseDown={keepFocus}>
             {clearIcon}
-            {suffix}
+            {props.suffix}
           </div>
-        )}
+        </Show>
       </div>
     </div>
-  );
+  )
 
   if (!needWrapper) {
-    return eleInputTagCore;
+    return eleInputTagCore
   }
 
   return (
     <div
       {...propsAppliedToRoot}
-      className={cs(
+      class={cs(
         `${prefixCls}-wrapper`,
         {
-          [`${prefixCls}-wrapper-rtl`]: rtl,
+          [`${prefixCls}-wrapper-rtl`]: ctx.rtl,
         },
-        propsAppliedToRoot.className
+        propsAppliedToRoot.class,
       )}
     >
-      {needAddBefore && <div className={`${prefixCls}-addbefore`}>{addBefore}</div>}
+      {needAddBefore && <div class={`${prefixCls}-addbefore`}>{props.addBefore}</div>}
       {eleInputTagCore}
-      {needAddAfter && <div className={`${prefixCls}-addafter`}>{addAfter}</div>}
+      {needAddAfter && <div class={`${prefixCls}-addafter`}>{props.addAfter}</div>}
     </div>
-  );
+  )
 }
 
-const InputTagRef = React.forwardRef<InputTagHandle, InputTagProps<any>>(InputTag);
+export default InputTag
 
-InputTagRef.displayName = 'InputTag';
-
-export default InputTagRef;
-
-export { InputTagProps };
+export { InputTagProps }

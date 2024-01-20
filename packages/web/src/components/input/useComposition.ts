@@ -70,6 +70,12 @@ export default function useComposition(
         const newValue = e.target.value
         const compositionValue = state.compositionValue
 
+        //special case to make sure input it truly controlled
+        // https://github.com/solidjs/solid/discussions/416
+        if (value()) {
+          e.target.value = value()
+        }
+
         if (!state.isComposition) {
           compositionValue && setState('compositionValue', '')
           triggerValueChangeCallback(newValue, e)

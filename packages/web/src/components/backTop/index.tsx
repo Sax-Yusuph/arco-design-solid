@@ -9,13 +9,13 @@ import {
 	mergeProps,
 	onCleanup
 } from 'solid-js'
-import { IconToTop } from '../../icons'
 import cs from '../../utils/classNames'
 import { off, on } from '../../utils/dom'
 import throttleByRaf from '../../utils/throttle-by-raf'
 import useKeyboardEvent from '../../utils/use-keyboard'
 import { pickDataAttributes } from '../../utils/util'
 import { useConfigContext } from '../config-provider'
+import { IconToTop } from '../icon'
 import type { BackTopProps } from './interface'
 
 const defaultProps: BackTopProps = {

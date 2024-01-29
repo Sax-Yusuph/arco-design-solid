@@ -1,8 +1,9 @@
 import { JSX, ParentProps, Show, createComponent, createContext, useContext } from 'solid-js'
 
-export type ContextProviderProps = {
+export interface ContextProviderProps extends Record<string, any> {
   children?: JSX.Element
-} & Record<string, unknown>
+}
+
 export type ContextProvider<T extends ContextProviderProps> = (
   props: { children: JSX.Element } & T,
 ) => JSX.Element

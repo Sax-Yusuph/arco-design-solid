@@ -40,7 +40,7 @@ import { LinkProps } from '../link/interface';
 // import { PopconfirmProps } from '../Popconfirm/interface';
 // import { PopoverProps } from '../Popover/interface';
 // import { ProgressProps } from '../Progress/interface';
-// import { RadioProps, RadioGroupProps } from '../Radio/interface';
+import { RadioGroupProps, RadioProps } from '../radio/interface';
 import { RateProps } from '../rate/interface';
 // import { ResizeBoxProps } from '../ResizeBox/interface';
 import { ResultProps } from '../result/interface';
@@ -131,8 +131,8 @@ export type ComponentConfig = {
   // Popconfirm?: PopconfirmProps;
   // Popover?: PopoverProps;
   // Progress?: ProgressProps;
-  // Radio?: RadioProps;
-  // 'Radio.Group'?: RadioGroupProps;
+  Radio?: RadioProps;
+  'Radio.Group'?: RadioGroupProps;
   Rate?: RateProps;
   // ResizeBox?: ResizeBoxProps
   Result?: ResultProps;

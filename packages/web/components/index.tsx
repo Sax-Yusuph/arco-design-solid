@@ -125,8 +125,8 @@ export type { LinkProps } from './link/interface';
 // export type { ProgressProps } from './Progress/interface';
 // export { default as Progress } from './Progress';
 
-// export type { RadioProps, RadioGroupProps } from './Radio/interface';
-// export { default as Radio } from './Radio';
+export { default as Radio } from './radio';
+export type { RadioGroupProps, RadioProps } from './radio/interface';
 
 // export type { RateProps } from './Rate/interface';
 // export { default as Rate } from './Rate';

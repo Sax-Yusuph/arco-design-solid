@@ -36,16 +36,16 @@ Awesome UI Components for solidjs based on Arco design.
 - [x] Backtop
 - [x] Badge
 - [x] Icon
+- [x] Radio
 - [ ] InputTag -- in progress
 - [ ] Breadcrumb
 - [ ] Image
-- [ ] Radio
 - [ ] Rate
 - [ ] Typograghy
 - [ ] Descriptions
 - [ ] List
 - [ ] Upload
-- [x] CheckboxGroup
+- [ ] CheckboxGroup
 - [ ]
 - [ ] Calendar
 - [ ] Anchor

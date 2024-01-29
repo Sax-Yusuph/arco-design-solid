@@ -1,6 +1,6 @@
 import { ConfigProvider, Space } from '@arco-design/web-solid'
 import type { Component } from 'solid-js'
-import BadgeDemo from './demo/badge'
+import RadioDemo from './demo/radio'
 
 const App: Component = () => {
   return (
@@ -25,7 +25,8 @@ const App: Component = () => {
           {/* <StatisticDemo /> */}
           {/* <VerificationCodeDemo /> */}
           {/* <BacktopDemo /> */}
-          <BadgeDemo />
+          <RadioDemo />
+          {/* <BadgeDemo /> */}
         </Space>
       </ConfigProvider>
     </div>

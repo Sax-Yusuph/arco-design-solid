@@ -16,8 +16,8 @@ export type { AvatarGroupProps, AvatarProps } from './avatar/interface';
 export { default as BackTop } from './backTop';
 export type { BackTopProps } from './backTop/interface';
 
-// export type { BadgeProps } from './Badge/interface';
-// export { default as Badge } from './Badge';
+export { default as Badge } from './badge';
+export type { BadgeProps } from './badge/interface';
 
 // export type { BreadcrumbProps, BreadCrumbItemProps } from './Breadcrumb/interface';
 // export { default as Breadcrumb } from './Breadcrumb';

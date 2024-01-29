@@ -8,7 +8,7 @@ import { AlertProps } from '../alert/interface';
 import { Locale } from '../../locale/interface';
 import { AvatarGroupProps, AvatarProps } from '../avatar';
 import { BackTopProps } from '../backTop/interface';
-// import { BadgeProps } from '../Badge/interface';
+import { BadgeProps } from '../badge/interface';
 // import { BreadcrumbProps } from '../Breadcrumb/interface';
 import { ButtonProps } from '../button/interface';
 // import { CalendarProps } from '../Calendar/interface';
@@ -82,7 +82,7 @@ export type ComponentConfig = {
   // Anchor?: AnchorProps;
   // 'Anchor.Link'?: AnchorLinkProps;
   BackTop?: BackTopProps;
-  // Badge?: BadgeProps;
+  Badge?: BadgeProps;
   // Breadcrumb?: BreadcrumbProps;
   Button?: ButtonProps
   // Calendar?: CalendarProps;

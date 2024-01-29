@@ -34,11 +34,11 @@ Awesome UI Components for solidjs based on Arco design.
 - [x] Statistic
 - [x] VerificationCode
 - [x] Backtop
+- [x] Badge
+- [x] Icon
 - [ ] InputTag -- in progress
 - [ ] Breadcrumb
-- [ ] Icon
 - [ ] Image
-- [ ] Badge
 - [ ] Radio
 - [ ] Rate
 - [ ] Typograghy
@@ -108,7 +108,7 @@ To use the commands, first install [pnpm](https://pnpm.io) and install dependenc
 ```bash
 pnpm run dev
 # Builds all packages in watch mode, and starts all playgrounds
-# turbo run dev --parallel
+# turbo run dev --************pa**ra**ll**el**
 
 pnpm run build
 # Builds all the packages in the monorepo

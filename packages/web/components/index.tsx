@@ -73,7 +73,7 @@ export type { EmptyProps } from './empty/interface';
 export { default as Grid } from './grid';
 export type { ColProps, GridItemProps, GridProps, RowProps } from './grid/interface';
 
-// export { default as Icon } from './Icon';
+export { default as Icon } from './icon';
 
 export { default as Input } from './input';
 export type { InputProps, TextAreaProps } from './input/interface';

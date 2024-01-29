@@ -1,6 +1,11 @@
 {
-    "files.exclude": {
-        "**/.turbo": true,
-        "**/node_modules": true
-    }
+  "files.exclude": {
+    "**/.turbo": true,
+    "**/node_modules": true,
+    "**/configs": true,
+    ".github": true,
+    ".changeset": true,
+    ".editorconfig": true,
+    // "playgrounds": true,
+  }
 }

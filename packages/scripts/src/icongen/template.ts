@@ -48,7 +48,7 @@ export const getIcon = ({
 
    const ${componentName}: Component<IconProps> = (baseProps: IconProps) => {
 		const { prefixCls = 'arco' } = useIconContext()
-		const prefix = prefixCls + 'icon'
+		const prefix = prefixCls + '-icon'
 
 		const [_, props] = splitProps(baseProps, ['spin'])
 

@@ -29,25 +29,51 @@
   "module": "./dist/lib/index.js",
   "types": "./dist/lib/index.d.ts",
   "exports": {
-    "solid": {
-      "development": "./dist/lib/dev.jsx",
-      "import": "./dist/lib/index.jsx"
-    },
-    "development": {
-      "import": {
-        "types": "./dist/lib/index.d.ts",
-        "default": "./dist/lib/dev.js"
+    ".": {
+      "solid": {
+        "development": "./dist/lib/dev.jsx",
+        "import": "./dist/lib/index.jsx"
       },
-      "require": "./dist/lib/dev.cjs"
+      "development": {
+        "import": {
+          "types": "./dist/lib/index.d.ts",
+          "default": "./dist/lib/dev.js"
+        },
+        "require": "./dist/lib/dev.cjs"
+      },
+      "import": {
+        "default": "./dist/lib/index.js",
+        "types": "./dist/lib/index.d.ts"
+      },
+      "require": "./dist/lib/index.cjs"
     },
-    "import": {
-      "types": "./dist/lib/index.d.ts",
-      "default": "./dist/lib/index.js"
-    },
-    "require": "./dist/lib/index.cjs"
+    "./icon": {
+      "solid": {
+        "import": "./dist/icon/index.js",
+        "development": "./dist/icon/dev.js"
+      },
+      "development": {
+        "import": {
+          "types": "./dist/icon/index.d.ts",
+          "default": "./dist/icon/dev.js"
+        },
+        "require": "./dist/icon/dev.cjs"
+      },
+      "import": {
+        "types": "./dist/icon/index.d.ts",
+        "default": "./dist/icon/index.js"
+      },
+      "require": "./dist/icon/index.cjs"
+    }
   },
   "browser": {},
-  "typesVersions": {},
+  "typesVersions": {
+    "*": {
+      "icon": [
+        "./dist/icon/index.d.ts"
+      ]
+    }
+  },
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
